@@ -70,9 +70,10 @@ def write_and_validate_lesson(
     lesson: Lesson,
     teachers: List[TeacherScene],
     asset_sources: Dict[str, str],
+    lang: str = "en",
 ) -> tuple[Dict[str, Any], LessonQAReport]:
     """Write the offline bundle and gate it on LessonQA. FAIL raises."""
-    manifest = write_bundle(lesson_dir, lesson, teachers, asset_sources)
+    manifest = write_bundle(lesson_dir, lesson, teachers, asset_sources, lang=lang)
     report = LessonQA.validate(lesson_dir)
     if report.status != "PASS":
         details = "; ".join(f"{c.name}: {c.detail}" for c in report.errors())

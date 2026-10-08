@@ -15,6 +15,13 @@ function engShort(s, n) {
     const t = String(s == null ? "" : s).trim();
     return t.length > n ? t.slice(0, n - 1) + "…" : t;
 }
+/* Accessible name for a figure: first element of an SVG is its <title>,
+ * so screen readers announce what sighted students see. Text always comes
+ * from scene data, never invented. */
+function engSvgTitle(text) {
+    const t = String(text == null ? "" : text).trim();
+    return t ? "<title>" + engEsc(engShort(t, 90)) + "</title>" : "";
+}
 /* Chemical/math formatter: unicode sub/superscripts pass through; ASCII
  * trailing digits after letters become subscripts (CO2 → CO₂), ^x becomes
  * superscript, a/b (no spaces) becomes a stacked fraction. */
@@ -68,6 +75,7 @@ function engDiagram(v, activeIndex) {
     const top = 78, zh = H - top - 14, gap = 16;
     const zw = (W - 48 - gap * (n - 1)) / n;
     let svg = "<svg viewBox=\"0 0 " + W + " " + H + "\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\">";
+    svg += engSvgTitle(v.subject || engLabelName(labels[0] || ""));
     svg += "<rect x=\"8\" y=\"64\" width=\"" + (W - 16) + "\" height=\"" + (H - 72) + "\" rx=\"14\" class=\"dg-boundary\"/>";
     if (v.subject)
         svg += "<text x=\"28\" y=\"52\" class=\"dg-subject\">" + engEsc(engShort(v.subject, 48)) + "</text>";
@@ -166,6 +174,7 @@ function engCycle(items, activeIndex) {
     const W = 1088, H = 400, cx = W / 2, cy = H / 2 + 10, R = 148;
     const act = activeIndex != null ? Math.min(activeIndex, list.length - 1) : -1;
     let svg = "<svg viewBox=\"0 0 " + W + " " + H + "\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\">";
+    svg += engSvgTitle("Cycle: " + list.slice(0, 3).join(", "));
     svg += "<defs><marker id=\"cy-arrow\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\">"
         + "<path d=\"M 0 1 L 9 5 L 0 9\" fill=\"none\" stroke-width=\"1.6\" class=\"cy-arrowhead\"/></marker></defs>";
     const pts = list.map((_, i) => {
@@ -205,7 +214,7 @@ function engIsNum(s) {
 function engComparison(headers, rows) {
     const hs = (headers || []).map((h) => String(h == null ? "" : h));
     let h = "<table class=\"cmp-matrix\"><thead><tr>";
-    hs.forEach((c, i) => { h += "<th class=\"" + (i === 0 ? "feat" : "opt-h") + "\">" + engEsc(c) + "</th>"; });
+    hs.forEach((c, i) => { h += "<th scope=\"col\" class=\"" + (i === 0 ? "feat" : "opt-h") + "\">" + engEsc(c) + "</th>"; });
     h += "</tr></thead><tbody>";
     (rows || []).forEach((row) => {
         const cells = hs.map((_, i) => String((row || [])[i] == null ? "" : row[i]));
@@ -309,6 +318,7 @@ function engSpectrum(columns, rows) {
     const W = 1088, H = 300, L = 70, R = 1018, lo = 380, hi = 750;
     const x = (nm) => L + ((nm - lo) / (hi - lo)) * (R - L);
     let svg = "<svg viewBox=\"0 0 " + W + " " + H + "\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" class=\"sp-svg\">";
+    svg += engSvgTitle("Absorption spectrum: " + engRowVal(rows[0] || {}, columns, 0));
     svg += "<defs><linearGradient id=\"sp-band\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\">"
         + "<stop offset=\"0\" stop-color=\"#7c3aed\"/><stop offset=\".25\" stop-color=\"#2f6fed\"/>"
         + "<stop offset=\".5\" stop-color=\"#22c55e\"/><stop offset=\".75\" stop-color=\"#eab308\"/>"
@@ -345,6 +355,7 @@ function engBars(columns, rows, numIdx, labelIdx) {
     max = max || 1;
     const rh = Math.min(44, (H - 80) / Math.max(1, rows.length));
     let svg = "<svg viewBox=\"0 0 " + W + " " + H + "\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" class=\"bar-svg\">";
+    svg += engSvgTitle("Bar chart: " + engRowVal(rows[0] || {}, columns, labelIdx));
     rows.forEach((r, i) => {
         const y = 30 + i * (rh + 12);
         const w = Math.max(3, (vals[i] / max) * (W - L - 120));
@@ -371,6 +382,7 @@ function engLine(columns, rows, numIdx) {
     let d = "";
     vals.forEach((v, i) => { d += (i ? " L" : "M") + px(i).toFixed(1) + " " + py(v).toFixed(1); });
     let svg = "<svg viewBox=\"0 0 " + W + " " + H + "\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" class=\"line-svg\">"
+        + engSvgTitle("Trend: " + columns[numIdx])
         + "<path d=\"" + d + "\" class=\"line-path\"/>";
     vals.forEach((v, i) => {
         svg += "<circle cx=\"" + px(i).toFixed(1) + "\" cy=\"" + py(v).toFixed(1) + "\" r=\"6\" class=\"line-dot\"/>";
@@ -393,6 +405,7 @@ function engScatter(columns, rows, xi, yi) {
     const px = (v) => L + ((v - x0) / Math.max(1e-9, x1 - x0)) * (W - L - 60);
     const py = (v) => B - ((v - y0) / Math.max(1e-9, y1 - y0)) * (B - T);
     let svg = "<svg viewBox=\"0 0 " + W + " " + H + "\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\" class=\"sc-svg\">";
+    svg += engSvgTitle("Scatter: " + columns[xi] + " vs " + columns[yi]);
     pts.forEach((p) => {
         svg += "<circle cx=\"" + px(p.x).toFixed(1) + "\" cy=\"" + py(p.y).toFixed(1) + "\" r=\"8\" class=\"sc-dot\"/>"
             + "<text x=\"" + (px(p.x) + 12).toFixed(1) + "\" y=\"" + (py(p.y) + 4).toFixed(1) + "\" class=\"sc-lab\">" + engEsc(p.lab) + "</text>";
@@ -401,7 +414,7 @@ function engScatter(columns, rows, xi, yi) {
 }
 function engTable(columns, rows) {
     let h = "<table class=\"lyr-table t-data\"><thead><tr>";
-    columns.forEach((c) => { h += "<th>" + engEsc(c) + "</th>"; });
+    columns.forEach((c) => { h += "<th scope=\"col\">" + engEsc(c) + "</th>"; });
     h += "</tr></thead><tbody>";
     rows.forEach((r) => {
         h += "<tr>";
@@ -443,6 +456,7 @@ function engConceptMap(title, items, edgeKind, activeIndex) {
     const act = activeIndex != null ? activeIndex : 999;
     const W = 1088, H = 400, cx = W / 2, cy = H / 2;
     let svg = "<svg viewBox=\"0 0 " + W + " " + H + "\" preserveAspectRatio=\"xMidYMid meet\" role=\"img\">";
+    svg += engSvgTitle("Concept map: " + title);
     const pos = list.map((_, i) => {
         const a = -Math.PI / 2 + (i / Math.max(1, list.length)) * Math.PI * 2;
         return { x: cx + Math.cos(a) * 400, y: cy + Math.sin(a) * 150 };

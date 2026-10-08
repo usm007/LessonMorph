@@ -160,8 +160,9 @@ def compile_lesson(
         lesson_id=doc_stem, title=ir["ingest_res"].document_title)
 
     print("[3/4] Writing offline browser bundle...")
+    lang = (learner_hint or {}).get("language", "") or "en"
     manifest, lesson_report = write_and_validate_lesson(
-        lesson_path, lesson, teachers, ir["assets"]["mapping"])
+        lesson_path, lesson, teachers, ir["assets"]["mapping"], lang=lang)
     print(f"      Scenes: {len(lesson.scenes)}, Bundle: {lesson_path}/index.html")
 
     print("[4/4] Lesson QA + static visual QA...")
@@ -236,7 +237,8 @@ def compile_document(
             bp_slide_dicts, storyboard_notes, ir["assets"]["mapping"],
             lesson_id=doc_stem, title=ir["ingest_res"].document_title)
         manifest, lesson_report = write_and_validate_lesson(
-            lesson_path, lesson, teachers, ir["assets"]["mapping"])
+            lesson_path, lesson, teachers, ir["assets"]["mapping"],
+            lang=(learner_hint or {}).get("language", "") or "en")
         (work_path / "lesson_qa.md").write_text(lesson_report.to_markdown(), encoding="utf-8")
         from lessonmorph.qa.visual import StaticVisualQA
         visual_report = StaticVisualQA.analyze(lesson_path)

@@ -174,7 +174,7 @@ def _scrub_paths(node: Any, asset_map: Dict[str, str]) -> Any:
 
 
 INDEX_TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -194,8 +194,12 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
 
 def write_bundle(lesson_dir: Path | str, lesson: Lesson,
                  teachers: List[TeacherScene],
-                 asset_sources: Dict[str, str]) -> Dict[str, Any]:
+                 asset_sources: Dict[str, str],
+                 lang: str = "en") -> Dict[str, Any]:
     """Write the self-contained lesson directory. Returns a manifest summary."""
+    import html as _html
+    import re as _re
+    lang = lang if _re.fullmatch(r"[A-Za-z]{2,3}(-[A-Za-z]{2,4})?", lang or "") else "en"
     dest = Path(lesson_dir)
     (dest / "assets").mkdir(parents=True, exist_ok=True)
     lesson_dict = lesson.to_dict()
@@ -218,7 +222,8 @@ def write_bundle(lesson_dir: Path | str, lesson: Lesson,
         shutil.copy2(src, dest / name)
     (dest / "index.html").write_text(
         INDEX_TEMPLATE.format(
-            title=lesson.title,
+            lang=lang,
+            title=_html.escape(lesson.title, quote=True),
             lesson_json=json.dumps(lesson_dict, ensure_ascii=False)),
         encoding="utf-8")
     return {"lesson_dir": str(dest), "scenes": len(lesson.scenes),

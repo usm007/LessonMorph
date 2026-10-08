@@ -153,6 +153,21 @@ def test_viewport_no_scroll_letterboxed():
     assert "1280" in viewport and "720" in viewport and "scale" in viewport
 
 
+def test_keyboard_focus_visible_and_no_dead_selectors():
+    css = _read("styles.css")
+    # Finding 2: keyboard focus is always visible.
+    assert ":focus-visible" in css
+    # Finding 4: no dead selectors from the retired renderer.
+    for dead in (".dg-card", ".dg-name", ".dg-desc", ".dg-hub"):
+        assert dead not in css, f"dead selector remains: {dead}"
+
+
+def test_svg_figures_have_accessible_names():
+    engines = _read("engines.ts")
+    assert engines.count("engSvgTitle(") >= 8  # helper + one call per SVG builder
+    assert "<title>" in engines
+
+
 def test_readability_floor():
     tokens = _read("tokens.ts")
     body = int(re.search(r"body:\s*\{[^}]*size:\s*(\d+)", tokens).group(1))

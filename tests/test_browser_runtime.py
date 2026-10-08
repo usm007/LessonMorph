@@ -110,6 +110,23 @@ def test_offline_bundle_and_lesson_qa(tmp_path: Path):
     assert report.status == "PASS", report.to_markdown()
 
 
+def test_bundle_shell_escapes_title_and_labels_language(tmp_path: Path):
+    from lessonmorph.runtime.bundle import write_bundle
+    lesson, teachers = compile_lesson_from_ir(
+        [_sample_slide()], [{"notes": "", "animation_purposes": []}],
+        {}, lesson_id="x", title="AT&T <Basics>")
+    dest = tmp_path / "lesson"
+    write_bundle(dest, lesson, teachers, {}, lang="fr")
+    html = (dest / "index.html").read_text(encoding="utf-8")
+    head = html.split('id="lesson-data"')[0]  # shell only, not the JSON payload
+    assert "AT&T <Basics>" not in head  # raw markup must not reach the shell
+    assert "AT&amp;T &lt;Basics&gt;" in head
+    assert 'lang="fr"' in head
+    dest2 = tmp_path / "lesson2"
+    write_bundle(dest2, lesson, teachers, {}, lang='en"><script>')
+    assert 'lang="en"' in (dest2 / "index.html").read_text(encoding="utf-8")
+
+
 def test_web_runtime_contracts():
     web = Path(__file__).resolve().parents[1] / "web" / "src"
     viewport = (web / "viewport.ts").read_text(encoding="utf-8")

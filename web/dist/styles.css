@@ -93,8 +93,6 @@
 .fam-split_visual.var-media-left .focal-media { border-right: 3px solid var(--accent); }
 /* 5. diagram_centered: radial hub, labels orbit */
 .fam-diagram_centered .lyr-title { text-align: center; }
-.fam-diagram_centered .dg-hub { fill: #e3ecf7; stroke: var(--accent); stroke-width: 2; }
-.fam-diagram_centered .dg-hub-label { font-size: 22px; font-weight: 700; text-anchor: middle; fill: var(--ink); }
 /* 6/7. process_pathway + cycle: numbered journey */
 .fam-process_pathway .steps-flow ol, .fam-cycle .steps-flow ol { counter-reset: step; list-style: none; padding-left: 0; }
 .fam-process_pathway .steps-flow li, .fam-cycle .steps-flow li {
@@ -162,12 +160,7 @@ table.lyr-table tr:nth-child(even) td { background: #f1f4f8; }
 }
 /* 15. concept_map: hub + satellite lanes */
 .fam-concept_map .lyr-diagram svg { width: 100%; height: 100%; }
-.dg-hub { fill: #e3ecf7; stroke: var(--accent); stroke-width: 2; }
-.dg-hub-label { font-size: 22px; font-weight: 700; text-anchor: middle; fill: var(--ink); }
-.dg-card { fill: #fff; stroke: var(--hairline); stroke-width: 1.5; }
 .dg-leader { stroke: var(--accent); stroke-width: 1.5; }
-.dg-name { font-size: 16px; font-weight: 700; text-anchor: middle; fill: var(--ink); }
-.dg-desc { font-size: 13px; text-anchor: middle; fill: var(--ink-soft); }
 /* 16. synthesis: takeaway band, first idea leads */
 .fam-synthesis .takeaways li:first-child { font-weight: 700; font-size: 24px; }
 .fam-synthesis .takeaways li::marker { color: var(--accent); }
@@ -346,7 +339,10 @@ table.cmp-matrix td.blank { height: 120px; background: repeating-linear-gradient
 #progress .track { flex: 1; height: 6px; background: #e2e7ef; border-radius: 3px; }
 #progress .fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width .2s; }
 #progress .count { font-size: 12px; }
-#fs-btn { border: 1px solid var(--hairline); background: #fff; border-radius: 6px; font-size: 15px; cursor: pointer; padding: 2px 10px; }
+#fs-btn { border: 1px solid var(--hairline); background: #fff; border-radius: 6px; font-size: 15px; cursor: pointer; padding: 10px 16px; }
+
+/* Keyboard focus must always be visible (options, chrome controls). */
+#stage :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
 /* ---------- motion semantics: strike, journey, think ---------- */
 .think-cue { font-size: 19px; color: var(--ink-soft); }
