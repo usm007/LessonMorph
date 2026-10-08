@@ -1,5 +1,5 @@
 # Pedagogical Plan: Chapter 4: Photosynthesis and the Transformation of Energy (`ch01`)
-Domain: biology | Strategies: dual_coding, sequencing, generative_predict, retrieval, worked_example
+Domain: biology | Strategies: sequencing, worked_example, retrieval, dual_coding, generative_predict
 
 ## Learning objectives (backward design)
 

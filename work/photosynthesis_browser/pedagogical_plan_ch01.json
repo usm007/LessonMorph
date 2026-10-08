@@ -118,11 +118,11 @@
     "C022": "factual"
   },
   "pedagogical_strategies": [
-    "dual_coding",
     "sequencing",
-    "generative_predict",
+    "worked_example",
     "retrieval",
-    "worked_example"
+    "dual_coding",
+    "generative_predict"
   ],
   "teaching_sequence": [
     {
