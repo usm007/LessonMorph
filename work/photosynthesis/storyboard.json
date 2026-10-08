@@ -1,0 +1,409 @@
+[
+  {
+    "slide_id": "S001",
+    "chapter_id": "ch01",
+    "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "title",
+    "visual_model": "hero_title",
+    "source_content_ids": [],
+    "estimated_time_minutes": 1.5,
+    "notes": "TEACHER EXPLANATION:\nWelcome students to Chapter 4: Photosynthesis and the Transformation of Energy. Today we establish a deep conceptual and practical mastery of this topic.\n\nEMPHASIS / KEY POINT:\nFocus on fundamental definitions and principles first before moving to problem solving.\n\nASK STUDENTS (ORAL CHECK):\nWhat comes to your mind when you hear the term 'Chapter 4: Photosynthesis and the Transformation of Energy'?\n\nTRANSITION:\nLet's look at our roadmap for today's lesson."
+  },
+  {
+    "slide_id": "S002",
+    "chapter_id": "ch01",
+    "title": "Lesson Roadmap",
+    "slide_type": "roadmap",
+    "visual_model": "roadmap_stepper",
+    "source_content_ids": [],
+    "estimated_time_minutes": 1.5,
+    "notes": "TEACHER EXPLANATION:\nWalk students through the roadmap so they see how today's ideas connect logically.\n\nEMPHASIS / KEY POINT:\nEvery concept builds directly upon the previous one.\n\nTRANSITION:\nLet's look at our specific learning objectives."
+  },
+  {
+    "slide_id": "S003",
+    "chapter_id": "ch01",
+    "title": "Learning Objectives",
+    "slide_type": "learning_objectives",
+    "visual_model": "bullet_cards",
+    "source_content_ids": [],
+    "estimated_time_minutes": 2.0,
+    "notes": "TEACHER EXPLANATION:\nState the learning goals clearly so students know what they are responsible for.\n\nEMPHASIS / KEY POINT:\nBy the end of this session, you should be able to solve these problems independently.\n\nASK STUDENTS (ORAL CHECK):\nWhich of these goals looks most challenging or interesting?\n\nTRANSITION:\nLet's activate our prior knowledge before introducing new material."
+  },
+  {
+    "slide_id": "S004",
+    "chapter_id": "ch01",
+    "title": "Prior Knowledge & Warm-Up",
+    "slide_type": "prior_knowledge",
+    "visual_model": "prerequisite_grid",
+    "source_content_ids": [],
+    "estimated_time_minutes": 2.5,
+    "notes": "TEACHER EXPLANATION:\nBriefly review prerequisite concepts to activate prior knowledge.\n\nEMPHASIS / KEY POINT:\nIf you are rusty on these prerequisites, pay close attention to the warm-up connections.\n\nASK STUDENTS (ORAL CHECK):\nCan someone summarize our first prerequisite in their own words?\n\nTRANSITION:\nWith this foundation ready, let's dive into our first core concept."
+  },
+  {
+    "slide_id": "S005",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "diagram_explanation",
+    "visual_model": "diagram_explanation",
+    "source_content_ids": [
+      "C001"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\n### 1. Introduction and Big Picture\nAll biological activity on Earth is ultimately driven by solar energy. Phototrophic organisms—including terrestrial green plants, cyanobacteria, and eukaryotic algae—possess the specialized machinery required to capture solar photons and convert electromagnetic energy into stable chemical bonds.\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S006",
+    "chapter_id": "ch01",
+    "title": "Core Definition: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "concept_definition",
+    "visual_model": "definition_card",
+    "source_content_ids": [
+      "C002",
+      "C003"
+    ],
+    "estimated_time_minutes": 2.5,
+    "notes": "TEACHER EXPLANATION:\nDefine the term with high precision. Emphasize why the formal wording matters.\n**Definition**: Photosynthesis is the anabolic, endergonic biochemical process by which photoautotrophic organisms synthesize high-energy hexose carbohydrates from inorganic carbon dioxide and water, using radiant solar energy captured by photosynthetic pigments, with molecular oxygen released as a metabolic byproduct.\n\nEMPHASIS / KEY POINT:\nDo not paraphrase away key terminology.\n\nASK STUDENTS (ORAL CHECK):\nWhy is this specific definition necessary?\n\nTRANSITION:\nNow let's see how this definition applies in practice."
+  },
+  {
+    "slide_id": "S007",
+    "chapter_id": "ch01",
+    "title": "Formula & Relationship",
+    "slide_type": "formula_breakdown",
+    "visual_model": "formula_breakdown",
+    "source_content_ids": [
+      "C004"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nAnalyze every symbol in the formula:\n$$6\\text{CO}_2 + 6\\text{H}_2\\text{O} + \\text{light energy} \\longrightarrow \\text{C}_6\\text{H}_{12}\\text{O}_6 + 6\\text{O}_2$$\n\nEMPHASIS / KEY POINT:\nUnits and dimensional consistency must always be checked.\n\nASK STUDENTS (ORAL CHECK):\nWhat happens to the left side if we double the variable on the right?\n\nTRANSITION:\nLet's work through a concrete calculation using this formula."
+  },
+  {
+    "slide_id": "S008",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "diagram_explanation",
+    "visual_model": "diagram_explanation",
+    "source_content_ids": [
+      "C005"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\nWhere:\n- $\\text{CO}_2$ represents atmospheric carbon dioxide, entering via foliar stomatal pores\n- $\\text{H}_2\\text{O}$ represents water absorbed from the rhizosphere through root xylem tissue\n- $\\text{C}_6\\text{H}_{12}\\text{O}_6$ represents glucose, the primary phosphorylated monosaccharide substrate\n- $\\text{O}_2$ represents molecular diatomic oxygen, released as a gaseous byproduct\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S009",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "process_flow",
+    "visual_model": "process_flow",
+    "source_content_ids": [
+      "C006"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\n### 3. Subcellular Architecture: The Chloroplast\nPhotosynthetic reactions in eukaryotes are compartmentalized within double-membrane chloroplasts.\n- **Thylakoid Membrane System**: Site of the light-dependent reactions, housing Photosystem II (P680), Photosystem I (P700), the cytochrome b6f complex, and ATP synthase.\n- **Stroma**: The semi-fluid matrix surrounding thylakoids, containing RuBisCO, soluble enzymes, stromal ribosomes, and chloroplast DNA; site of the Calvin-Benson cycle.\n- **Thylakoid Lumen**: The acidified interior compartment across which a transmembrane proton motive force ($\\Delta\\mu_{\\text{H}^+}$) is established.\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S010",
+    "chapter_id": "ch01",
+    "title": "Formula & Relationship",
+    "slide_type": "formula_breakdown",
+    "visual_model": "formula_breakdown",
+    "source_content_ids": [
+      "C007"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nAnalyze every symbol in the formula:\n### 4. Worked Calculation: Photochemical Quantum Yield and Efficiency\nA researcher illuminates a suspension of *Chlorella vulgaris* with monochromatic red light at a wavelength of $\\lambda = 680\\text{ nm}$. The molar photon flux absorbed is $8.0\\text{ mol of photons}$.\n\nEMPHASIS / KEY POINT:\nUnits and dimensional consistency must always be checked.\n\nASK STUDENTS (ORAL CHECK):\nWhat happens to the left side if we double the variable on the right?\n\nTRANSITION:\nLet's work through a concrete calculation using this formula."
+  },
+  {
+    "slide_id": "S011",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "diagram_explanation",
+    "visual_model": "diagram_explanation",
+    "source_content_ids": [
+      "C008"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\nDetermine the theoretical moles of glucose produced if the experimental quantum requirement is $8\\text{ photons per molecule of }\\text{O}_2$ evolved.\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S012",
+    "chapter_id": "ch01",
+    "title": "Formula & Relationship",
+    "slide_type": "formula_breakdown",
+    "visual_model": "formula_breakdown",
+    "source_content_ids": [
+      "C009"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nAnalyze every symbol in the formula:\nStep 1: Determine the ratio of oxygen evolution to photon absorption:\n$$\\text{Moles of }\\text{O}_2 = \\frac{8.0\\text{ mol photons}}{8\\text{ photons/molecule}} = 1.0\\text{ mol }\\text{O}_2$$\n\nEMPHASIS / KEY POINT:\nUnits and dimensional consistency must always be checked.\n\nASK STUDENTS (ORAL CHECK):\nWhat happens to the left side if we double the variable on the right?\n\nTRANSITION:\nLet's work through a concrete calculation using this formula."
+  },
+  {
+    "slide_id": "S013",
+    "chapter_id": "ch01",
+    "title": "Formula & Relationship",
+    "slide_type": "formula_breakdown",
+    "visual_model": "formula_breakdown",
+    "source_content_ids": [
+      "C010"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nAnalyze every symbol in the formula:\nStep 2: Relate oxygen evolution to glucose synthesis using the stoichiometric equation:\n$$6\\text{ mol }\\text{O}_2 \\text{ evolved corresponds to } 1\\text{ mol }\\text{C}_6\\text{H}_{12}\\text{O}_6 \\text{ synthesized.}$$\n\nEMPHASIS / KEY POINT:\nUnits and dimensional consistency must always be checked.\n\nASK STUDENTS (ORAL CHECK):\nWhat happens to the left side if we double the variable on the right?\n\nTRANSITION:\nLet's work through a concrete calculation using this formula."
+  },
+  {
+    "slide_id": "S014",
+    "chapter_id": "ch01",
+    "title": "Formula & Relationship",
+    "slide_type": "formula_breakdown",
+    "visual_model": "formula_breakdown",
+    "source_content_ids": [
+      "C011"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nAnalyze every symbol in the formula:\nStep 3: Compute the theoretical glucose yield:\n$$\\text{Moles of Glucose} = \\frac{1.0\\text{ mol }\\text{O}_2}{6} \\approx 0.167\\text{ mol of Glucose (approx. } 30.0\\\\text{ grams)}.$$\n\nEMPHASIS / KEY POINT:\nUnits and dimensional consistency must always be checked.\n\nASK STUDENTS (ORAL CHECK):\nWhat happens to the left side if we double the variable on the right?\n\nTRANSITION:\nLet's work through a concrete calculation using this formula."
+  },
+  {
+    "slide_id": "S015",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "process_flow",
+    "visual_model": "process_flow",
+    "source_content_ids": [
+      "C012"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\n### 5. Common Misconception: The Dark Reactions and Plant Respiration\nCommon Mistake: Plants perform photosynthesis during the day and cellular respiration only at night; furthermore, the 'dark reactions' (Calvin cycle) occur only in total darkness.\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S016",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "process_flow",
+    "visual_model": "process_flow",
+    "source_content_ids": [
+      "C013"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\nWhy it is flawed: Respiration is required continuously (24/7) to sustain baseline metabolic homeostasis and ATP production in all living plant cells. Furthermore, several key Calvin cycle enzymes (e.g., phosphoribulokinase, sedoheptulose-1,7-bisphosphatase, and RuBisCO activase) are light-activated via the thioredoxin system.\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S017",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "process_flow",
+    "visual_model": "process_flow",
+    "source_content_ids": [
+      "C014"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\nCorrect Reasoning: Cellular respiration occurs around the clock in all living plant tissues. The Calvin cycle is 'light-independent' only in the sense that it does not directly absorb photons, but it relies continuously on ATP and NADPH generated by light reactions and is deactivated in extended darkness.\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S018",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "comparison",
+    "visual_model": "2_column_compare",
+    "source_content_ids": [
+      "C015"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\n### 6. Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S019",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "diagram_explanation",
+    "visual_model": "diagram_explanation",
+    "source_content_ids": [
+      "C016"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\n| Pigment Component | Peak Absorption Blue (nm) | Peak Absorption Red (nm) | Relative Abundance (%) |\n| :---: | :---: | :---: | :---: |\n| Chlorophyll a | 430 | 662 | 65 |\n| Chlorophyll b | 453 | 642 | 25 |\n| Carotenoids (Lutein & β-Carotene) | 445 | None | 10 |\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S020",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "diagram_explanation",
+    "visual_model": "diagram_explanation",
+    "source_content_ids": [
+      "C017"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\n### 7. Formative Assessment: Checks for Understanding\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S021",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "diagram_explanation",
+    "visual_model": "diagram_explanation",
+    "source_content_ids": [
+      "C018"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\nQuestion: If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?\nA) Photolysis of water ceases immediately\nB) Photophosphorylation of ADP to ATP stops, while electron transport may continue\nC) Carbon dioxide fixation in the stroma accelerates dramatically\nD) Chlorophyll pigments cease photon absorption\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S022",
+    "chapter_id": "ch01",
+    "title": "Key Concept: Chapter 4: Photosynthesis and the Transformation of Energy",
+    "slide_type": "diagram_explanation",
+    "visual_model": "diagram_explanation",
+    "source_content_ids": [
+      "C019"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExplain this core concept thoroughly:\n### 8. Independent Practice and Exam-Style Problems\n\nEMPHASIS / KEY POINT:\nEnsure students grasp the fundamental mechanism.\n\nASK STUDENTS (ORAL CHECK):\nHow does this relate to what we discussed earlier?\n\nTRANSITION:\nLet's build upon this idea."
+  },
+  {
+    "slide_id": "S023",
+    "chapter_id": "ch01",
+    "title": "Worked Example: Step-by-Step",
+    "slide_type": "worked_example",
+    "visual_model": "stepped_cards",
+    "source_content_ids": [
+      "C020"
+    ],
+    "estimated_time_minutes": 4.0,
+    "notes": "TEACHER EXPLANATION:\nGuide students step by step. Pause after each step before clicking to reveal the next step.\n\nEMPHASIS / KEY POINT:\nEnsure students write down each intermediate step rather than skipping to the final number.\n\nASK STUDENTS (ORAL CHECK):\nBefore I click, what is our next mathematical operation?\n\nTRANSITION:\nLet's review the final solution and check units."
+  },
+  {
+    "slide_id": "S024",
+    "chapter_id": "ch01",
+    "title": "Worked Example: Step-by-Step",
+    "slide_type": "worked_example",
+    "visual_model": "stepped_cards",
+    "source_content_ids": [
+      "C021"
+    ],
+    "estimated_time_minutes": 4.0,
+    "notes": "TEACHER EXPLANATION:\nGuide students step by step. Pause after each step before clicking to reveal the next step.\n\nEMPHASIS / KEY POINT:\nEnsure students write down each intermediate step rather than skipping to the final number.\n\nASK STUDENTS (ORAL CHECK):\nBefore I click, what is our next mathematical operation?\n\nTRANSITION:\nLet's review the final solution and check units."
+  },
+  {
+    "slide_id": "S025",
+    "chapter_id": "ch01",
+    "title": "Structured Data: Table 1",
+    "slide_type": "table_display",
+    "visual_model": "table_display",
+    "source_content_ids": [
+      "C022"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nExamine patterns and relationships in the structured data.\n\nEMPHASIS / KEY POINT:\nNotice the rows that illustrate key trends or exceptions.\n\nASK STUDENTS (ORAL CHECK):\nWhat trend do you observe across these columns?\n\nTRANSITION:\nLet's analyze what this data proves."
+  },
+  {
+    "slide_id": "S026",
+    "chapter_id": "ch01",
+    "title": "Common Misconception & Pitfall",
+    "slide_type": "common_misconception",
+    "visual_model": "misconception_contrast",
+    "source_content_ids": [
+      "C012"
+    ],
+    "estimated_time_minutes": 3.0,
+    "notes": "TEACHER EXPLANATION:\nHighlight this frequent student misconception. Ask if anyone has made this mistake before.\n\nEMPHASIS / KEY POINT:\nExplain the logical flaw in the wrong approach before confirming the correct reasoning.\n\nASK STUDENTS (ORAL CHECK):\nWhy is 'The Dark Reactions and Plant Respiration\nCommon Mistake: Plants perform photosynthesis during the day and cellular respiration only at night; furthermore, the 'dark reactions' (Calvin cycle) occur only in total darkness.' such an easy trap to fall into?\n\nLIKELY MISCONCEPTION:\nThe Dark Reactions and Plant Respiration\nCommon Mistake: Plants perform photosynthesis during the day and cellular respiration only at night; furthermore, the 'dark reactions' (Calvin cycle) occur only in total darkness.\n\nTRANSITION:\nLet's make sure we test our understanding with a quick check."
+  },
+  {
+    "slide_id": "S027",
+    "chapter_id": "ch01",
+    "title": "Check for Understanding",
+    "slide_type": "quiz_question",
+    "visual_model": "quiz_prompt",
+    "source_content_ids": [
+      "C018"
+    ],
+    "estimated_time_minutes": 2.0,
+    "notes": "TEACHER EXPLANATION:\nPresent question to the class. DO NOT give away the answer.\n\nEMPHASIS / KEY POINT:\nGive students 30-45 seconds of quiet thinking time or turn-and-talk before taking answers.\n\nASK STUDENTS (ORAL CHECK):\nQuestion: If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?\nWho can explain their reasoning?\n\nTRANSITION:\nLet's advance to the next slide to reveal the verified answer and explanation."
+  },
+  {
+    "slide_id": "S028",
+    "chapter_id": "ch01",
+    "title": "Check for Understanding: Answer & Explanation",
+    "slide_type": "quiz_reveal",
+    "visual_model": "quiz_reveal",
+    "source_content_ids": [
+      "C018"
+    ],
+    "estimated_time_minutes": 1.5,
+    "notes": "TEACHER EXPLANATION:\nReveal correct answer: A) Photolysis of water ceases immediately.\nExplanation: Direct application of source exercise.\n\nEMPHASIS / KEY POINT:\nDiscuss why the distractors are incorrect so students learn from mistakes.\n\nASK STUDENTS (ORAL CHECK):\nDid anyone arrive at this using a different method?\n\nTRANSITION:\nLet's proceed to synthesize our major takeaways."
+  },
+  {
+    "slide_id": "S029",
+    "chapter_id": "ch01",
+    "title": "Check for Understanding",
+    "slide_type": "quiz_question",
+    "visual_model": "quiz_prompt",
+    "source_content_ids": [
+      "C019"
+    ],
+    "estimated_time_minutes": 2.0,
+    "notes": "TEACHER EXPLANATION:\nPresent question to the class. DO NOT give away the answer.\n\nEMPHASIS / KEY POINT:\nGive students 30-45 seconds of quiet thinking time or turn-and-talk before taking answers.\n\nASK STUDENTS (ORAL CHECK):\n### 8. Independent Practice and Exam-Style Problems\nWho can explain their reasoning?\n\nTRANSITION:\nLet's advance to the next slide to reveal the verified answer and explanation."
+  },
+  {
+    "slide_id": "S030",
+    "chapter_id": "ch01",
+    "title": "Check for Understanding: Answer & Explanation",
+    "slide_type": "quiz_reveal",
+    "visual_model": "quiz_reveal",
+    "source_content_ids": [
+      "C019"
+    ],
+    "estimated_time_minutes": 1.5,
+    "notes": "TEACHER EXPLANATION:\nReveal correct answer: See worked explanation and step guidelines..\nExplanation: ### 8. Independent Practice and Exam-Style Problems\n\nEMPHASIS / KEY POINT:\nDiscuss why the distractors are incorrect so students learn from mistakes.\n\nASK STUDENTS (ORAL CHECK):\nDid anyone arrive at this using a different method?\n\nTRANSITION:\nLet's proceed to synthesize our major takeaways."
+  },
+  {
+    "slide_id": "S031",
+    "chapter_id": "ch01",
+    "title": "Check for Understanding",
+    "slide_type": "quiz_question",
+    "visual_model": "quiz_prompt",
+    "source_content_ids": [
+      "C002"
+    ],
+    "estimated_time_minutes": 2.0,
+    "notes": "TEACHER EXPLANATION:\nPresent question to the class. DO NOT give away the answer.\n\nEMPHASIS / KEY POINT:\nGive students 30-45 seconds of quiet thinking time or turn-and-talk before taking answers.\n\nASK STUDENTS (ORAL CHECK):\nTrue or False: **Definition**: Photosynthesis is the anabolic, endergonic biochemical process by which ph\nWho can explain their reasoning?\n\nTRANSITION:\nLet's advance to the next slide to reveal the verified answer and explanation."
+  },
+  {
+    "slide_id": "S032",
+    "chapter_id": "ch01",
+    "title": "Check for Understanding: Answer & Explanation",
+    "slide_type": "quiz_reveal",
+    "visual_model": "quiz_reveal",
+    "source_content_ids": [
+      "C002"
+    ],
+    "estimated_time_minutes": 1.5,
+    "notes": "TEACHER EXPLANATION:\nReveal correct answer: True.\nExplanation: Based on the core definition: '**Definition**: Photosynthesis is the anabolic, endergonic biochemical process by which ph'.\n\nEMPHASIS / KEY POINT:\nDiscuss why the distractors are incorrect so students learn from mistakes.\n\nASK STUDENTS (ORAL CHECK):\nDid anyone arrive at this using a different method?\n\nTRANSITION:\nLet's proceed to synthesize our major takeaways."
+  },
+  {
+    "slide_id": "S033",
+    "chapter_id": "ch01",
+    "title": "Summary & Key Takeaways",
+    "slide_type": "summary_recap",
+    "visual_model": "summary_cards",
+    "source_content_ids": [],
+    "estimated_time_minutes": 2.5,
+    "notes": "TEACHER EXPLANATION:\nSummarize the core takeaways. Have students recite or record the 3-4 golden rules.\n\nEMPHASIS / KEY POINT:\nThese points are the foundation of upcoming assessments.\n\nASK STUDENTS (ORAL CHECK):\nIf you had to summarize today's lesson in one sentence, what would you say?\n\nTRANSITION:\nLet's conclude with independent practice problems."
+  },
+  {
+    "slide_id": "S034",
+    "chapter_id": "ch01",
+    "title": "Independent Practice & Exam Questions",
+    "slide_type": "practice_set",
+    "visual_model": "practice_cards",
+    "source_content_ids": [],
+    "estimated_time_minutes": 4.0,
+    "notes": "TEACHER EXPLANATION:\nAssign these practice questions for individual desk work or homework.\n\nEMPHASIS / KEY POINT:\nShow all working steps clearly.\n\nTRANSITION:\nLet's complete our exit ticket before ending the class."
+  },
+  {
+    "slide_id": "S035",
+    "chapter_id": "ch01",
+    "title": "Exit Ticket",
+    "slide_type": "exit_ticket",
+    "visual_model": "exit_ticket",
+    "source_content_ids": [],
+    "estimated_time_minutes": 2.0,
+    "notes": "TEACHER EXPLANATION:\nCollect exit tickets before students leave to gauge today's mastery level.\n\nEMPHASIS / KEY POINT:\nOne quick response per student.\n\nASK STUDENTS (ORAL CHECK):\nWhat was the most important thing you learned today, and what question do you still have?\n\nTRANSITION:\nGreat work today! Next time we will build directly on this topic."
+  }
+]
