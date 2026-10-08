@@ -266,7 +266,7 @@ function engDiagram(v, activeIndex) {
             + "<rect x=\"" + (cx - 118) + "\" y=\"14\" width=\"236\" height=\"44\" rx=\"8\" class=\"dg-chipbox\"/>"
             + "<text x=\"" + cx + "\" y=\"41\" class=\"dg-chiptext\">" + engEsc(engShort(name, 30)) + "</text></g>";
         legend += "<li><strong>" + (i + 1) + ". " + engEsc(engShort(name, 60)) + "</strong>"
-            + (note ? " — " + engEsc(note) : "") + "</li>";
+            + (note ? ": " + engEsc(note) : "") + "</li>";
     }
     if (v.annotation)
         svg += "<text x=\"" + (W - 20) + "\" y=\"" + (H - 12) + "\" class=\"dg-annotation\" text-anchor=\"end\">" + engEsc(engShort(v.annotation, 70)) + "</text>";
