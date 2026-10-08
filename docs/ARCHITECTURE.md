@@ -1,14 +1,15 @@
 # Developer notes
 
-## Architecture (teaching model first, renderer second)
+## Architecture (brain → execution plan → executor)
 
 - **Content layer** (`ingest/`, `ledger/`): extraction → normalization → atoms (`C001…`) → coverage. No pedagogy here.
-- **Teaching layer** (`pedagogy/`): domain classification, objectives, prerequisites, misconceptions, questions, pacing. Pure data (`ChapterPlan`), no pptx.
-- **Storyboard layer** (`storyboard/`): `SlideSpec` list — slide types, visual models, animation plan, quiz placement, notes, source mapping. Inspectable via `storyboard.json` before rendering.
-- **Rendering layer** (`renderer/`): `SlideSpec` → editable pptx (16:9, design tokens, shapes/tables/images/notes/alt text). Dispatch per `visual_model`; unknown models fall back to `definition_card` (never crash).
+- **Pedagogical intelligence layer** (`pedagogy/` + `core/models.py` plan types): the formal decision engine. Authoritative input to everything downstream — never reinterpreted, never duplicated. (Details + constitution: `skill/references/pedagogy.md`.)
+- **Presentation Blueprint / IR** (`blueprint/`): the execution plan between pedagogy and slides. `ir.py` (typed `SlideIR`/`Blueprint`, finite `Representation` grammar, `TaskType` taxonomy, structured `EquationIR`, `LockedAssessment`), `adapter.py` (`BlueprintCompiler`: task classification → in-family representation choice → structured payloads, content inventory with `Source → Blueprint → Slide` traceability), `composer.py` (deterministic `SlideIR` → `SlideSpec`), `registry.py` (grammar single source of truth), `sanitize.py` (no Markdown/LaTeX ever reaches a slide). Inspectable via `work/blueprint_<chapter>.json` before rendering.
+- **Slide + visual composition** (`renderer/`): `PptxRenderer` dispatches IR representations to `SemanticRenderer` (real shapes/connectors/arrows/native tables per representation) and legacy models for chrome. Pure execution — no pedagogical decisions.
 - **Animation layer** (`animation/`): isolated `<p:timing>` injector on real shape IDs + presets. Validated by reopening the package and parsing slide XML.
-- **Quiz** (`quiz/` + storyboard pairs): taught-only questions, 2-slide reveal pattern, stored Q-ID/concepts/difficulty/answer/explanation/distractors.
-- **QA** (`qa/`): Content / Structural / Visual / Teaching gates → `PASS/WARN/FAIL` + human-review flags.
+- **Quiz**: locked assessments only — SOURCE QUESTION → LOCKED KEY → IR → SLIDE → VALIDATOR. Answer slides render from the locked object; `<doc>.answer_key.json` pins source answers.
+- **QA**: legacy gates (`qa/`) **+ Blueprint QA** (`blueprint/validators.py`: content/pedagogical/representation/assessment gates, FAIL refuses render) **+ Render QA** (`blueprint/render_qa.py`: geometry + text scan of the PPTX, PNG via LibreOffice when present) **+ repair loop** (`blueprint/repair.py`: regenerate affected slides only, ≤2 rounds, escalate the rest) → `PASS/WARN/FAIL` + human-review flags.
+- **Legacy storyboard** (`storyboard/`): superseded by Blueprint→Composer; kept for compatibility and multi-chapter chrome builders.
 
 ## Key decisions
 
@@ -18,12 +19,12 @@
 4. Source images embedded from `work/<doc>/assets/` with labeled walkthrough cards when native recreation is unreliable (reported in `asset_warnings.md`).
 5. Validator uses stdlib zip + optional lxml; missing lxml degrades to INFO, never FAIL.
 
-## Adding a visual model
+## Adding a representation (semantic, not cosmetic)
 
-1. Add `render_<model>(cls, slide, spec)` in `renderer/diagrams.py` returning `List[(shape_id, AnimationType)]` for animated targets.
-2. Wire the name in `renderer/engine.py` dispatch.
-3. Map the strategy in `storyboard/engine.py` `slide_type_map` if storyboard can emit it.
-4. Add a test in `tests/test_renderer.py` rendering one slide and reopening the file.
+1. Add the value to `Representation` in `blueprint/ir.py` and its legal tasks in `TASK_FAMILIES` (a representation without a task family is rejected by Blueprint QA).
+2. Add `render_<representation>(cls, slide, spec)` in `renderer/semantic.py` reading ONLY structured `elements_data` keys; return `List[(shape_id, AnimationType)]`.
+3. Wire the name in `renderer/engine.py` `_SEMANTIC_DISPATCH` (or the `concept_card` branch for points-style cards).
+4. Add Blueprint + render coverage in `tests/test_blueprint.py` (and a photosynthesis regression case if it affects the demo).
 
 ## Presentation modes (future)
 

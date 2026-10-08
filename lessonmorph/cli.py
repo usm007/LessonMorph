@@ -2,10 +2,16 @@
 
 Usage:
     python -m lessonmorph.cli compile <document_path> [--output <pptx_path>] [--work-dir <work_dir>]
+        [--level high_school] [--grade "Grade 10"] [--duration-min 45] [--curriculum CBSE]
 
-Pipeline (Papermorph-adapted for PowerPoint):
-    SOURCE -> UNDERSTAND -> MAP -> PRESERVE -> TEACH -> STORYBOARD
-      -> VISUALIZE -> QUESTION -> RENDER -> ANIMATE -> VALIDATE -> DELIVER PPTX
+Pipeline:
+    SOURCE DOCUMENT -> CONTENT UNDERSTANDING -> EXISTING PEDAGOGICAL MODEL
+      -> PRESENTATION BLUEPRINT / IR -> (Blueprint QA) -> SLIDE COMPOSER
+      -> VISUAL COMPOSER -> PPTX GENERATOR -> RENDERED SLIDES
+      -> VISUAL + CONTENT QA -> REPAIR / REGENERATE -> FINAL PPTX
+
+The pedagogical model is the brain, the Blueprint is the execution plan,
+the renderer is the executor. The renderer never reinterprets pedagogy.
 """
 
 from __future__ import annotations
@@ -13,6 +19,11 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from lessonmorph.blueprint.adapter import BlueprintCompiler
+from lessonmorph.blueprint.composer import SlideComposer
+from lessonmorph.blueprint.render_qa import RenderQA
+from lessonmorph.blueprint.repair import repair_blueprint
+from lessonmorph.blueprint.validators import BlueprintValidator
 from lessonmorph.ingest.detector import ingest_document
 from lessonmorph.ingest.atomizer import ContentAtomizer
 from lessonmorph.ledger.ledger import ContentCompletenessLedger
@@ -55,6 +66,7 @@ def compile_document(
     input_file: Path | str,
     output_file: Path | str | None = None,
     work_dir: Path | str | None = None,
+    learner_hint: dict | None = None,
 ) -> dict:
     """Executes the complete document-to-teaching-presentation compilation pipeline."""
     src_path = Path(input_file).resolve()
@@ -73,7 +85,7 @@ def compile_document(
     print(f"[LessonMorph] Target output: {out_path}")
 
     # 1. Ingestion (MAP)
-    print("[1/6] Ingesting source document...")
+    print("[1/7] Ingesting source document...")
     ingest_res = ingest_document(src_path)
     print(f"      Document Title: '{ingest_res.document_title}', Sections: {len(ingest_res.doc_map.sections)}, Pages: {ingest_res.total_pages}")
     (work_path / "document_map.json").write_text(
@@ -91,7 +103,7 @@ def compile_document(
         print(f"      Asset warnings: {len(assets['warnings'])} (see work/asset_warnings.md)")
 
     # 2. Content Atomization & Ledger Construction (PRESERVE)
-    print("[2/6] Atomizing content and constructing Completeness Ledger...")
+    print("[2/7] Atomizing content and constructing Completeness Ledger...")
     ledger = ContentCompletenessLedger(document_title=ingest_res.document_title)
     atomizer = ContentAtomizer(ledger)
     atomizer.atomize(ingest_res)
@@ -101,22 +113,65 @@ def compile_document(
     ledger.save_json(work_path / "content_ledger.json")
     (work_path / "content_ledger.md").write_text(ledger.to_markdown(), encoding="utf-8")
 
-    # 3. Pedagogical Planning (TEACH) — every chapter, not just the first
-    print("[3/6] Synthesizing pedagogical lesson structure...")
-    planner = PedagogicalPlanner(ledger)
+    # 3. Pedagogical Planning (PEDAGOGICALLY PLAN) — every chapter, not just the first
+    print("[3/7] Pedagogically planning (objectives -> strategy -> sequence)...")
+    planner = PedagogicalPlanner(ledger, learner_hint=learner_hint)
     chapter_plans = [planner.plan_chapter(sec) for sec in ingest_res.doc_map.sections]
     domains = {p.subject_domain.value for p in chapter_plans}
     print(f"      Chapters: {len(chapter_plans)}, Domains: {sorted(domains)}")
 
-    # 4. Storyboarding & Coverage Mapping (STORYBOARD + VISUALIZE + QUESTION)
-    print("[4/6] Generating storyboard and mapping 100% source content...")
-    sb_engine = StoryboardEngine(ledger)
-    if len(chapter_plans) == 1:
-        slides = sb_engine.generate_storyboard(chapter_plans[0])
-    else:
-        slides = sb_engine.generate_deck(chapter_plans)
+    # Inspectable plan of record: content -> pedagogy -> storyboard.
+    for p in chapter_plans:
+        ped = p.pedagogical_plan
+        if ped is None:
+            continue
+        (work_path / f"pedagogical_plan_{p.id}.json").write_text(
+            json.dumps(ped.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+        (work_path / f"pedagogical_plan_{p.id}.md").write_text(
+            ped.to_markdown(), encoding="utf-8")
+    print("      Pedagogical plan(s) written — inspect before rendering.")
+
+    # 4. Presentation Blueprint + Blueprint QA (execution plan, validated pre-render)
+    print("[4/7] Compiling pedagogical plan -> Presentation Blueprint...")
+    answer_key = src_path.with_suffix(".answer_key.json")
+    blueprints = []
+    for p in chapter_plans:
+        compiler = BlueprintCompiler(
+            ledger, answer_key_path=answer_key if answer_key.exists() else None)
+        bp = compiler.compile(p)
+        blueprints.append(bp)
+        (work_path / f"blueprint_{p.id}.json").write_text(
+            json.dumps(bp.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+    from lessonmorph.blueprint.validators import BlueprintReport as _BR
+    bp_reports: list[_BR] = [BlueprintValidator.validate(bp) for bp in blueprints]
+    for p, rep in zip(chapter_plans, bp_reports):
+        print(f"      Blueprint {p.id}: {rep.status} "
+              f"({len(rep.errors())} errors, {len(rep.findings)} findings)")
+        (work_path / f"blueprint_qa_{p.id}.md").write_text(
+            rep.to_markdown(), encoding="utf-8")
+    fatal = [(p.id, f) for p, rep in zip(chapter_plans, bp_reports) for f in rep.errors()]
+    if fatal:
+        for pid, f in fatal[:10]:
+            print(f"      [Blueprint QA ERROR] {pid} {f.slide_id} {f.code}: {f.detail}")
+        raise RuntimeError(
+            f"Blueprint QA FAILED with {len(fatal)} error(s); refusing to render. "
+            f"See work/{work_path.name}/blueprint_qa_*.md.")
+
+    # 5. Slide composer (deterministic Blueprint -> SlideSpec, no pedagogy)
+    print("[5/7] Composing slides from Blueprint...")
+    composer = SlideComposer()
+    slides = []
+    if len(chapter_plans) > 1:
+        sb_chrome = StoryboardEngine(ledger)  # navigation chrome builders only
+        slides.append(sb_chrome.build_contents_slide([p.title for p in chapter_plans]))
+    for p, bp in zip(chapter_plans, blueprints):
+        if len(chapter_plans) > 1:
+            slides.append(sb_chrome.build_chapter_divider(p))
+        slides.extend(composer.compose_all(bp.slides, p.id))
+        p.slides = slides
     total_time = sum(p.estimated_time_minutes for p in chapter_plans)
-    print(f"      Created {len(slides)} classroom slides (Estimated Time: {total_time} min).")
+    print(f"      Composed {len(slides)} slides from {sum(len(b.slides) for b in blueprints)} "
+          f"blueprint slides (Estimated Time: {total_time} min).")
 
     # Attach embedded image paths to diagram slides
     for s in slides:
@@ -131,6 +186,10 @@ def compile_document(
             "title": s.title,
             "slide_type": s.slide_type.value,
             "visual_model": s.visual_model,
+            "instructional_state": s.instructional_state,
+            "instructional_purpose": s.instructional_purpose,
+            "objective_ids": s.objective_ids,
+            "animation_purposes": [getattr(a, "purpose", "") for a in (s.animation_steps or [])],
             "source_content_ids": s.source_content_ids,
             "estimated_time_minutes": s.estimated_time_minutes,
             "notes": s.speaker_notes.render_markdown(),
@@ -141,14 +200,37 @@ def compile_document(
         json.dumps(storyboard_data, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-    # 5. Native PPTX Rendering & OpenXML Animation Injection (RENDER + ANIMATE)
-    print("[5/6] Rendering editable PowerPoint presentation (.pptx)...")
+    # 6. Render + Visual QA + targeted repair loop
+    print("[6/7] Rendering PPTX + visual QA + repair...")
     renderer = PptxRenderer()
     renderer.render_presentation(slides, out_path)
+    flat_bp = blueprints[0] if len(blueprints) == 1 else None
+    render_report = RenderQA.inspect(out_path, flat_bp, work_dir=work_path)
+    print(f"      Render QA: {render_report.status} via {render_report.method} "
+          f"({len(render_report.errors())} errors)")
+    repair_notes: list[str] = []
+    for _round in range(2):
+        if not render_report.errors() or flat_bp is None:
+            break
+        repaired, notes = repair_blueprint(flat_bp, render_report)
+        repair_notes.extend(notes)
+        if not repaired:
+            break
+        print(f"      Repair round: recomposing {len(repaired)} slide(s): {repaired}")
+        (work_path / "blueprint_ch01.repaired.json").write_text(
+            json.dumps(flat_bp.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+        composer = SlideComposer()
+        slides = composer.compose_all(flat_bp.slides, chapter_plans[0].id)
+        chapter_plans[0].slides = slides
+        renderer = PptxRenderer()
+        renderer.render_presentation(slides, out_path)
+        render_report = RenderQA.inspect(out_path, flat_bp, work_dir=work_path)
+        print(f"      Re-inspection: {render_report.status} "
+              f"({len(render_report.errors())} errors)")
     print(f"      Successfully saved presentation to: {out_path}")
 
-    # 6. Quality Gates & Validation Report (VALIDATE)
-    print("[6/6] Executing Quality Gates and generating validation report...")
+    # 7. Quality Gates & Validation Report (VALIDATE)
+    print("[7/7] Executing Quality Gates and generating validation report...")
     primary_plan = chapter_plans[0]
     # For multi-chapter decks, report total time across chapters
     primary_plan.estimated_time_minutes = total_time
@@ -162,6 +244,10 @@ def compile_document(
         for p in chapter_plans:
             extra_notes.append(f"- {p.id}: {p.title} (pages {p.source_start_page}-{p.source_end_page}, ~{p.estimated_time_minutes} min)\n")
     md = report.to_markdown() + ("".join(extra_notes) if extra_notes else "")
+    md += "\n" + "\n\n".join(rep.to_markdown() for rep in bp_reports) + "\n"
+    md += "\n" + render_report.to_markdown() + "\n"
+    if repair_notes:
+        md += "\n## Repair Log\n" + "\n".join(f"- {n}" for n in repair_notes) + "\n"
     (work_path / "validation_report.md").write_text(md, encoding="utf-8")
 
     print("\n" + "=" * 60)
@@ -183,6 +269,10 @@ def compile_document(
 
 
 def main():
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
     parser = argparse.ArgumentParser(
         prog="lessonmorph",
         description="LessonMorph: Document-to-teaching-presentation compiler.",
@@ -193,12 +283,24 @@ def main():
     compile_parser.add_argument("document", type=str, help="Path to educational document (PDF, DOCX, MD).")
     compile_parser.add_argument("-o", "--output", type=str, help="Output .pptx path.")
     compile_parser.add_argument("-w", "--work-dir", type=str, help="Working directory for artifacts.")
+    compile_parser.add_argument("--level", type=str, default="",
+                                help="Learner level (primary, middle_school, high_school, undergraduate, general).")
+    compile_parser.add_argument("--grade", type=str, default="", help="Class/grade, e.g. 'Grade 10'.")
+    compile_parser.add_argument("--duration-min", type=int, default=45, help="Lesson duration in minutes.")
+    compile_parser.add_argument("--curriculum", type=str, default="", help="Curriculum/board, e.g. CBSE.")
+    compile_parser.add_argument("--language", type=str, default="", help="Language of instruction.")
 
     args = parser.parse_args()
 
     if args.command == "compile":
         try:
-            compile_document(args.document, args.output, args.work_dir)
+            hint = {k: v for k, v in {
+                "level": args.level, "grade": args.grade,
+                "lesson_duration_minutes": args.duration_min,
+                "curriculum": args.curriculum, "language": args.language,
+            }.items() if v}
+            compile_document(args.document, args.output, args.work_dir,
+                             learner_hint=hint or None)
         except Exception as e:
             print(f"[LessonMorph Error] {e}", file=sys.stderr)
             sys.exit(1)

@@ -24,8 +24,10 @@ class OoxmlAnimationEngine:
         if not animation_steps:
             return
 
-        # Generate unique IDs for XML nodes
-        id_counter = 1
+        # Time-node ids must be unique per slide. The root template below
+        # already uses id="1" (tmRoot) and id="2" (mainSeq), so generated
+        # ids start at 3 — duplicates make PowerPoint flag the file corrupt.
+        id_counter = 2
 
         def next_id():
             nonlocal id_counter

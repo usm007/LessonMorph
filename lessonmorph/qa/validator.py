@@ -34,6 +34,7 @@ class ValidationReport:
     coverage_percent: float
     checks: List[QualityCheckResult] = field(default_factory=list)
     overall_status: str = "PASS"  # PASS, WARN, FAIL
+    pedagogical_section: str = ""  # PEDAGOGICAL QA markdown (empty when no plan)
 
     def to_markdown(self) -> str:
         lines = [
@@ -57,6 +58,8 @@ class ValidationReport:
             lines.append(f"| {c.category} | {c.check_name} | {stat} | {c.details} |")
 
         lines.append("")
+        if self.pedagogical_section:
+            lines.append(self.pedagogical_section)
         return "\n".join(lines)
 
 
@@ -323,6 +326,81 @@ class QualityGateValidator:
                 )
             )
 
+        # 5. Pedagogical QA: alignment, retrieval, scaffolding, misconceptions
+        # (judgment, not rigid pass/fail — see skill/references/pedagogy.md)
+        pedagogical_md = ""
+        try:
+            from lessonmorph.pedagogy.quality import build_qa_report
+            ped_plan = getattr(plan, "pedagogical_plan", None)
+            if ped_plan is not None:
+                qa = build_qa_report(ped_plan, slides, list(plan.questions))
+                pedagogical_md = "\n" + qa.to_markdown() + "\n"
+                checks.append(
+                    QualityCheckResult(
+                        category="Pedagogical QA",
+                        check_name="Objective Alignment (O -> taught/practiced/assessed)",
+                        passed=qa.status != "FAIL",
+                        details=(f"{qa.objectives_taught}/{qa.objectives_total} taught, "
+                                 f"{qa.objectives_practiced} practiced, "
+                                 f"{qa.objectives_assessed} assessed "
+                                 f"({qa.assessment_coverage_percent}%)."),
+                        severity="WARNING" if qa.status == "WARN" else (
+                            "ERROR" if qa.status == "FAIL" else "INFO"),
+                    )
+                )
+                checks.append(
+                    QualityCheckResult(
+                        category="Pedagogical QA",
+                        check_name="Retrieval, Spacing & Practice",
+                        passed=qa.retrieval_opportunities > 0,
+                        details=(f"{qa.retrieval_opportunities} retrieval, "
+                                 f"{qa.cumulative_retrieval} cumulative; "
+                                 f"{qa.worked_examples} worked examples, "
+                                 f"{qa.guided_practice_items} guided, "
+                                 f"{qa.independent_practice_items} independent."),
+                        severity="WARNING" if qa.retrieval_opportunities == 0 else "INFO",
+                    )
+                )
+                checks.append(
+                    QualityCheckResult(
+                        category="Pedagogical QA",
+                        check_name="Misconceptions & Prerequisites",
+                        passed=not any("never confronted" in w or "never activated" in w
+                                       for w in qa.warnings),
+                        details=(f"{qa.misconceptions_addressed}/{qa.misconceptions_identified} "
+                                 f"misconceptions addressed; "
+                                 f"prerequisites {qa.prerequisites_addressed}/"
+                                 f"{qa.prerequisites_identified} addressed."),
+                        severity="WARNING" if qa.warnings else "INFO",
+                    )
+                )
+                # Animation/visual purpose audit: every animation must serve learning.
+                purposeless = sum(1 for s in slides for a in (s.animation_steps or [])
+                                 if not getattr(a, "purpose", ""))
+                if purposeless:
+                    checks.append(
+                        QualityCheckResult(
+                            category="Pedagogical QA",
+                            check_name="Animation Serves Learning",
+                            passed=False,
+                            details=(f"{purposeless} animation step(s) lack an instructional "
+                                     "purpose (decorative motion is prohibited)."),
+                            severity="WARNING",
+                        )
+                    )
+                else:
+                    checks.append(
+                        QualityCheckResult(
+                            category="Pedagogical QA",
+                            check_name="Animation Serves Learning",
+                            passed=True,
+                            details="All animation steps declare an instructional purpose.",
+                            severity="INFO",
+                        )
+                    )
+        except ImportError:
+            pass
+
         # Determine overall status
         has_errors = any(not c.passed and c.severity == "ERROR" for c in checks)
         has_warnings = any(not c.passed and c.severity == "WARNING" for c in checks)
@@ -344,4 +422,5 @@ class QualityGateValidator:
             coverage_percent=summary["coverage_rate_percent"],
             checks=checks,
             overall_status=status,
+            pedagogical_section=pedagogical_md,
         )

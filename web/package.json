@@ -1,0 +1,1 @@
+{"name": "lesson-runtime", "private": true, "version": "1.0.0", "description": "Browser-first lesson runtime (zero runtime dependencies)", "scripts": {"build": "tsc && node build/bundle.cjs && copy src\\styles.css dist\\styles.css", "check": "tsc --noEmit"}, "devDependencies": {"typescript": "^5.6.0"}}

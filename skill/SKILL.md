@@ -43,8 +43,14 @@ LessonMorph/
     ingest/                   PDF (PyMuPDF), DOCX, Markdown extractors + ContentAtomizer
     ledger/                   ContentCompletenessLedger (100% coverage tracker)
     pedagogy/                 Domain classifier, planner, misconceptions, pacing
-    storyboard/               StoryboardEngine (slide specs, visual models, quiz placement)
-    renderer/                 PptxRenderer, DesignSystem, shape + visual-model builders
+                              (authoritative brain — DO NOT reinterpret downstream)
+    blueprint/                Presentation IR: schemas (ir.py), pedagogy→IR adapter,
+                              SlideComposer, visual-grammar registry, sanitizer,
+                              Blueprint QA validators, render QA, repair loop
+    storyboard/               Legacy slide-spec builder (kept for compatibility;
+                              new pipeline composes from the Blueprint instead)
+    renderer/                 PptxRenderer, DesignSystem, SemanticRenderer
+                              (executes IR representations) + legacy visual models
     animation/                OoxmlAnimationEngine (<p:timing> injector) + presets
     quiz/                     QuizEngine (diverse types, 2-stage reveals)
     qa/                       QualityGateValidator + ValidationReport
@@ -54,11 +60,15 @@ LessonMorph/
     references/               authoring, ledger, animation, design_system, qa guides
     scripts/                  compile.py helper
   source/examples/            Sample input document(s)
-  work/<document>/            content_ledger.*, storyboard.json, document_map.json,
-                              assets/, validation_report.md
+   work/<document>/            content_ledger.*, pedagogical_plan_<chapter>.json/md,
+                               blueprint_<chapter>.json, blueprint_qa_<chapter>.md,
+                               storyboard.json, document_map.json,
+                               assets/, validation_report.md (incl. PEDAGOGICAL QA,
+                               BLUEPRINT QA, RENDER QA, repair log)
   output/                     Final .pptx deliverable(s)
   tests/                      Automated suite (ingest, ledger, pedagogy, storyboard,
-                              renderer, animation, quiz, qa, end-to-end)
+                              renderer, animation, quiz, qa, blueprint, end-to-end,
+                              photosynthesis regression)
 ```
 
 ## Quick Start / CLI Usage
@@ -79,19 +89,26 @@ Multi-chapter documents produce a Contents slide + chapter dividers automaticall
 ## The Pipeline (do not short-circuit)
 
 ```
-SOURCE → UNDERSTAND → MAP → PRESERVE → TEACH → STORYBOARD
-  → VISUALIZE → QUESTION → RENDER → ANIMATE → VALIDATE → DELIVER PPTX
+SOURCE DOCUMENT → CONTENT UNDERSTANDING → EXISTING PEDAGOGICAL MODEL
+  → PRESENTATION BLUEPRINT / IR → (Blueprint QA) → SLIDE COMPOSER
+  → VISUAL COMPOSER → PPTX GENERATOR → RENDERED SLIDES
+  → VISUAL + CONTENT QA → REPAIR / REGENERATE → FINAL PPTX
 ```
+
+The pedagogical model is the brain, the Blueprint is the execution plan,
+the renderer is the executor. The renderer never reinterprets pedagogy.
 
 1. **MAP**: Ingest with page/section fidelity (`document_map.json`). PDFs use bookmarks when present, else heading cues; tables via `find_tables`; images extracted with bytes. DOCX preserves heading hierarchy/tables/lists. Never assume extraction is perfect — record uncertainty.
 2. **PRESERVE**: Atomize into `C001…` units (definition, explanation, example, worked_step, exception, diagram, table, formula, warning, exercise, misconception, context, terminology, footnote). Save `content_ledger.json/md`.
-3. **TEACH**: Classify domain (math/physics/chemistry/biology/history/geography/…), plan objectives, prerequisites, core concepts, misconceptions, questions, pacing. One plan per chapter.
-4. **STORYBOARD**: Emit `storyboard.json` — every slide has `slide_id, chapter_id, title, purpose, source_content_ids[], slide_type, visual_model, objects, animation_sequence, quiz, speaker_notes, estimated_time, source_references`. Inspect the plan before rendering.
-5. **VISUALIZE**: Subject-aware models — concept→diagram+example, process→sequential build, comparison→side-by-side, classification→grid, timeline→chronology, formula→breakdown→worked example. Recreate diagrams as editable shapes; embed source figures with attribution; decompose into animated stages where it teaches.
-6. **QUESTION**: Only quiz taught material. Vary form (MCQ, true/false, fill-blank, matching, sequence, classification, identify-error, calculation, assertion/reason, short answer, exam-style) and difficulty (recall→evaluation). Two-slide pattern: A=question only, B=answer+explanation.
+3. **PEDAGOGICALLY PLAN**: Build the machine-readable `PedagogicalPlan` per chapter — learner profile, observable objectives (backward design), prerequisites + dependency chains, content-nature profile (conceptual/procedural/factual), adaptive strategy selection (no universal recipe), teaching sequence of instructional states, scaffolding (I DO → WE DO → YOU DO), retrieval/spacing plan, O→Q assessment map, misconceptions, worked examples, pacing. See `references/pedagogy.md`. Save `pedagogical_plan_<chapter>.json/md` and **inspect before rendering**.
+4. **BLUEPRINT (Presentation IR)**: The `BlueprintCompiler` (`lessonmorph/blueprint/adapter.py`) translates the authoritative `PedagogicalPlan` into a typed `Blueprint` — every slide carries WHAT (concept/content), WHY (learning_goal/purpose), HOW-encountered (cognitive `task` + `reveal_sequence`), HOW-represented (`representation` from the finite grammar + explicit `visual` spec), HOW-used (`teacher_action`), HOW-checked (locked `assessment`). No slide without `representation` metadata. Content inventory maps every source element to its slide (`Source → Blueprint → Slide`). Save `blueprint_<chapter>.json` and **inspect before rendering**.
+5. **BLUEPRINT QA (before PPTX)**: `BlueprintValidator` enforces Content QA (coverage, equations/numbers/questions/answers preserved, no duplication), Pedagogical QA (alignment, sequencing, load, retrieval, worked examples, misconception correction), Representation QA (spatial→diagram, process→flow/pathway, comparison→matrix, quantitative→table, equation→equation object), Assessment QA (options exist, answer locked to a source option, explanation consistent). FAIL refuses to render.
+6. **COMPOSE → RENDER**: `SlideComposer` deterministically translates Blueprint → `SlideSpec` (sanitized text, structured payloads, locked answers); `SemanticRenderer` executes the representation with real shapes/connectors/tables — never prose in decorative cards. Equations render from structured terms as clean Unicode notation, never raw LaTeX.
+7. **QUESTION (locked)**: SOURCE QUESTION → SOURCE ANSWER → LOCKED ANSWER KEY → ASSESSMENT IR → SLIDE → ANSWER VALIDATOR. Answer slides render FROM the locked object (`<doc>.answer_key.json` pins source answers, e.g. ionophore → B). Source practice problems stay verbatim and task-typed (process/comparison); model-generated retrieval is labeled as such — never silently substituted.
+8. **RENDER + REPAIR**: `RenderQA` reopens the PPTX (geometry + text scan; PNG via LibreOffice when available) and flags overflow, off-canvas, orphaned/empty cards, tiny text, duplicates, raw Markdown/LaTeX, broken symbols, wrong answers. `repair_blueprint` regenerates AFFECTED slides only (representation fallback or density split), then re-renders and re-inspects (max 2 rounds). Unfixable errors escalate for human review.
 7. **RENDER**: Editable pptx (16:9), design system, alt text, embedded assets. No flattened-image slides.
 8. **ANIMATE**: Native `<p:timing>` on real shape IDs (step builds, cross-outs, answer reveals). No decorative motion.
-9. **VALIDATE**: `validation_report.md` with Content/Structural/Visual/Teaching gates. FAIL on uncovered units or corrupt package; WARN + human-review flags otherwise.
+9. **VALIDATE**: `validation_report.md` with Content/Structural/Visual/Teaching gates **plus BLUEPRINT QA and RENDER QA sections**. FAIL on uncovered units, corrupt package, unlocked answers, or unpreserved source elements; WARN + human-review flags otherwise.
 10. **DELIVER**: `.pptx` + work artifacts. Report warnings honestly (missing table → "Table on page X requires review", unrecreatable figure → "preserved as image", unparsable formula → "C104 could not be represented natively").
 
 ## Core Principles
@@ -108,7 +125,7 @@ See `references/ledger.md`. Every unit: unique ID, source location, chapter/sect
 
 ## Teaching Flow & Subject Strategies
 
-Follow `references/authoring.md`. Do not force one template on every subject; choose per §6 of the product spec (concept/process/comparison/classification/timeline/cause-effect/formula/numerical/science/history/geography/biology/chemistry/physics/math/social-science/literature/language). Decorative visuals are prohibited where a real diagram would teach.
+Follow `references/authoring.md` for slide craft and `references/pedagogy.md` for the intelligence layer (constitution, decision principles, no-recipe rule, evidence discipline). Do not force one template on every subject; choose per §6 of the product spec (concept/process/comparison/classification/timeline/cause-effect/formula/numerical/science/history/geography/biology/chemistry/physics/math/social-science/literature/language). Decorative visuals are prohibited where a real diagram would teach. Every animation stores its instructional `purpose`; every quiz maps to objectives (`objective_ids`).
 
 ## Quiz, Notes, Pacing, Design, Accessibility
 

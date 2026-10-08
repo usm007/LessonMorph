@@ -13,6 +13,50 @@ from lessonmorph.animation.engine import OoxmlAnimationEngine
 from lessonmorph.core.models import SlideSpec
 from lessonmorph.renderer.design import DesignSystem
 from lessonmorph.renderer.diagrams import VisualModelRenderer
+from lessonmorph.renderer.semantic import SemanticRenderer
+
+
+# Presentation-IR representations → executor. The renderer executes the
+# representation literally; it must never reinterpret pedagogy.
+_SEMANTIC_DISPATCH = {
+    # Structural
+    "labeled_diagram": SemanticRenderer.render_labeled_diagram,
+    "anatomy_map": SemanticRenderer.render_labeled_diagram,
+    "cutaway": SemanticRenderer.render_labeled_diagram,
+    "spatial_relationship": SemanticRenderer.render_labeled_diagram,
+    "hierarchy": SemanticRenderer.render_hierarchy,
+    # Process
+    "flow": SemanticRenderer.render_chain,
+    "sequence": SemanticRenderer.render_chain,
+    "pathway": SemanticRenderer.render_chain,
+    "cycle": SemanticRenderer.render_chain,
+    "cause_effect": SemanticRenderer.render_cause_chain,
+    "before_after": SemanticRenderer.render_before_after,
+    # Quantitative
+    "equation_focus": SemanticRenderer.render_equation,
+    "worked_calculation": SemanticRenderer.render_worked_calc,
+    "comparison_matrix": SemanticRenderer.render_matrix,
+    "bar_chart": VisualModelRenderer.render_table_display,
+    "line_chart": VisualModelRenderer.render_table_display,
+    "data_table": VisualModelRenderer.render_table_display,
+    # Assessment (locked answers only)
+    "mcq": SemanticRenderer.render_assessment,
+    "true_false": SemanticRenderer.render_assessment,
+    "prediction": SemanticRenderer.render_assessment,
+    "diagnostic_question": SemanticRenderer.render_assessment,
+    "retrieval": SemanticRenderer.render_assessment,
+    # Practice / conceptual / synthesis
+    "practice_problem": SemanticRenderer.render_practice,
+    "definition_focus": SemanticRenderer.render_definition,
+    "contrast": VisualModelRenderer.render_misconception_contrast,
+    "concept_map": SemanticRenderer.render_synthesis,
+    "summary_matrix": SemanticRenderer.render_synthesis,
+    "big_picture": SemanticRenderer.render_synthesis,
+    # Chrome
+    "title": VisualModelRenderer.render_hero_title,
+    "objectives": VisualModelRenderer.render_learning_objectives,
+    "exit": VisualModelRenderer.render_exit_ticket,
+}
 
 
 class PptxRenderer:
@@ -42,11 +86,19 @@ class PptxRenderer:
     def _render_single_slide(self, spec: SlideSpec) -> None:
         slide = self.prs.slides.add_slide(self.blank_layout)
 
-        # 1. Dispatch to visual model renderer
+        # 1. Dispatch: Presentation-IR representations execute first.
+        # Legacy visual_model names follow for backward compatibility.
         model = spec.visual_model
         animated_targets = []
 
-        if model == "hero_title":
+        if model in ("concept_card", "key_principle", "big_idea"):
+            animated_targets = SemanticRenderer.render_points(slide, spec, badge="Concept")
+        elif model in _SEMANTIC_DISPATCH:
+            if model == "cycle":
+                animated_targets = SemanticRenderer.render_chain(slide, spec, cycle=True)
+            else:
+                animated_targets = _SEMANTIC_DISPATCH[model](slide, spec)
+        elif model == "hero_title":
             animated_targets = VisualModelRenderer.render_hero_title(slide, spec)
         elif model == "roadmap_stepper":
             animated_targets = VisualModelRenderer.render_roadmap_stepper(slide, spec)

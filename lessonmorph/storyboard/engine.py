@@ -20,6 +20,7 @@ from lessonmorph.core.models import (
     SlideType,
     SpeakerNotes,
     SubjectDomain,
+    TeachingMove,
 )
 from lessonmorph.ledger.ledger import ContentCompletenessLedger
 from lessonmorph.pedagogy.classifier import SubjectClassifier
@@ -58,26 +59,10 @@ class StoryboardEngine:
 
     def _generate_chapter_slides(self, plan: ChapterPlan) -> List[SlideSpec]:
         """Chapter slides without resetting the global slide counter (for decks)."""
-        slides: List[SlideSpec] = []
-        slides.append(self._build_title_slide(plan))
-        slides.append(self._build_roadmap_slide(plan))
-        slides.append(self._build_objectives_slide(plan))
-        if plan.prior_knowledge:
-            slides.append(self._build_prior_knowledge_slide(plan))
-        content_units = self.ledger.get_units_by_chapter(plan.id)
-        if not content_units:
-            content_units = self.ledger.units
-        slides.extend(self._build_core_content_slides(plan, content_units))
-        if plan.misconceptions:
-            slides.extend(self._build_misconception_slides(plan))
-        if plan.questions:
-            for q in plan.questions:
-                q_slide, reveal_slide = self._build_quiz_pair(plan, q)
-                slides.append(q_slide)
-                slides.append(reveal_slide)
-        slides.append(self._build_summary_slide(plan))
-        slides.append(self._build_practice_slide(plan))
-        slides.append(self._build_exit_ticket_slide(plan))
+        if plan.pedagogical_plan and plan.pedagogical_plan.teaching_sequence:
+            slides = self._slides_from_sequence(plan)
+        else:
+            slides = self._legacy_chapter_slides(plan)
         plan.slides = slides
         pacing = PacingCalculator.estimate_chapter_pacing(slides)
         plan.estimated_time_minutes = pacing.total_minutes
@@ -128,55 +113,316 @@ class StoryboardEngine:
         )
 
     def generate_storyboard(self, plan: ChapterPlan) -> List[SlideSpec]:
-        """Generates the full ordered sequence of slides for a chapter."""
+        """Generates the full ordered sequence of slides for a chapter.
+
+        Pedagogy-first: when a PedagogicalPlan exists, slides are dispatched
+        from its teaching_sequence (instructional states). The legacy fixed
+        template is only a fallback. A coverage sweep guarantees 100%.
+        """
         self._slide_counter = 0
-        slides: List[SlideSpec] = []
-        # 1. Title Slide
-        slides.append(self._build_title_slide(plan))
-
-        # 2. Roadmap / Why this matters
-        slides.append(self._build_roadmap_slide(plan))
-
-        # 3. Learning Objectives
-        slides.append(self._build_objectives_slide(plan))
-
-        # 4. Prior Knowledge / Warm-Up
-        if plan.prior_knowledge:
-            slides.append(self._build_prior_knowledge_slide(plan))
-
-        # 5. Core Content Slides (Definitions, Concepts, Formulas, Tables, Diagrams)
-        content_units = self.ledger.get_units_by_chapter(plan.id)
-        if not content_units:
-            content_units = self.ledger.units
-
-        slides.extend(self._build_core_content_slides(plan, content_units))
-
-        # 6. Common Misconceptions
-        if plan.misconceptions:
-            slides.extend(self._build_misconception_slides(plan))
-
-        # 7. Check for Understanding (Interactive Quizzes with 2-stage classroom reveals)
-        if plan.questions:
-            for q in plan.questions:
-                # Stage A: Question Prompt
-                q_slide, reveal_slide = self._build_quiz_pair(plan, q)
-                slides.append(q_slide)
-                slides.append(reveal_slide)
-
-        # 8. Summary / Key Takeaways Recap
-        slides.append(self._build_summary_slide(plan))
-
-        # 9. Practice & Exam-Style Questions
-        slides.append(self._build_practice_slide(plan))
-
-        # 10. Exit Ticket / Reflection
-        slides.append(self._build_exit_ticket_slide(plan))
-
+        if plan.pedagogical_plan and plan.pedagogical_plan.teaching_sequence:
+            slides = self._slides_from_sequence(plan)
+        else:
+            slides = self._legacy_chapter_slides(plan, reset=True)
         # Update chapter plan and recalculate pacing
         plan.slides = slides
         pacing = PacingCalculator.estimate_chapter_pacing(slides)
         plan.estimated_time_minutes = pacing.total_minutes
 
+        return slides
+
+    # -- pedagogy-driven dispatch -------------------------------------------
+    def _slides_from_sequence(self, plan: ChapterPlan) -> List[SlideSpec]:
+        """Storyboard consumes pedagogical intent: one move -> slide(s)."""
+        ped = plan.pedagogical_plan
+        assert ped is not None
+        slides: List[SlideSpec] = []
+        by_id = {u.id: u for u in self.ledger.get_units_by_chapter(plan.id)} or {
+            u.id: u for u in self.ledger.units}
+        covered_in_seq: set = set()
+        quiz_used: set = set()
+
+        def _tag(s: SlideSpec, move: TeachingMove) -> SlideSpec:
+            s.instructional_state = move.state
+            s.instructional_purpose = move.purpose
+            s.objective_ids = list(move.objective_ids)
+            if move.teacher_move:
+                base = s.speaker_notes.ask_students or ""
+                extra = f"TEACHER MOVE: {move.teacher_move}."
+                s.speaker_notes.ask_students = f"{base}\n{extra}".strip() if base else extra
+            for a in s.animation_steps:
+                if not a.purpose:
+                    a.purpose = move.animation_purpose
+            return s
+
+        for move in ped.teaching_sequence:
+            cids = [c for c in move.content_ids if c in by_id]
+            if move.state == "HOOK":
+                slides.append(_tag(self._build_title_slide(plan), move))
+            elif move.state == "PRIOR_KNOWLEDGE":
+                if plan.prior_knowledge:
+                    slides.append(_tag(self._build_prior_knowledge_slide(plan), move))
+            elif move.state == "OBJECTIVE":
+                slides.append(_tag(self._build_objectives_slide(plan), move))
+            elif move.state in ("EXPLANATION", "VISUAL_MODEL", "DEEPER_EXPLANATION"):
+                for cid in cids:
+                    u = by_id[cid]
+                    if u.covered and u.id in covered_in_seq:
+                        continue
+                    s = self._build_single_content_slide(plan, u)
+                    covered_in_seq.add(u.id)
+                    slides.append(_tag(s, move))
+            elif move.state == "GUIDED_EXAMPLE":
+                s = self._build_guided_example_slide(plan, [by_id[c] for c in cids if c in by_id])
+                for c in cids:
+                    covered_in_seq.add(c)
+                slides.append(_tag(s, move))
+            elif move.state in ("RETRIEVAL", "CUMULATIVE_RETRIEVAL"):
+                q = self._pick_question(plan, move, quiz_used)
+                if q is not None:
+                    quiz_used.add(q.id)
+                    a, b = self._build_quiz_pair(plan, q)
+                    slides.append(_tag(a, move))
+                    slides.append(_tag(b, move))
+                else:
+                    slides.append(_tag(self._build_retrieval_slide(plan, move), move))
+            elif move.state == "MISCONCEPTION":
+                for s in self._build_misconception_slides(plan):
+                    slides.append(_tag(s, move))
+            elif move.state == "GUIDED_PRACTICE":
+                slides.append(_tag(self._build_guided_practice_slide(plan, move), move))
+            elif move.state == "INDEPENDENT_PRACTICE":
+                slides.append(_tag(self._build_practice_slide(plan), move))
+            elif move.state == "RECAP":
+                slides.append(_tag(self._build_summary_slide(plan), move))
+            elif move.state == "ASSESSMENT":
+                remaining = [q for q in plan.questions if q.id not in quiz_used]
+                if remaining:
+                    for q in remaining:
+                        quiz_used.add(q.id)
+                        a, b = self._build_quiz_pair(plan, q)
+                        slides.append(_tag(a, move))
+                        slides.append(_tag(b, move))
+                else:
+                    slides.append(_tag(self._build_practice_slide(plan), move))
+        # Roadmap orientation after hook/title for navigation.
+        if slides and len(ped.teaching_sequence) > 3:
+            slides.insert(1, self._build_roadmap_slide(plan))
+        # Coverage sweep: 100% guarantee — leftover units get content slides.
+        uncovered = [u for u in by_id.values() if not u.covered]
+        if uncovered:
+            for u in uncovered:
+                s = self._build_single_content_slide(plan, u)
+                s.instructional_state = "EXPLANATION"
+                s.instructional_purpose = f"coverage sweep: preserve {u.id} ({u.content_type.value})"
+                # Insert before recap/assessment tail to keep arc intact.
+                idx = next((i for i, sl in enumerate(slides)
+                            if sl.instructional_state in ("RECAP", "ASSESSMENT")), len(slides))
+                slides.insert(idx, s)
+        slides.append(self._build_exit_ticket_slide(plan))
+        return slides
+
+    def _pick_question(self, plan: ChapterPlan, move: TeachingMove,
+                       used: set) -> Optional[QuizQuestion]:
+        for q in plan.questions:
+            if q.id in used:
+                continue
+            if set(q.objective_ids) & set(move.objective_ids) or not move.objective_ids:
+                return q
+        for q in plan.questions:
+            if q.id not in used:
+                return q
+        return None
+
+    def _build_guided_example_slide(self, plan: ChapterPlan,
+                                    units: List[ContentUnit]) -> SlideSpec:
+        if not units:
+            return self._build_practice_slide(plan)
+        first = units[0]
+        prob = first.normalized_content if first.content_type == ContentType.EXAMPLE else "Worked Problem"
+        steps = [u.normalized_content for u in units
+                 if u.content_type == ContentType.WORKED_STEP] or [
+            "Identify given quantities", "Select the governing relation",
+            "Substitute and compute", "Verify units and result"]
+        return self._build_worked_slide(plan, prob, steps,
+                                        [u.id for u in units], first.source_location)
+
+    def _build_worked_slide(self, plan: ChapterPlan, problem: str, steps: List[str],
+                            ids: List[str], source_ref: str) -> SlideSpec:
+        sid = self._next_slide_id()
+        for uid in ids:
+            self.ledger.mark_covered(uid, sid)
+        anim = [AnimationStep(step_number=i + 1, target_object_id=f"step_box_{i + 1}",
+                              action=AnimationType.APPEAR,
+                              description=f"Reveal solution step {i + 1}",
+                              purpose="sequencing") for i in range(len(steps))]
+        return SlideSpec(
+            slide_id=sid, chapter_id=plan.id, title="Worked Example: Step-by-Step",
+            subtitle="Applying principles to a concrete problem",
+            purpose="Demonstrate systematic problem-solving methodology (I DO -> WE DO).",
+            source_content_ids=ids, slide_type=SlideType.WORKED_EXAMPLE,
+            visual_model="stepped_cards",
+            elements_data={"problem": problem, "steps": steps, "source_ref": source_ref},
+            animation_steps=anim,
+            speaker_notes=SpeakerNotes(
+                teacher_explanation="Guide students step by step. Pause after each step before revealing the next.",
+                emphasis="Students write each intermediate step; never jump to the final number.",
+                ask_students="Before I reveal: what is our next operation, and why?",
+                transition="Let's verify the result and check units."),
+            estimated_time_minutes=4.0, source_references=[source_ref])
+
+    def _build_retrieval_slide(self, plan: ChapterPlan, move: TeachingMove) -> SlideSpec:
+        sid = self._next_slide_id()
+        self.ledger.mark_multiple_covered(move.content_ids, sid)
+        cids = ", ".join(move.content_ids) or "recent concepts"
+        return SlideSpec(
+            slide_id=sid, chapter_id=plan.id, title="Recall & Reconstruct",
+            subtitle="Close the deck — retrieve from memory",
+            purpose=f"Purposeful retrieval of {cids} (not recognition of visible text).",
+            source_content_ids=list(move.content_ids), slide_type=SlideType.QUIZ_QUESTION,
+            visual_model="quiz_prompt",
+            elements_data={"prompt": f"Without looking back: explain or apply {cids}.",
+                           "options": [], "question_type": "short_answer", "difficulty": "understanding"},
+            speaker_notes=SpeakerNotes(
+                teacher_explanation="Hide prior slides. Cold-call or think-pair-share.",
+                ask_students=f"Reconstruct {cids} in your own words.",
+                transition="Let's check our reconstruction against the correct reasoning."),
+            estimated_time_minutes=2.0, objective_ids=list(move.objective_ids))
+
+    def _build_guided_practice_slide(self, plan: ChapterPlan, move: TeachingMove) -> SlideSpec:
+        sid = self._next_slide_id()
+        self.ledger.mark_multiple_covered(move.content_ids, sid)
+        return SlideSpec(
+            slide_id=sid, chapter_id=plan.id, title="Guided Practice (We Do Together)",
+            subtitle="Fading support — you complete the next step",
+            purpose="Release scaffolding gradually before independent work.",
+            source_content_ids=list(move.content_ids), slide_type=SlideType.PRACTICE_SET,
+            visual_model="practice_cards",
+            elements_data={"problems": [
+                f"1. Complete the partially solved example for {plan.title} (fill the missing step).",
+                "2. Justify each step to your neighbour before we reveal."]},
+            speaker_notes=SpeakerNotes(
+                teacher_explanation="Model only the first step; students complete the rest with support.",
+                ask_students="What is the next step, and how do you know?",
+                transition="Now try one fully on your own."),
+            estimated_time_minutes=3.5, objective_ids=list(move.objective_ids))
+
+    def _build_single_content_slide(self, plan: ChapterPlan, u: ContentUnit) -> SlideSpec:
+        """One unit -> one pedagogically-typed slide (split dense content, never cram)."""
+        if u.content_type == ContentType.FORMULA:
+            sid = self._next_slide_id()
+            u.mark_covered(sid)
+            return SlideSpec(
+                slide_id=sid, chapter_id=plan.id, title="Formula & Relationship",
+                subtitle="Mathematical representation and physical meaning",
+                purpose="Deconstruct mathematical law, variables, and units.",
+                source_content_ids=[u.id], slide_type=SlideType.FORMULA_BREAKDOWN,
+                visual_model="formula_breakdown",
+                elements_data={"formula": u.normalized_content, "context": u.original_wording,
+                               "source_ref": u.source_location},
+                speaker_notes=SpeakerNotes(
+                    teacher_explanation=f"Analyse every symbol:\n{u.normalized_content}",
+                    emphasis="Check units and dimensional consistency.",
+                    ask_students="What happens if we double a variable on the right?",
+                    transition="Let's apply this to a concrete case."),
+                estimated_time_minutes=3.0, source_references=[u.source_location])
+        if u.content_type == ContentType.TABLE:
+            sid = self._next_slide_id()
+            u.mark_covered(sid)
+            return SlideSpec(
+                slide_id=sid, chapter_id=plan.id,
+                title=f"Structured Data: {u.metadata.get('title', 'Comparative Data')}",
+                subtitle="Key values, properties, and observations",
+                purpose="Present structured tabular evidence.",
+                source_content_ids=[u.id], slide_type=SlideType.TABLE_DISPLAY,
+                visual_model="table_display",
+                elements_data={"headers": u.metadata.get("headers", ["Column 1", "Column 2"]),
+                               "rows": u.metadata.get("rows", [["Value A", "Value B"]]),
+                               "title": u.metadata.get("title", ""), "source_ref": u.source_location},
+                speaker_notes=SpeakerNotes(
+                    teacher_explanation="Examine patterns across rows/columns.",
+                    ask_students="What trend do you observe?",
+                    transition="Let's analyse what this data proves."),
+                estimated_time_minutes=3.0, source_references=[u.source_location])
+        if u.content_type == ContentType.DIAGRAM:
+            sid = self._next_slide_id()
+            u.mark_covered(sid)
+            return SlideSpec(
+                slide_id=sid, chapter_id=plan.id, title="Visual Model: Diagram",
+                subtitle=u.normalized_content[:80],
+                purpose="Explain structures and relationships visually (dual coding).",
+                source_content_ids=[u.id], slide_type=SlideType.DIAGRAM_EXPLANATION,
+                visual_model="diagram_explanation",
+                elements_data={"caption": u.normalized_content,
+                               "image_id": u.metadata.get("image_id"),
+                               "source_ref": u.source_location},
+                animation_steps=[AnimationStep(step_number=1, target_object_id="diagram_stage_1",
+                                               action=AnimationType.APPEAR,
+                                               description="Reveal diagram stage by stage",
+                                               purpose="sequencing")],
+                speaker_notes=SpeakerNotes(
+                    teacher_explanation="Trace the flow left to right, one stage at a time.",
+                    ask_students="What does this component represent? What comes next?",
+                    transition="Let's connect this model to the theory."),
+                estimated_time_minutes=3.5, source_references=[u.source_location])
+        # Default: explanation/definition/terminology -> strategy-typed slide.
+        sid = self._next_slide_id()
+        u.mark_covered(sid)
+        strat = SubjectClassifier.select_visual_strategy(plan.subject_domain, u.normalized_content)
+        slide_type_map = {
+            "process_flow": SlideType.PROCESS_FLOW, "2_column_compare": SlideType.COMPARISON,
+            "classification_grid": SlideType.CLASSIFICATION_GRID, "timeline": SlideType.TIMELINE,
+            "diagram_explanation": SlideType.DIAGRAM_EXPLANATION,
+            "formula_breakdown": SlideType.FORMULA_BREAKDOWN,
+            "stepped_cards": SlideType.CONCEPT_DEFINITION,
+            "common_misconception": SlideType.COMMON_MISCONCEPTION,
+        }
+        anim_purpose = "sequencing" if strat == "process_flow" else (
+            "comparison" if strat == "2_column_compare" else "")
+        anim = [AnimationStep(step_number=1, target_object_id="content_build_1",
+                              action=AnimationType.APPEAR,
+                              description="Progressive reveal of the explanation",
+                              purpose=anim_purpose)] if anim_purpose else []
+        return SlideSpec(
+            slide_id=sid, chapter_id=plan.id, title=f"Key Concept: {plan.title}",
+            subtitle="Mechanisms, principles, and analysis",
+            purpose="Explain core mechanism in a manageable chunk.",
+            source_content_ids=[u.id],
+            slide_type=slide_type_map.get(strat, SlideType.CONCEPT_DEFINITION),
+            visual_model=strat,
+            elements_data={"content": u.normalized_content, "source_ref": u.source_location},
+            animation_steps=anim,
+            speaker_notes=SpeakerNotes(
+                teacher_explanation=f"Explain thoroughly:\n{u.normalized_content}",
+                emphasis="Ensure students grasp the mechanism, not just the wording.",
+                ask_students="How does this connect to what we covered earlier?",
+                transition="Let's build on this idea."),
+            estimated_time_minutes=3.0, source_references=[u.source_location])
+
+    def _legacy_chapter_slides(self, plan: ChapterPlan, reset: bool = False) -> List[SlideSpec]:
+        """Fixed template fallback when no pedagogical plan exists (never preferred)."""
+        if reset:
+            self._slide_counter = 0
+        slides: List[SlideSpec] = []
+        slides.append(self._build_title_slide(plan))
+        slides.append(self._build_roadmap_slide(plan))
+        slides.append(self._build_objectives_slide(plan))
+        if plan.prior_knowledge:
+            slides.append(self._build_prior_knowledge_slide(plan))
+        content_units = self.ledger.get_units_by_chapter(plan.id)
+        if not content_units:
+            content_units = self.ledger.units
+        slides.extend(self._build_core_content_slides(plan, content_units))
+        if plan.misconceptions:
+            slides.extend(self._build_misconception_slides(plan))
+        if plan.questions:
+            for q in plan.questions:
+                q_slide, reveal_slide = self._build_quiz_pair(plan, q)
+                slides.append(q_slide)
+                slides.append(reveal_slide)
+        slides.append(self._build_summary_slide(plan))
+        slides.append(self._build_practice_slide(plan))
+        slides.append(self._build_exit_ticket_slide(plan))
         return slides
 
     def _next_slide_id(self) -> str:
@@ -389,6 +635,7 @@ class StoryboardEngine:
                         target_object_id=f"step_box_{s_idx + 1}",
                         action=AnimationType.APPEAR,
                         description=f"Reveal solution step {s_idx + 1}",
+                        purpose="sequencing",
                     )
                     for s_idx in range(len(steps))
                 ]
@@ -556,12 +803,14 @@ class StoryboardEngine:
                     target_object_id="wrong_box",
                     action=AnimationType.CROSS_OUT,
                     description="Highlight and cross out common mistake",
+                    purpose="error_correction",
                 ),
                 AnimationStep(
                     step_number=2,
                     target_object_id="correct_box",
                     action=AnimationType.APPEAR,
                     description="Reveal correct reasoning",
+                    purpose="error_correction",
                 ),
             ]
 
@@ -626,6 +875,7 @@ class StoryboardEngine:
             quiz=q,
             speaker_notes=q_notes,
             estimated_time_minutes=2.0,
+            objective_ids=list(q.objective_ids),
         )
 
         # Slide B: Answer Reveal
@@ -641,6 +891,7 @@ class StoryboardEngine:
                 target_object_id="answer_reveal_box",
                 action=AnimationType.ANSWER_REVEAL,
                 description="Highlight correct answer and display explanation card",
+                purpose="answer_reveal",
             )
         ]
         r_slide = SlideSpec(
@@ -664,6 +915,7 @@ class StoryboardEngine:
             animation_steps=r_anim,
             speaker_notes=r_notes,
             estimated_time_minutes=1.5,
+            objective_ids=list(q.objective_ids),
         )
 
         return q_slide, r_slide

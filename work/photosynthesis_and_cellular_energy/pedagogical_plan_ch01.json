@@ -1,0 +1,810 @@
+{
+  "chapter_id": "ch01",
+  "chapter_title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+  "subject_domain": "biology",
+  "learner_profile": {
+    "grade": "",
+    "age_range": "",
+    "level": "general",
+    "prior_knowledge": "",
+    "curriculum": "",
+    "lesson_duration_minutes": 45,
+    "language": "en",
+    "exam_orientation": "",
+    "inferred": true
+  },
+  "learning_objectives": [
+    {
+      "id": "O01",
+      "text": "Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+      "verb": "explain",
+      "bloom_level": "understanding",
+      "content_ids": [
+        "C001",
+        "C002",
+        "C003",
+        "C005"
+      ]
+    },
+    {
+      "id": "O02",
+      "text": "Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+      "verb": "compare",
+      "bloom_level": "analysis",
+      "content_ids": [
+        "C001",
+        "C002",
+        "C003",
+        "C005"
+      ]
+    },
+    {
+      "id": "O03",
+      "text": "Calculate procedural content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+      "verb": "calculate",
+      "bloom_level": "application",
+      "content_ids": [
+        "C004",
+        "C007",
+        "C009",
+        "C010"
+      ]
+    },
+    {
+      "id": "O04",
+      "text": "Solve procedural content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+      "verb": "solve",
+      "bloom_level": "application",
+      "content_ids": [
+        "C004",
+        "C007",
+        "C009",
+        "C010"
+      ]
+    },
+    {
+      "id": "O05",
+      "text": "Identify factual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+      "verb": "identify",
+      "bloom_level": "recall",
+      "content_ids": [
+        "C022"
+      ]
+    },
+    {
+      "id": "O06",
+      "text": "Define factual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+      "verb": "define",
+      "bloom_level": "recall",
+      "content_ids": [
+        "C022"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "Cell theory fundamentals",
+    "Basic energy conversion principles"
+  ],
+  "concept_dependencies": [
+    [
+      "Cell theory fundamentals",
+      "Basic energy conversion principles",
+      "**Definition**: Photosynthesis is the anabolic, endergonic b (new)",
+      "$$6\\text{CO}_2 + 6\\text{H}_2\\text{O} + \\text{light energy} \\"
+    ]
+  ],
+  "content_types": {
+    "C001": "conceptual",
+    "C002": "conceptual",
+    "C003": "conceptual",
+    "C004": "procedural",
+    "C005": "conceptual",
+    "C006": "conceptual",
+    "C007": "procedural",
+    "C008": "conceptual",
+    "C009": "procedural",
+    "C010": "procedural",
+    "C011": "procedural",
+    "C012": "conceptual",
+    "C013": "conceptual",
+    "C014": "conceptual",
+    "C015": "conceptual",
+    "C016": "conceptual",
+    "C017": "conceptual",
+    "C018": "procedural",
+    "C019": "procedural",
+    "C020": "conceptual",
+    "C021": "conceptual",
+    "C022": "factual"
+  },
+  "pedagogical_strategies": [
+    "sequencing",
+    "worked_example",
+    "retrieval",
+    "dual_coding",
+    "generative_predict"
+  ],
+  "teaching_sequence": [
+    {
+      "state": "HOOK",
+      "purpose": "create relevance and curiosity for the chapter",
+      "content_ids": [],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "prior_activation",
+      "teacher_move": "ask students to predict before revealing anything",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "PRIOR_KNOWLEDGE",
+      "purpose": "activate prerequisites before new complexity",
+      "content_ids": [],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "prior_activation",
+      "teacher_move": "elicit prior knowledge; cold-call one summary",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "OBJECTIVE",
+      "purpose": "state observable outcomes (backward design)",
+      "content_ids": [],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "strategy": "backward_design",
+      "teacher_move": "read objectives aloud; ask which looks hardest",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C001 in a manageable chunk",
+      "content_ids": [
+        "C001"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C002 in a manageable chunk",
+      "content_ids": [
+        "C002"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "medium"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C003 in a manageable chunk",
+      "content_ids": [
+        "C003"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "RETRIEVAL",
+      "purpose": "retrieve C001, C002, C003 before moving on",
+      "content_ids": [
+        "C001",
+        "C002",
+        "C003"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "strategy": "retrieval",
+      "teacher_move": "hide the source slide; require recall, not recognition",
+      "animation_purpose": "answer_reveal",
+      "complexity": "medium"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C004 in a manageable chunk",
+      "content_ids": [
+        "C004"
+      ],
+      "objective_ids": [
+        "O03",
+        "O04"
+      ],
+      "strategy": "scaffolding",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "high"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C005 in a manageable chunk",
+      "content_ids": [
+        "C005"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C006 in a manageable chunk",
+      "content_ids": [
+        "C006"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "medium"
+    },
+    {
+      "state": "RETRIEVAL",
+      "purpose": "retrieve C004, C005, C006 before moving on",
+      "content_ids": [
+        "C004",
+        "C005",
+        "C006"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "retrieval",
+      "teacher_move": "hide the source slide; require recall, not recognition",
+      "animation_purpose": "answer_reveal",
+      "complexity": "medium"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C007 in a manageable chunk",
+      "content_ids": [
+        "C007"
+      ],
+      "objective_ids": [
+        "O03",
+        "O04"
+      ],
+      "strategy": "scaffolding",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "high"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C008 in a manageable chunk",
+      "content_ids": [
+        "C008"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C009 in a manageable chunk",
+      "content_ids": [
+        "C009"
+      ],
+      "objective_ids": [
+        "O03",
+        "O04"
+      ],
+      "strategy": "scaffolding",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "high"
+    },
+    {
+      "state": "RETRIEVAL",
+      "purpose": "retrieve C007, C008, C009 before moving on",
+      "content_ids": [
+        "C007",
+        "C008",
+        "C009"
+      ],
+      "objective_ids": [
+        "O03",
+        "O04"
+      ],
+      "strategy": "retrieval",
+      "teacher_move": "hide the source slide; require recall, not recognition",
+      "animation_purpose": "answer_reveal",
+      "complexity": "medium"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C010 in a manageable chunk",
+      "content_ids": [
+        "C010"
+      ],
+      "objective_ids": [
+        "O03",
+        "O04"
+      ],
+      "strategy": "scaffolding",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "high"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C011 in a manageable chunk",
+      "content_ids": [
+        "C011"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "scaffolding",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "high"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C012 in a manageable chunk",
+      "content_ids": [
+        "C012"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "RETRIEVAL",
+      "purpose": "retrieve C010, C011, C012 before moving on",
+      "content_ids": [
+        "C010",
+        "C011",
+        "C012"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "retrieval",
+      "teacher_move": "hide the source slide; require recall, not recognition",
+      "animation_purpose": "answer_reveal",
+      "complexity": "medium"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C013 in a manageable chunk",
+      "content_ids": [
+        "C013"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C014 in a manageable chunk",
+      "content_ids": [
+        "C014"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C015 in a manageable chunk",
+      "content_ids": [
+        "C015"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "RETRIEVAL",
+      "purpose": "retrieve C013, C014, C015 before moving on",
+      "content_ids": [
+        "C013",
+        "C014",
+        "C015"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "retrieval",
+      "teacher_move": "hide the source slide; require recall, not recognition",
+      "animation_purpose": "answer_reveal",
+      "complexity": "medium"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C016 in a manageable chunk",
+      "content_ids": [
+        "C016"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C017 in a manageable chunk",
+      "content_ids": [
+        "C017"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C018 in a manageable chunk",
+      "content_ids": [
+        "C018"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "RETRIEVAL",
+      "purpose": "retrieve C016, C017, C018 before moving on",
+      "content_ids": [
+        "C016",
+        "C017",
+        "C018"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "retrieval",
+      "teacher_move": "hide the source slide; require recall, not recognition",
+      "animation_purpose": "answer_reveal",
+      "complexity": "medium"
+    },
+    {
+      "state": "EXPLANATION",
+      "purpose": "teach C019 in a manageable chunk",
+      "content_ids": [
+        "C019"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "explain, then pause; ask 'why does this step follow?'",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "GUIDED_EXAMPLE",
+      "purpose": "model reasoning for C020",
+      "content_ids": [
+        "C020"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "worked_example",
+      "teacher_move": "model the first step (I DO), let students attempt the next (WE DO)",
+      "animation_purpose": "sequencing",
+      "complexity": "low"
+    },
+    {
+      "state": "GUIDED_EXAMPLE",
+      "purpose": "model reasoning for C021",
+      "content_ids": [
+        "C021"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "worked_example",
+      "teacher_move": "model the first step (I DO), let students attempt the next (WE DO)",
+      "animation_purpose": "sequencing",
+      "complexity": "low"
+    },
+    {
+      "state": "RETRIEVAL",
+      "purpose": "retrieve C019, C020, C021 before moving on",
+      "content_ids": [
+        "C019",
+        "C020",
+        "C021"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "strategy": "retrieval",
+      "teacher_move": "hide the source slide; require recall, not recognition",
+      "animation_purpose": "answer_reveal",
+      "complexity": "medium"
+    },
+    {
+      "state": "VISUAL_MODEL",
+      "purpose": "coordinate explanation + visual for C022",
+      "content_ids": [
+        "C022"
+      ],
+      "objective_ids": [
+        "O05",
+        "O06"
+      ],
+      "strategy": "dual_coding",
+      "teacher_move": "pause before revealing each stage; ask what comes next",
+      "animation_purpose": "sequencing",
+      "complexity": "medium"
+    },
+    {
+      "state": "MISCONCEPTION",
+      "purpose": "confront the tempting error with evidence",
+      "content_ids": [],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "strategy": "misconception_check",
+      "teacher_move": "surface the tempting error first; ask why it feels right",
+      "animation_purpose": "error_correction",
+      "complexity": "medium"
+    },
+    {
+      "state": "GUIDED_PRACTICE",
+      "purpose": "partially completed example with fading support",
+      "content_ids": [
+        "C021",
+        "C022"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "strategy": "gradual_release",
+      "teacher_move": "release support gradually; circulate and probe reasoning",
+      "animation_purpose": "",
+      "complexity": "high"
+    },
+    {
+      "state": "INDEPENDENT_PRACTICE",
+      "purpose": "novel application without support",
+      "content_ids": [],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "strategy": "deliberate_practice",
+      "teacher_move": "silent independent work; collect one exit answer",
+      "animation_purpose": "",
+      "complexity": "high"
+    },
+    {
+      "state": "CUMULATIVE_RETRIEVAL",
+      "purpose": "revisit the earliest important idea in a new context",
+      "content_ids": [
+        "C001",
+        "C002"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "strategy": "spacing",
+      "teacher_move": "revisit an earlier concept in a new context",
+      "animation_purpose": "answer_reveal",
+      "complexity": "medium"
+    },
+    {
+      "state": "RECAP",
+      "purpose": "consolidate golden rules",
+      "content_ids": [
+        "C001",
+        "C002",
+        "C003",
+        "C004"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "strategy": "elaboration",
+      "teacher_move": "ask a student to teach back the golden rule",
+      "animation_purpose": "",
+      "complexity": "low"
+    },
+    {
+      "state": "ASSESSMENT",
+      "purpose": "assess each objective with explanatory feedback",
+      "content_ids": [
+        "C001",
+        "C002",
+        "C003",
+        "C004",
+        "C005",
+        "C006",
+        "C007",
+        "C008",
+        "C009",
+        "C010",
+        "C011",
+        "C012",
+        "C013",
+        "C014",
+        "C015",
+        "C016",
+        "C017",
+        "C018",
+        "C019",
+        "C020",
+        "C021",
+        "C022"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "strategy": "formative_assessment",
+      "teacher_move": "think time first; then reveal with explanatory feedback",
+      "animation_purpose": "answer_reveal",
+      "complexity": "medium"
+    }
+  ],
+  "scaffolding_plan": [
+    "I DO: teacher models the full reasoning",
+    "WE DO: partially completed example with fading support",
+    "YOU DO TOGETHER: guided practice with peer/teacher support",
+    "YOU DO: independent novel application"
+  ],
+  "retrieval_plan": [
+    "7. RETRIEVAL: retrieve C001, C002, C003 before moving on",
+    "11. RETRIEVAL: retrieve C004, C005, C006 before moving on",
+    "15. RETRIEVAL: retrieve C007, C008, C009 before moving on",
+    "19. RETRIEVAL: retrieve C010, C011, C012 before moving on",
+    "23. RETRIEVAL: retrieve C013, C014, C015 before moving on",
+    "27. RETRIEVAL: retrieve C016, C017, C018 before moving on",
+    "31. RETRIEVAL: retrieve C019, C020, C021 before moving on",
+    "36. CUMULATIVE_RETRIEVAL: revisit the earliest important idea in a new context",
+    "38. ASSESSMENT: assess each objective with explanatory feedback"
+  ],
+  "assessment_map": {
+    "O01": [
+      "Q01",
+      "Q02",
+      "Q03"
+    ],
+    "O02": [
+      "Q01",
+      "Q02",
+      "Q03"
+    ],
+    "O03": [
+      "Q04"
+    ],
+    "O04": [
+      "Q04"
+    ],
+    "O05": [
+      "Q05"
+    ],
+    "O06": [
+      "Q05"
+    ]
+  },
+  "misconceptions": [
+    {
+      "topic": "Chapter 4: Photosynthesis and the Transformation of Energy",
+      "wrong_idea": "The Dark Reactions and Plant Respiration\nCommon Mistake: Plants perform photosynthesis during the day and cellular respiration only at night; furthermore, the 'dark reactions' (Calvin cycle) occur only in total darkness.",
+      "why_wrong": "It overlooks critical qualifications or mathematical laws.",
+      "correct_idea": "Follow fundamental principles.",
+      "correct_reasoning": "Follow fundamental principles.",
+      "source_unit_id": "C012"
+    }
+  ],
+  "worked_examples": [
+    {
+      "problem": "Practice Problem 1: Trace the path of an electron extracted from water photolysis in Photosystem II until its terminal reduction of NADP+ to NADPH.",
+      "steps": [],
+      "content_ids": [
+        "C020"
+      ],
+      "verify": "check units, boundary conditions, and result"
+    },
+    {
+      "problem": "Practice Problem 2: Contrast the physiological advantages and energetic costs of the C3 photosynthetic pathway with the C4 dicarboxylic acid pathway in arid environments.",
+      "steps": [],
+      "content_ids": [
+        "C021"
+      ],
+      "verify": "check units, boundary conditions, and result"
+    }
+  ],
+  "practice_plan": [
+    "Explain the fundamental principles of Chapter 4: Photosynthesis and the Transformation of Energy in your own words.",
+    "Solve a multi-step application using the core relations discussed.",
+    "Complete the faded worked example (fill the missing step, then verify).",
+    "Explain why the addressed misconception is incorrect."
+  ],
+  "pacing_notes": "~45 min budget; 7 high-complexity move(s) get smaller chunks and extra checks; factual sections progress faster; procedural sections reserve time for worked examples and practice.",
+  "safety_warnings": []
+}
