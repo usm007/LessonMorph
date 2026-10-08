@@ -1,0 +1,462 @@
+{
+  "scenes": [
+    {
+      "scene_id": "s01",
+      "purpose": "create relevance and curiosity for the chapter",
+      "instructional_state": "HOOK",
+      "learning_goal": [
+        "Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+        "Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.; Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.\n\nASK STUDENTS (ORAL CHECK):\nask students to predict before revealing anything — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "ask students to predict before revealing anything — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s02",
+      "purpose": "activate prerequisites before new complexity",
+      "instructional_state": "PRIOR_KNOWLEDGE",
+      "learning_goal": [
+        "Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+        "Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.; Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.\n\nASK STUDENTS (ORAL CHECK):\nelicit prior knowledge; cold-call one summary — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "elicit prior knowledge; cold-call one summary — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s03",
+      "purpose": "state observable outcomes (backward design)",
+      "instructional_state": "OBJECTIVE",
+      "learning_goal": [
+        "Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+        "Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.; Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.\n\nASK STUDENTS (ORAL CHECK):\nread objectives aloud; ask which looks hardest — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "read objectives aloud; ask which looks hardest — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s04",
+      "purpose": "teach C001 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "concept: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: concept: Chapter 4: Photosynthesis and the Transformation of Energy\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [
+        "C001"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "concept_id": "C001",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s05",
+      "purpose": "teach C002 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "definition: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: definition: Chapter 4: Photosynthesis and the Transformation of Energy\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [
+        "C002"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "concept_id": "C002",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s06",
+      "purpose": "Assess: If the thylakoid membrane becomes permeable to protons due to a chemical ionopho",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?\n\nASK STUDENTS (ORAL CHECK):\nThink time first; who can explain their reasoning?",
+      "teacher_prompt": "Think time first; who can explain their reasoning?",
+      "source_ids": [
+        "C018"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s07",
+      "purpose": "teach C004 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "derivation: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: derivation: Chapter 4: Photosynthesis and the Transformation of Energy\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [
+        "C004"
+      ],
+      "objective_ids": [
+        "O03",
+        "O04"
+      ],
+      "concept_id": "C004",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s08",
+      "purpose": "teach C006 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "mechanism: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: mechanism: Chapter 4: Photosynthesis and the Transformation of Energy\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [
+        "C006"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C006",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s09",
+      "purpose": "Assess: 8. Independent Practice and Exam-Style Problems",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "8. Independent Practice and Exam-Style Problems"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: 8. Independent Practice and Exam-Style Problems\n\nASK STUDENTS (ORAL CHECK):\nThink time first; who can explain their reasoning?",
+      "teacher_prompt": "Think time first; who can explain their reasoning?",
+      "source_ids": [
+        "C019"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s10",
+      "purpose": "teach C007 in a manageable chunk",
+      "instructional_state": "GUIDED_EXAMPLE",
+      "learning_goal": [
+        "calculation: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: calculation: Chapter 4: Photosynthesis and the Transformation of Energy\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — worked reasoning",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — worked reasoning",
+      "source_ids": [
+        "C007",
+        "C008",
+        "C009",
+        "C010",
+        "C011"
+      ],
+      "objective_ids": [
+        "O03",
+        "O04"
+      ],
+      "concept_id": "C007",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s11",
+      "purpose": "Assess: Calculate (O03): 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ +",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "Calculate (O03): 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ +"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Calculate (O03): 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ +\n\nASK STUDENTS (ORAL CHECK):\nThink time first; who can explain their reasoning?",
+      "teacher_prompt": "Think time first; who can explain their reasoning?",
+      "source_ids": [
+        "C004"
+      ],
+      "objective_ids": [
+        "O03",
+        "O04"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s12",
+      "purpose": "teach C012 in a manageable chunk",
+      "instructional_state": "MISCONCEPTION",
+      "learning_goal": [
+        "misconception: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: misconception: Chapter 4: Photosynthesis and the Transformation of Energy\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [
+        "C012",
+        "C013",
+        "C014"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C012",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s13",
+      "purpose": "Assess: True or False: Definition: Photosynthesis is the anabolic, endergonic biochemica",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "True or False: Definition: Photosynthesis is the anabolic, endergonic biochemical process by which ph"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: True or False: Definition: Photosynthesis is the anabolic, endergonic biochemical process by which ph\n\nASK STUDENTS (ORAL CHECK):\nThink time first; who can explain their reasoning?",
+      "teacher_prompt": "Think time first; who can explain their reasoning?",
+      "source_ids": [
+        "C002"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s14",
+      "purpose": "retrieve C013, C014, C015 before moving on",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "retrieve Respiration is required continuously (24/7) to sustain baseline metabolic homeos; Cellular respiration occurs around the clock in all living plant tissues. The Ca from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: retrieve Respiration is required continuously (24/7) to sustain baseline metabolic homeos; Cellular respiration occurs around the clock in all living plant tissues. The Ca from memory\n\nASK STUDENTS (ORAL CHECK):\nhide the source slide; require recall, not recognition",
+      "teacher_prompt": "hide the source slide; require recall, not recognition",
+      "source_ids": [
+        "C013",
+        "C014",
+        "C015"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s15",
+      "purpose": "teach C016 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "experimental_data: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: experimental_data: Chapter 4: Photosynthesis and the Transformation of Energy\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [
+        "C016"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C016",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s16",
+      "purpose": "retrieve C016, C017, C018 before moving on",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "retrieve the data table; If the thylakoid membrane becomes permeable to protons due to a chemical ionopho from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: retrieve the data table; If the thylakoid membrane becomes permeable to protons due to a chemical ionopho from memory\n\nASK STUDENTS (ORAL CHECK):\nhide the source slide; require recall, not recognition",
+      "teacher_prompt": "hide the source slide; require recall, not recognition",
+      "source_ids": [
+        "C016",
+        "C017",
+        "C018"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s17",
+      "purpose": "model reasoning for C020",
+      "instructional_state": "GUIDED_EXAMPLE",
+      "learning_goal": [
+        "process: apply the lesson"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: process: apply the lesson\n\nASK STUDENTS (ORAL CHECK):\nmodel the first step (I DO), let students attempt the next (WE DO) — Practice Problem 1: Trace the path of an electron extracted from water photolysis in Photosystem II until its terminal r",
+      "teacher_prompt": "model the first step (I DO), let students attempt the next (WE DO) — Practice Problem 1: Trace the path of an electron extracted from water photolysis in Photosystem II until its terminal r",
+      "source_ids": [
+        "C020"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C020",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s18",
+      "purpose": "model reasoning for C021",
+      "instructional_state": "GUIDED_EXAMPLE",
+      "learning_goal": [
+        "comparison: apply the lesson"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: comparison: apply the lesson\n\nASK STUDENTS (ORAL CHECK):\nmodel the first step (I DO), let students attempt the next (WE DO) — Practice Problem 2: Contrast the physiological advantages and energetic costs of the C3 photosynthetic pathway with the",
+      "teacher_prompt": "model the first step (I DO), let students attempt the next (WE DO) — Practice Problem 2: Contrast the physiological advantages and energetic costs of the C3 photosynthetic pathway with the",
+      "source_ids": [
+        "C021"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C021",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s19",
+      "purpose": "retrieve C019, C020, C021 before moving on",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "retrieve Practice Problem 1: Trace the path of an electron extracted from water photolysi; Practice Problem 2: Contrast the physiological advantages and energetic costs of from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: retrieve Practice Problem 1: Trace the path of an electron extracted from water photolysi; Practice Problem 2: Contrast the physiological advantages and energetic costs of from memory\n\nASK STUDENTS (ORAL CHECK):\nhide the source slide; require recall, not recognition",
+      "teacher_prompt": "hide the source slide; require recall, not recognition",
+      "source_ids": [
+        "C019",
+        "C020",
+        "C021"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s20",
+      "purpose": "coordinate explanation + visual for C022",
+      "instructional_state": "VISUAL_MODEL",
+      "learning_goal": [
+        "experimental_data: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: experimental_data: Chapter 4: Photosynthesis and the Transformation of Energy\n\nASK STUDENTS (ORAL CHECK):\npause before revealing each stage; ask what comes next — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "pause before revealing each stage; ask what comes next — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [
+        "C022"
+      ],
+      "objective_ids": [
+        "O05",
+        "O06"
+      ],
+      "concept_id": "C022",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s21",
+      "purpose": "revisit the earliest important idea in a new context",
+      "instructional_state": "CUMULATIVE_RETRIEVAL",
+      "learning_goal": [
+        "retrieve Introduction and Big Picture; Definition: Photosynthesis is the anabolic, endergonic biochemical process by wh from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: retrieve Introduction and Big Picture; Definition: Photosynthesis is the anabolic, endergonic biochemical process by wh from memory\n\nASK STUDENTS (ORAL CHECK):\nrevisit an earlier concept in a new context",
+      "teacher_prompt": "revisit an earlier concept in a new context",
+      "source_ids": [
+        "C001",
+        "C002"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s22",
+      "purpose": "consolidate golden rules",
+      "instructional_state": "RECAP",
+      "learning_goal": [
+        "Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+        "Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.; Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.\n\nASK STUDENTS (ORAL CHECK):\nask a student to teach back the golden rule — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "ask a student to teach back the golden rule — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s23",
+      "purpose": "Assess: Identify (O05): Headers: Pigment Component, Peak Absorption Blue (nm), Peak Abso",
+      "instructional_state": "ASSESSMENT",
+      "learning_goal": [
+        "Identify (O05): Headers: Pigment Component, Peak Absorption Blue (nm), Peak Absorption Red (nm), Relative Abundance (%)\nRows:"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Identify (O05): Headers: Pigment Component, Peak Absorption Blue (nm), Peak Absorption Red (nm), Relative Abundance (%)\nRows:\n\nASK STUDENTS (ORAL CHECK):\nThink time first; who can explain their reasoning?",
+      "teacher_prompt": "Think time first; who can explain their reasoning?",
+      "source_ids": [
+        "C022"
+      ],
+      "objective_ids": [
+        "O05",
+        "O06"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s24",
+      "purpose": "Rapid formative exit check",
+      "instructional_state": "EXIT",
+      "learning_goal": [
+        "surface one takeaway and one question"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: surface one takeaway and one question",
+      "teacher_prompt": "",
+      "source_ids": [],
+      "objective_ids": [],
+      "concept_id": "",
+      "estimated_minutes": 2.0
+    }
+  ]
+}

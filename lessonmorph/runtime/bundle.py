@@ -54,6 +54,7 @@ def build_scenes(blueprint: Dict[str, Any],
     notes_by_index = [s.get("notes", "") for s in storyboard]
     scenes: List[Scene] = []
     teachers: List[TeacherScene] = []
+    recent: List[str] = []  # composition families, oldest first (variety tracker)
     i, n = 0, 1
     while i < len(slides):
         s = slides[i]
@@ -64,13 +65,34 @@ def build_scenes(blueprint: Dict[str, Any],
                 == body.get("question_id") and body.get("question_id"))
         group = [s, nxt] if pair else [s]
         scene_id = f"s{n:02d}"
-        directed = VisualDirector.direct(s)
+        directed = VisualDirector.direct(s, recent)
+        if pair:
+            # Merged Q&A renders as its own reveal family with real geometry:
+            # prompt, options, and verdict bands from the family template.
+            from lessonmorph.runtime.visual_director import (
+                family_regions as _regions, select_variant as _sv)
+            directed["composition"] = "answer_reveal"
+            directed["variant"] = _sv("answer_reveal", "standard", recent)
+            directed["visual"]["composition"] = "answer_reveal"
+            directed["visual"]["variant"] = directed["variant"]
+            pair_regions = _regions("answer_reveal", directed["variant"],
+                                    ["prompt", "options", "answer"])
+            by_kind = {}
+            for layer, region in zip(directed["layers"], pair_regions):
+                layer["region"] = region
+                by_kind[layer["kind"]] = layer
+            directed["_pair_regions"] = pair_regions
+        recent.append(directed.get("composition", ""))
+        recent = recent[-6:]
         layers = [SceneLayer(**l) for l in directed["layers"]]
         states = [SceneState(**st) for st in directed["states"]]
         motion_in = MotionDirector.direct(
-            s, (storyboard[i].get("animation_purposes", []) if i < len(storyboard) else []))
+            s, (storyboard[i].get("animation_purposes", []) if i < len(storyboard) else []),
+            layers=[{"id": l.id} for l in layers],
+            states=[{"visible_layers": st.visible_layers} for st in states])
         motion = SceneMotion(enter_transition=motion_in["enter_transition"],
-                             advance=motion_in["advance"])
+                             advance=motion_in["advance"],
+                             paths=motion_in.get("paths", []))
         content = directed["content"]
         visual = {k: v for k, v in directed["visual"].items() if v}
         if visual.get("equation") and isinstance(visual["equation"], dict):
@@ -86,11 +108,14 @@ def build_scenes(blueprint: Dict[str, Any],
             if not content.get("explanation"):
                 content["explanation"] = str(assessment.get("explanation", ""))
         if pair:
+            pair_regions = directed.pop("_pair_regions", None) or []
+            answer_region = pair_regions[2] if len(pair_regions) > 2 else {
+                "x": 96, "y": 470, "w": 1088, "h": 170}
             states.append(SceneState(id="answered", label="Answer",
                                      visible_layers=[l.id for l in layers]
                                      + ["answer"]))
             layers.append(SceneLayer(id="answer", kind="answer",
-                                     region={"x": 96, "y": 470, "w": 1088, "h": 170},
+                                     region=answer_region,
                                      content_ref="answer", reveal_at=len(states) - 1,
                                      z=len(layers)))
             content["answer"] = {

@@ -14,8 +14,9 @@ interface SceneLayer {
 
 interface SceneState { id: string; label: string; visible_layers: string[]; }
 
-interface MotionStep { step: number; effect: string; duration_ms: number; }
-interface SceneMotion { enter_transition: string; advance: MotionStep[]; }
+interface MotionStep { step: number; primitive: string; effect: string; duration_ms: number; targets: string[]; why: string; }
+interface MotionPath { kind: string; via: string[]; duration_ms: number; why: string; }
+interface SceneMotion { enter_transition: string; advance: MotionStep[]; paths: MotionPath[]; }
 
 interface SceneInteraction {
   type: string; // none|choice|self_check|open

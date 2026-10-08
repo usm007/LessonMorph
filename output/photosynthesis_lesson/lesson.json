@@ -1,0 +1,2872 @@
+{
+  "lesson_id": "photosynthesis_and_cellular_energy",
+  "title": "Principles of Cellular Bioenergetics",
+  "canvas": {
+    "width": 1280,
+    "height": 720
+  },
+  "scenes": [
+    {
+      "scene_id": "s01",
+      "representation": "title",
+      "task": "concept",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "title",
+          "visible_layers": [
+            "title",
+            "subtitle"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "detail",
+          "visible_layers": [
+            "title",
+            "subtitle"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 400.0,
+            "w": 700.0,
+            "h": 220.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "subtitle",
+          "kind": "subtitle",
+          "region": {
+            "x": 830.0,
+            "y": 400.0,
+            "w": 354.0,
+            "h": 220.0
+          },
+          "content_ref": "subtitle",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "unit": "BIOLOGY",
+        "topic": "Chapter 4: Photosynthesis and the Transformation of Energy"
+      },
+      "visual": {
+        "composition": "cinematic_hook",
+        "variant": "bottom-left",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "subtitle"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s02",
+      "representation": "concept_card",
+      "task": "concept",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "title",
+          "visible_layers": [
+            "title",
+            "list"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "detail",
+          "visible_layers": [
+            "title",
+            "list"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 120.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "list",
+          "kind": "list",
+          "region": {
+            "x": 96.0,
+            "y": 196.0,
+            "w": 640.0,
+            "h": 460.0
+          },
+          "content_ref": "list",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "points": [],
+        "caption": ""
+      },
+      "visual": {
+        "composition": "hero_concept",
+        "variant": "left-anchored",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "list"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s03",
+      "representation": "objectives",
+      "task": "concept",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "title",
+          "visible_layers": [
+            "title",
+            "list"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "detail",
+          "visible_layers": [
+            "title",
+            "list"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 120.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "list",
+          "kind": "list",
+          "region": {
+            "x": 190.0,
+            "y": 206.0,
+            "w": 900.0,
+            "h": 438.0
+          },
+          "content_ref": "list",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "objectives": [
+          "Explain conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+          "Compare conceptual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+          "Calculate procedural content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+          "Solve procedural content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+          "Identify factual content in Chapter 4: Photosynthesis and the Transformation of Energy.",
+          "Define factual content in Chapter 4: Photosynthesis and the Transformation of Energy."
+        ]
+      },
+      "visual": {
+        "composition": "hero_concept",
+        "variant": "centered",
+        "density": "standard"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "list"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s04",
+      "representation": "concept_card",
+      "task": "concept",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "title",
+          "visible_layers": [
+            "title",
+            "list"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "body",
+          "visible_layers": [
+            "title",
+            "list"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 120.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "list",
+          "kind": "list",
+          "region": {
+            "x": 96.0,
+            "y": 196.0,
+            "w": 640.0,
+            "h": 460.0
+          },
+          "content_ref": "list",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Introduction and Big Picture",
+        "kicker": "",
+        "points": [
+          "1. Introduction and Big Picture",
+          "All biological activity on Earth is ultimately driven by solar energy. Phototrophic organisms—including terrestrial green plants, cyanobacteria, and eukaryotic algae—possess the specialized machinery required to capture"
+        ],
+        "caption": ""
+      },
+      "visual": {
+        "composition": "hero_concept",
+        "variant": "left-anchored",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "list"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s05",
+      "representation": "definition_focus",
+      "task": "definition",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "title",
+          "visible_layers": [
+            "title",
+            "text"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "body",
+          "visible_layers": [
+            "title",
+            "text"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 120.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "text",
+          "kind": "text",
+          "region": {
+            "x": 190.0,
+            "y": 206.0,
+            "w": 900.0,
+            "h": 438.0
+          },
+          "content_ref": "text",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "term": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "definition": "Definition: Photosynthesis is the anabolic, endergonic biochemical process by which photoautotrophic organisms synthesize high-energy hexose carbohydrates from inorganic carbon dioxide and water, using radiant solar energy captured by photosynthetic pigments, with molecular oxygen released as a metabolic byproduct."
+      },
+      "visual": {
+        "composition": "hero_concept",
+        "variant": "centered",
+        "density": "standard"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "text"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s06",
+      "representation": "mcq",
+      "task": "prediction",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "prompt",
+            "options"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "think",
+          "visible_layers": [
+            "prompt",
+            "options"
+          ]
+        },
+        {
+          "id": "answered",
+          "label": "Answer",
+          "visible_layers": [
+            "prompt",
+            "options",
+            "answer"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 96.0,
+            "y": 56.0,
+            "w": 1088.0,
+            "h": 88.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "options",
+          "kind": "options",
+          "region": {
+            "x": 96.0,
+            "y": 156.0,
+            "w": 1088.0,
+            "h": 296.0
+          },
+          "content_ref": "options",
+          "reveal_at": 1,
+          "z": 1
+        },
+        {
+          "id": "answer",
+          "kind": "answer",
+          "region": {
+            "x": 96.0,
+            "y": 464.0,
+            "w": 1088.0,
+            "h": 192.0
+          },
+          "content_ref": "answer",
+          "reveal_at": 3,
+          "z": 2
+        }
+      ],
+      "content": {
+        "title": "Check for Understanding",
+        "kicker": "2. The Overall Chemical Reaction and Thermodynamic Balance\nThe summary stoichiometric chemical equation for oxygenic photosynthesis is expressed as:",
+        "prompt": "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?",
+        "options": {
+          "A": "Photolysis of water ceases immediately",
+          "B": "Photophosphorylation of ADP to ATP stops, while electron transport may continue",
+          "C": "Carbon dioxide fixation in the stroma accelerates dramatically",
+          "D": "Chlorophyll pigments cease photon absorption"
+        },
+        "explanation": "The thylakoid lumen holds the proton motive force built by electron transport. A proton-permeable membrane collapses that gradient, so ATP synthase cannot phosphorylate ADP to ATP, while electron flow itself may continue.",
+        "answer": {
+          "correct": "B",
+          "explanation": "The thylakoid lumen holds the proton motive force built by electron transport. A proton-permeable membrane collapses that gradient, so ATP synthase cannot phosphorylate ADP to ATP, while electron flow itself may continue.",
+          "prompt": "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?"
+        }
+      },
+      "visual": {
+        "composition": "answer_reveal",
+        "variant": "banner",
+        "density": "standard"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "choice",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "correct": "B",
+        "explanation": "The thylakoid lumen holds the proton motive force built by electron transport. A proton-permeable membrane collapses that gradient, so ATP synthase cannot phosphorylate ADP to ATP, while electron flow itself may continue."
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "options"
+            ],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s07",
+      "representation": "equation_focus",
+      "task": "derivation",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "equation",
+          "visible_layers": [
+            "title",
+            "equation"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "terms",
+          "visible_layers": [
+            "title",
+            "equation",
+            "list"
+          ]
+        },
+        {
+          "id": "s3",
+          "label": "meaning",
+          "visible_layers": [
+            "title",
+            "equation",
+            "list"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 56.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "equation",
+          "kind": "equation",
+          "region": {
+            "x": 140.0,
+            "y": 200.0,
+            "w": 1000.0,
+            "h": 300.0
+          },
+          "content_ref": "equation",
+          "reveal_at": 1,
+          "z": 1
+        },
+        {
+          "id": "list",
+          "kind": "list",
+          "region": {
+            "x": 140.0,
+            "y": 520.0,
+            "w": 1000.0,
+            "h": 136.0
+          },
+          "content_ref": "list",
+          "reveal_at": 2,
+          "z": 2
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "context": "6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂"
+      },
+      "visual": {
+        "subject": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "equation": {
+          "lhs": [
+            {
+              "coefficient": "6",
+              "species": "CO₂",
+              "note": "atmospheric carbon dioxide, entering via foliar stomatal pores"
+            },
+            {
+              "coefficient": "6",
+              "species": "H₂O",
+              "note": "water absorbed from the rhizosphere through root xylem tissue"
+            }
+          ],
+          "energy": "light energy",
+          "arrow": "→",
+          "rhs": [
+            {
+              "coefficient": "",
+              "species": "C₆H₁₂O₆",
+              "note": "glucose, the primary phosphorylated monosaccharide substrate"
+            },
+            {
+              "coefficient": "6",
+              "species": "O₂",
+              "note": "molecular diatomic oxygen, released as a gaseous byproduct"
+            }
+          ]
+        },
+        "composition": "equation_focus",
+        "variant": "monument",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "fade",
+            "effect": "fade",
+            "duration_ms": 250,
+            "targets": [
+              "equation"
+            ],
+            "why": "enter a supporting element without stealing focus"
+          },
+          {
+            "step": 2,
+            "primitive": "fade",
+            "effect": "fade",
+            "duration_ms": 250,
+            "targets": [
+              "list"
+            ],
+            "why": "enter a supporting element without stealing focus"
+          },
+          {
+            "step": 3,
+            "primitive": "fade",
+            "effect": "fade",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "enter a supporting element without stealing focus"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s08",
+      "representation": "labeled_diagram",
+      "task": "mechanism",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "Thylakoid Membrane System",
+          "visible_layers": [
+            "title",
+            "diagram"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "Stroma",
+          "visible_layers": [
+            "title",
+            "diagram",
+            "note"
+          ]
+        },
+        {
+          "id": "s3",
+          "label": "Thylakoid Lumen",
+          "visible_layers": [
+            "title",
+            "diagram",
+            "note"
+          ]
+        },
+        {
+          "id": "s4",
+          "label": "functions",
+          "visible_layers": [
+            "title",
+            "diagram",
+            "note"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 80.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "diagram",
+          "kind": "diagram",
+          "region": {
+            "x": 224.0,
+            "y": 150.0,
+            "w": 832.0,
+            "h": 326.0
+          },
+          "content_ref": "diagram",
+          "reveal_at": 1,
+          "z": 1
+        },
+        {
+          "id": "note",
+          "kind": "note",
+          "region": {
+            "x": 224.0,
+            "y": 488.0,
+            "w": 832.0,
+            "h": 168.0
+          },
+          "content_ref": "note",
+          "reveal_at": 2,
+          "z": 2
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "points": [],
+        "caption": "3. Subcellular Architecture: The Chloroplast\nPhotosynthetic reactions in eukaryotes are compartmentalized within double-membrane chloroplasts.\nThylakoid Membrane System: Site of the light-dependent reactions, housing Photosystem II (P680), Photosystem I (P700), the cytochrome b6f complex, and ATP sy"
+      },
+      "visual": {
+        "subject": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "structure": [
+          "Thylakoid Membrane System",
+          "Stroma",
+          "Thylakoid Lumen"
+        ],
+        "labels": [
+          {
+            "name": "Thylakoid Membrane System",
+            "target": "thylakoid_membrane_system",
+            "explanation": "Site of the light-dependent reactions"
+          },
+          {
+            "name": "Stroma",
+            "target": "stroma",
+            "explanation": "The semi-fluid matrix surrounding thylakoids"
+          },
+          {
+            "name": "Thylakoid Lumen",
+            "target": "thylakoid_lumen",
+            "explanation": "The acidified interior compartment across which a transmembrane proton motive force (ΔμH^₊) is established."
+          }
+        ],
+        "composition": "diagram_centered",
+        "variant": "hub",
+        "density": "standard"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "diagram"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "note"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 3,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 4,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": [
+          {
+            "kind": "transit",
+            "via": [
+              "Thylakoid Membrane System",
+              "Stroma",
+              "Thylakoid Lumen"
+            ],
+            "duration_ms": 600,
+            "why": "a carrier visibly travels the mechanism step by step"
+          }
+        ]
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s09",
+      "representation": "retrieval",
+      "task": "retrieval",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "think",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "answered",
+          "label": "Answer",
+          "visible_layers": [
+            "prompt",
+            "answer"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 96.0,
+            "y": 60.0,
+            "w": 640.0,
+            "h": 180.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "answer",
+          "kind": "answer",
+          "region": {
+            "x": 760.0,
+            "y": 60.0,
+            "w": 424.0,
+            "h": 584.0
+          },
+          "content_ref": "answer",
+          "reveal_at": 3,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Check for Understanding",
+        "kicker": "",
+        "prompt": "8. Independent Practice and Exam-Style Problems",
+        "options": {},
+        "explanation": "",
+        "answer": {
+          "correct": "",
+          "explanation": "",
+          "prompt": "8. Independent Practice and Exam-Style Problems"
+        }
+      },
+      "visual": {
+        "composition": "answer_reveal",
+        "variant": "inline",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "self_check",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s10",
+      "representation": "worked_calculation",
+      "task": "calculation",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "problem",
+          "visible_layers": [
+            "title",
+            "text"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "step₁",
+          "visible_layers": [
+            "title",
+            "text",
+            "list"
+          ]
+        },
+        {
+          "id": "s3",
+          "label": "step₂",
+          "visible_layers": [
+            "title",
+            "text",
+            "list"
+          ]
+        },
+        {
+          "id": "s4",
+          "label": "step₃",
+          "visible_layers": [
+            "title",
+            "text",
+            "list"
+          ]
+        },
+        {
+          "id": "s5",
+          "label": "verify",
+          "visible_layers": [
+            "title",
+            "text",
+            "list"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 56.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "text",
+          "kind": "text",
+          "region": {
+            "x": 96.0,
+            "y": 120.0,
+            "w": 1088.0,
+            "h": 130.0
+          },
+          "content_ref": "text",
+          "reveal_at": 1,
+          "z": 1
+        },
+        {
+          "id": "list",
+          "kind": "list",
+          "region": {
+            "x": 96.0,
+            "y": 266.0,
+            "w": 1088.0,
+            "h": 378.0
+          },
+          "content_ref": "list",
+          "reveal_at": 2,
+          "z": 2
+        }
+      ],
+      "content": {
+        "title": "Worked Example",
+        "kicker": "",
+        "problem": "4. Worked Calculation: Photochemical Quantum Yield and Efficiency\nA researcher illuminates a suspension of Chlorella vulgaris with monochromatic red light at a wavelength of λ = 680 nm. The molar photon flux absorbed is 8.0 mol of photons.\nDetermine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved.",
+        "givens": [
+          "chromatic red light at a wavelength of λ = 680 nm"
+        ],
+        "steps": [
+          "Step 1: Determine the ratio of oxygen evolution to photon absorption:\nMoles of O₂ = 8.0 mol photons/8 photons/molecule = 1.0 mol O₂",
+          "Step 2: Relate oxygen evolution to glucose synthesis using the stoichiometric equation:\n6 mol O₂ evolved corresponds to 1 mol C₆H₁₂O₆ synthesized.",
+          "Step 3: Compute the theoretical glucose yield:\nMoles of Glucose = 1.0 mol O₂/6 ≈ 0.167 mol of Glucose (approx. 30.0 grams)."
+        ],
+        "verify": "check units, boundary conditions, and result"
+      },
+      "visual": {
+        "composition": "equation_focus",
+        "variant": "with-legend",
+        "density": "standard"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "text"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "list"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 3,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 4,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 5,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s11",
+      "representation": "retrieval",
+      "task": "calculation",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "think",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "answered",
+          "label": "Answer",
+          "visible_layers": [
+            "prompt",
+            "answer"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 96.0,
+            "y": 56.0,
+            "w": 1088.0,
+            "h": 88.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "answer",
+          "kind": "answer",
+          "region": {
+            "x": 96.0,
+            "y": 464.0,
+            "w": 1088.0,
+            "h": 192.0
+          },
+          "content_ref": "answer",
+          "reveal_at": 3,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Check for Understanding",
+        "kicker": "",
+        "prompt": "Calculate (O03): 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ +",
+        "options": {},
+        "explanation": "",
+        "answer": {
+          "correct": "",
+          "explanation": "",
+          "prompt": "Calculate (O03): 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ +"
+        }
+      },
+      "visual": {
+        "composition": "answer_reveal",
+        "variant": "banner",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "self_check",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s12",
+      "representation": "contrast",
+      "task": "misconception",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "temptingₑrror",
+          "visible_layers": [
+            "title",
+            "text-1"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "conflict",
+          "visible_layers": [
+            "title",
+            "text-1",
+            "text-2"
+          ]
+        },
+        {
+          "id": "s3",
+          "label": "correction",
+          "visible_layers": [
+            "title",
+            "text-1",
+            "text-2"
+          ]
+        },
+        {
+          "id": "s4",
+          "label": "check",
+          "visible_layers": [
+            "title",
+            "text-1",
+            "text-2"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 120.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "text-1",
+          "kind": "text",
+          "region": {
+            "x": 96.0,
+            "y": 196.0,
+            "w": 640.0,
+            "h": 460.0
+          },
+          "content_ref": "text-1",
+          "reveal_at": 1,
+          "z": 1
+        },
+        {
+          "id": "text-2",
+          "kind": "text",
+          "region": {
+            "x": 760.0,
+            "y": 196.0,
+            "w": 424.0,
+            "h": 460.0
+          },
+          "content_ref": "text-2",
+          "reveal_at": 2,
+          "z": 2
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "wrong_idea": "The Dark Reactions and Plant Respiration\nCommon Mistake: Plants perform photosynthesis during the day and cellular respiration only at night; furthermore, the 'dark reactions' (Calvin cycle) occur only in total darkness.",
+        "why_wrong": "Respiration is required continuously (24/7) to sustain baseline metabolic homeostasis and ATP production in all living plant cells. Furthermore, several key Calvin cycle enzymes (e.g., phosphoribulokinase, sedoheptulose-1,7-bisphosphatase, and RuBisCO activase) are light-activated via the thioredoxi",
+        "correct_idea": "Cellular respiration occurs around the clock in all living plant tissues. The Calvin cycle is 'light-independent' only in the sense that it does not directly absorb photons, but it relies continuously on ATP and NADPH generated by light reactions and is deactivated in extended darkness.",
+        "correct_reasoning": "Cellular respiration occurs around the clock in all living plant tissues. The Calvin cycle is 'light-independent' only in the sense that it does not directly absorb photons, but it relies continuously on ATP and NADPH generated by light reactions and is deactivated in extended darkness."
+      },
+      "visual": {
+        "composition": "misconception",
+        "variant": "myth-right",
+        "density": "dense"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "text-1"
+            ],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "text-2"
+            ],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 3,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 4,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s13",
+      "representation": "true_false",
+      "task": "retrieval",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "prompt",
+            "options"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "think",
+          "visible_layers": [
+            "prompt",
+            "options"
+          ]
+        },
+        {
+          "id": "answered",
+          "label": "Answer",
+          "visible_layers": [
+            "prompt",
+            "options",
+            "answer"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 96.0,
+            "y": 56.0,
+            "w": 1088.0,
+            "h": 88.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "options",
+          "kind": "options",
+          "region": {
+            "x": 96.0,
+            "y": 156.0,
+            "w": 1088.0,
+            "h": 296.0
+          },
+          "content_ref": "options",
+          "reveal_at": 1,
+          "z": 1
+        },
+        {
+          "id": "answer",
+          "kind": "answer",
+          "region": {
+            "x": 96.0,
+            "y": 464.0,
+            "w": 1088.0,
+            "h": 192.0
+          },
+          "content_ref": "answer",
+          "reveal_at": 3,
+          "z": 2
+        }
+      ],
+      "content": {
+        "title": "Check for Understanding",
+        "kicker": "",
+        "prompt": "True or False: Definition: Photosynthesis is the anabolic, endergonic biochemical process by which ph",
+        "options": {
+          "A": "True",
+          "B": "False"
+        },
+        "explanation": "Based on the core definition: 'Definition: Photosynthesis is the anabolic, endergonic biochemical process by which ph'.",
+        "answer": {
+          "correct": "A",
+          "explanation": "Based on the core definition: 'Definition: Photosynthesis is the anabolic, endergonic biochemical process by which ph'.",
+          "prompt": "True or False: Definition: Photosynthesis is the anabolic, endergonic biochemical process by which ph"
+        }
+      },
+      "visual": {
+        "composition": "answer_reveal",
+        "variant": "banner",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "choice",
+        "options": [
+          "A",
+          "B"
+        ],
+        "correct": "A",
+        "explanation": "Based on the core definition: 'Definition: Photosynthesis is the anabolic, endergonic biochemical process by which ph'."
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "options"
+            ],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s14",
+      "representation": "retrieval",
+      "task": "retrieval",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "response",
+          "visible_layers": [
+            "prompt"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 140.0,
+            "y": 140.0,
+            "w": 1000.0,
+            "h": 140.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        }
+      ],
+      "content": {
+        "title": "Recall & Reconstruct",
+        "kicker": "6. Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+        "prompt": "Without looking back: reconstruct Respiration is required continuously (24/7) to sustain baseline metabolic homeos; Cellular respiration occurs around the clock in all living plant tissues. The Ca.",
+        "options": {},
+        "explanation": ""
+      },
+      "visual": {
+        "composition": "question_focus",
+        "variant": "centered",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "self_check",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s15",
+      "representation": "data_table",
+      "task": "experimental_data",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "headers",
+          "visible_layers": [
+            "title",
+            "table"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "rows",
+          "visible_layers": [
+            "title",
+            "table"
+          ]
+        },
+        {
+          "id": "s3",
+          "label": "pattern",
+          "visible_layers": [
+            "title",
+            "table"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 700.0,
+            "h": 80.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "table",
+          "kind": "table",
+          "region": {
+            "x": 96.0,
+            "y": 150.0,
+            "w": 1088.0,
+            "h": 494.0
+          },
+          "content_ref": "table",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "table_title": ""
+      },
+      "visual": {
+        "subject": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "columns": [
+          "Pigment Component",
+          "Peak Absorption Blue (nm)",
+          "Peak Absorption Red (nm)",
+          "Relative Abundance (%)"
+        ],
+        "rows": [
+          {
+            "Pigment Component": "Chlorophyll a",
+            "Peak Absorption Blue (nm)": "430",
+            "Peak Absorption Red (nm)": "662",
+            "Relative Abundance (%)": "65"
+          },
+          {
+            "Pigment Component": "Chlorophyll b",
+            "Peak Absorption Blue (nm)": "453",
+            "Peak Absorption Red (nm)": "642",
+            "Relative Abundance (%)": "25"
+          },
+          {
+            "Pigment Component": "Carotenoids (Lutein & β-Carotene)",
+            "Peak Absorption Blue (nm)": "445",
+            "Peak Absorption Red (nm)": "None",
+            "Relative Abundance (%)": "10"
+          }
+        ],
+        "composition": "data_visualization",
+        "variant": "wide",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "table"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 3,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s16",
+      "representation": "retrieval",
+      "task": "retrieval",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "response",
+          "visible_layers": [
+            "prompt"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 96.0,
+            "y": 120.0,
+            "w": 620.0,
+            "h": 480.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        }
+      ],
+      "content": {
+        "title": "Recall & Reconstruct",
+        "kicker": "7. Formative Assessment: Checks for Understanding",
+        "prompt": "Without looking back: reconstruct the data table; If the thylakoid membrane becomes permeable to protons due to a chemical ionopho.",
+        "options": {},
+        "explanation": ""
+      },
+      "visual": {
+        "composition": "question_focus",
+        "variant": "left-rail",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "self_check",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s17",
+      "representation": "practice_problem",
+      "task": "process",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "problem",
+          "visible_layers": [
+            "prompt",
+            "note"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "attempt",
+          "visible_layers": [
+            "prompt",
+            "note"
+          ]
+        },
+        {
+          "id": "s3",
+          "label": "verify",
+          "visible_layers": [
+            "prompt",
+            "note"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 96.0,
+            "y": 80.0,
+            "w": 1088.0,
+            "h": 160.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "note",
+          "kind": "note",
+          "region": {
+            "x": 140.0,
+            "y": 260.0,
+            "w": 1000.0,
+            "h": 396.0
+          },
+          "content_ref": "note",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Practice Problem (source)",
+        "kicker": "8. Independent Practice and Exam-Style Problems",
+        "items": [
+          "Practice Problem 1: Trace the path of an electron extracted from water photolysis in Photosystem II until its terminal reduction of NADP+ to NADPH."
+        ],
+        "scaffold": {
+          "stages": [],
+          "note": "Number each transfer step; cite the source mechanism."
+        }
+      },
+      "visual": {
+        "composition": "practice_workspace",
+        "variant": "open",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "open",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "note"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 3,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s18",
+      "representation": "practice_problem",
+      "task": "comparison",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "problem",
+          "visible_layers": [
+            "prompt",
+            "note"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "attempt",
+          "visible_layers": [
+            "prompt",
+            "note"
+          ]
+        },
+        {
+          "id": "s3",
+          "label": "verify",
+          "visible_layers": [
+            "prompt",
+            "note"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 96.0,
+            "y": 80.0,
+            "w": 1088.0,
+            "h": 160.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "note",
+          "kind": "note",
+          "region": {
+            "x": 140.0,
+            "y": 260.0,
+            "w": 1000.0,
+            "h": 396.0
+          },
+          "content_ref": "note",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Practice Problem (source)",
+        "kicker": "",
+        "items": [
+          "Practice Problem 2: Contrast the physiological advantages and energetic costs of the C3 photosynthetic pathway with the C4 dicarboxylic acid pathway in arid environments."
+        ],
+        "scaffold": {
+          "columns": [
+            "C3",
+            "C4"
+          ],
+          "note": "Complete each cell from the lesson; no invented facts."
+        }
+      },
+      "visual": {
+        "composition": "practice_workspace",
+        "variant": "ruled",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "open",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "note"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 3,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s19",
+      "representation": "retrieval",
+      "task": "retrieval",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "response",
+          "visible_layers": [
+            "prompt"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 140.0,
+            "y": 140.0,
+            "w": 1000.0,
+            "h": 140.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        }
+      ],
+      "content": {
+        "title": "Recall & Reconstruct",
+        "kicker": "",
+        "prompt": "Without looking back: reconstruct Practice Problem 1: Trace the path of an electron extracted from water photolysi; Practice Problem 2: Contrast the physiological advantages and energetic costs of.",
+        "options": {},
+        "explanation": ""
+      },
+      "visual": {
+        "composition": "question_focus",
+        "variant": "centered",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "self_check",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s20",
+      "representation": "data_table",
+      "task": "experimental_data",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "headers",
+          "visible_layers": [
+            "title",
+            "table"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "rows",
+          "visible_layers": [
+            "title",
+            "table"
+          ]
+        },
+        {
+          "id": "s3",
+          "label": "pattern",
+          "visible_layers": [
+            "title",
+            "table"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 700.0,
+            "h": 80.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "table",
+          "kind": "table",
+          "region": {
+            "x": 96.0,
+            "y": 150.0,
+            "w": 1088.0,
+            "h": 494.0
+          },
+          "content_ref": "table",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "table_title": "Table 1"
+      },
+      "visual": {
+        "subject": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "columns": [
+          "Pigment Component",
+          "Peak Absorption Blue (nm)",
+          "Peak Absorption Red (nm)",
+          "Relative Abundance (%)"
+        ],
+        "rows": [
+          {
+            "Pigment Component": "Chlorophyll a",
+            "Peak Absorption Blue (nm)": "430",
+            "Peak Absorption Red (nm)": "662",
+            "Relative Abundance (%)": "65"
+          },
+          {
+            "Pigment Component": "Chlorophyll b",
+            "Peak Absorption Blue (nm)": "453",
+            "Peak Absorption Red (nm)": "642",
+            "Relative Abundance (%)": "25"
+          },
+          {
+            "Pigment Component": "Carotenoids (Lutein & β-Carotene)",
+            "Peak Absorption Blue (nm)": "445",
+            "Peak Absorption Red (nm)": "None",
+            "Relative Abundance (%)": "10"
+          }
+        ],
+        "composition": "data_visualization",
+        "variant": "with-caption",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "table"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 3,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s21",
+      "representation": "retrieval",
+      "task": "retrieval",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "response",
+          "visible_layers": [
+            "prompt"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 140.0,
+            "y": 140.0,
+            "w": 1000.0,
+            "h": 140.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        }
+      ],
+      "content": {
+        "title": "Recall & Reconstruct",
+        "kicker": "",
+        "prompt": "Without looking back: reconstruct Introduction and Big Picture; Definition: Photosynthesis is the anabolic, endergonic biochemical process by wh.",
+        "options": {},
+        "explanation": ""
+      },
+      "visual": {
+        "composition": "question_focus",
+        "variant": "centered",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "self_check",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s22",
+      "representation": "big_picture",
+      "task": "concept",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "title",
+          "visible_layers": [
+            "title",
+            "list"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "detail",
+          "visible_layers": [
+            "title",
+            "list"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 120.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "list",
+          "kind": "list",
+          "region": {
+            "x": 96.0,
+            "y": 196.0,
+            "w": 346.6666666666667,
+            "h": 460.0
+          },
+          "content_ref": "list",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+        "kicker": "",
+        "points": [
+          "Definition: Photosynthesis is the anabolic, endergonic biochemical process b",
+          "6CO₂ + 6H₂O + light energy → text",
+          "4. Worked Calculation: Photochemical Quantum Yield and Efficiency\nA research",
+          "Step 1: Determine the ratio of oxygen evolution to photon absorption:\ntextMo"
+        ],
+        "caption": ""
+      },
+      "visual": {
+        "composition": "synthesis",
+        "variant": "trio",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "list"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          },
+          {
+            "step": 2,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s23",
+      "representation": "retrieval",
+      "task": "retrieval",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "think",
+          "visible_layers": [
+            "prompt"
+          ]
+        },
+        {
+          "id": "answered",
+          "label": "Answer",
+          "visible_layers": [
+            "prompt",
+            "answer"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "prompt",
+          "kind": "prompt",
+          "region": {
+            "x": 96.0,
+            "y": 56.0,
+            "w": 1088.0,
+            "h": 88.0
+          },
+          "content_ref": "prompt",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "answer",
+          "kind": "answer",
+          "region": {
+            "x": 96.0,
+            "y": 464.0,
+            "w": 1088.0,
+            "h": 192.0
+          },
+          "content_ref": "answer",
+          "reveal_at": 3,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Check for Understanding",
+        "kicker": "",
+        "prompt": "Identify (O05): Headers: Pigment Component, Peak Absorption Blue (nm), Peak Absorption Red (nm), Relative Abundance (%)\nRows:",
+        "options": {},
+        "explanation": "",
+        "answer": {
+          "correct": "",
+          "explanation": "",
+          "prompt": "Identify (O05): Headers: Pigment Component, Peak Absorption Blue (nm), Peak Absorption Red (nm), Relative Abundance (%)\nRows:"
+        }
+      },
+      "visual": {
+        "composition": "answer_reveal",
+        "variant": "banner",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "self_check",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          },
+          {
+            "step": 2,
+            "primitive": "answer_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [],
+            "why": "disclose the locked answer after thinking"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    },
+    {
+      "scene_id": "s24",
+      "representation": "exit",
+      "task": "retrieval",
+      "states": [
+        {
+          "id": "base",
+          "label": "",
+          "visible_layers": [
+            "title"
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "prompt",
+          "visible_layers": [
+            "title",
+            "list"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "id": "title",
+          "kind": "title",
+          "region": {
+            "x": 96.0,
+            "y": 44.0,
+            "w": 1088.0,
+            "h": 56.0
+          },
+          "content_ref": "title",
+          "reveal_at": 0,
+          "z": 0
+        },
+        {
+          "id": "list",
+          "kind": "list",
+          "region": {
+            "x": 140.0,
+            "y": 140.0,
+            "w": 1000.0,
+            "h": 504.0
+          },
+          "content_ref": "list",
+          "reveal_at": 1,
+          "z": 1
+        }
+      ],
+      "content": {
+        "title": "Exit Ticket",
+        "kicker": "",
+        "prompt_1": "Most important concept from today?",
+        "prompt_2": "One question you still have?"
+      },
+      "visual": {
+        "composition": "reflection",
+        "variant": "duo",
+        "density": "compact"
+      },
+      "assets": [],
+      "interaction": {
+        "type": "none",
+        "options": [],
+        "correct": "",
+        "explanation": ""
+      },
+      "motion": {
+        "enter_transition": "fade",
+        "advance": [
+          {
+            "step": 1,
+            "primitive": "progressive_reveal",
+            "effect": "reveal",
+            "duration_ms": 250,
+            "targets": [
+              "list"
+            ],
+            "why": "build a derivation or structure piece by piece"
+          }
+        ],
+        "paths": []
+      },
+      "estimated_minutes": 2.0
+    }
+  ],
+  "version": 1
+}

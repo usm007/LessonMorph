@@ -67,13 +67,21 @@ def test_full_compiler_pipeline(tmp_path: Path):
 
     out_pptx = tmp_path / "output" / "newtons_laws.pptx"
     work_dir = tmp_path / "work" / "newtons_laws"
+    lesson_dir = tmp_path / "lesson"
 
-    res = compile_document(src_file, output_file=out_pptx, work_dir=work_dir)
+    res = compile_document(src_file, output_file=out_pptx, work_dir=work_dir,
+                           lesson_dir=lesson_dir)
 
     assert res["status"] in ("PASS", "WARN")
     assert out_pptx.exists()
     assert res["total_units"] > 5
     assert res["uncovered_units"] == 0  # 100% Coverage
+
+    # Verify PRIMARY browser bundle (LessonQA-gated)
+    assert res["lesson_status"] == "PASS"
+    assert (lesson_dir / "index.html").exists()
+    assert (lesson_dir / "lesson.json").exists()
+    assert (lesson_dir / "teacher.json").exists()
 
     # Verify PPTX integrity
     prs = pptx.Presentation(out_pptx)

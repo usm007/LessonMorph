@@ -44,7 +44,9 @@ class SceneState:
 class SceneMotion:
     enter_transition: str = "fade"  # fade only unless story needs direction
     advance: List[Dict[str, Any]] = field(default_factory=list)
-    # [{layer, effect: fade|wipe|slide|highlight|emphasis|reveal, duration_ms}]
+    # [{step, primitive, effect, duration_ms, targets, why}]
+    paths: List[Dict[str, Any]] = field(default_factory=list)
+    # [{kind: transit|loop|gradient, via: [label names], duration_ms, why}]
 
 
 @dataclass

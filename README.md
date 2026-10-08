@@ -1,46 +1,46 @@
-# LessonMorph — Document-to-Teaching-Presentation Compiler
+# LessonMorph — Document-to-Browser-Lesson Compiler
 
-Turns educational documents (PDF, DOCX, Markdown, Text) into **detailed, classroom-ready PowerPoint (`.pptx`)** decks: 100% source fidelity, teaching flow, visual explanations, progressive animation, quizzes, speaker notes, validation.
+Turns educational documents (PDF, DOCX, Markdown, Text) into **browser-first classroom lessons** (offline 16:9 scene runtime): 100% source fidelity, teaching flow, visual explanations, state reveals, quizzes, teacher notes, validation. A PPTX exporter is retained downstream of the same IR as a regression reference — not a design target.
 
-Conceptual foundation: [Papermorph](https://github.com/DozenTwelve/Papermorph) (document mapping, chapter decomposition, storyboarding, teaching beats, fidelity, animation-as-explanation, questions, narration guidance, review) — **runtime replaced with PowerPoint**. No web-book/SVG/browser output.
+Conceptual foundation: [Papermorph](https://github.com/DozenTwelve/Papermorph) (document mapping, chapter decomposition, storyboarding, teaching beats, fidelity, animation-as-explanation, questions, narration guidance, review) — **primary runtime is the browser**. PPTX is an exporter only.
 
 ## Install
 
 ```bash
-pip install python-pptx pymupdf python-docx pytest
+pip install -r requirements.txt
+cd web && npm install && npm run build   # builds web/dist/runtime.js + styles.css (committed)
 ```
 
 ## Use
 
 ```bash
-python -m lessonmorph.cli compile source/examples/photosynthesis_and_cellular_energy.md -o output/photosynthesis.pptx
-python -m lessonmorph.cli compile path/to/chapter.pdf -o output/chapter.pptx -w work/chapter
+python -m lessonmorph.cli compile source/examples/photosynthesis_and_cellular_energy.md --lesson-dir output/photosynthesis_lesson
+python -m lessonmorph.cli compile path/to/chapter.pdf --lesson-dir output/chapter_lesson --no-pptx -w work/chapter
+python -m lessonmorph.cli export-pptx path/to/chapter.pdf -o output/chapter.pptx
 ```
 
-Or via helper:
+Then open `output/<lesson>/index.html` directly (file:// works, no server, no network).
 
-```bash
-python skill/scripts/compile.py source/examples/photosynthesis_and_cellular_energy.md -o output/photosynthesis.pptx
-```
+Output: browser lesson dir + `work/<doc>/{content_ledger, pedagogical_plan_*, blueprint_*, storyboard.json, lesson_qa.md, assets/}` + optional exporter `.pptx`.
 
-Output: `.pptx` + `work/<doc>/{content_ledger.json, content_ledger.md, storyboard.json, document_map.json, assets/, validation_report.md}`.
-
-## How it works
+## How it works (browser-first)
 
 ```
-SOURCE → MAP → PRESERVE (ledger C001…) → TEACH (objectives, misconceptions, pacing)
- → STORYBOARD → VISUALIZE (subject-aware models) → QUESTION (2-stage checks)
- → RENDER (editable pptx) → ANIMATE (<p:timing>) → VALIDATE → DELIVER
+SOURCE → MAP → PRESERVE (ledger C001…) → TEACH (plan of record)
+ → BLUEPRINT IR → VISUAL DIRECTOR → MOTION DIRECTOR → LESSON RUNTIME (scenes+states)
+ → BROWSER PRESENTATION (1280×720, no scroll) → LESSON QA → DELIVER
+                                    ↘ PPTX EXPORTER (regression only)
 ```
 
 - **Fidelity first**: every meaningful unit mapped; uncovered units FAIL the build.
-- **Teacher-first**: title → why-it-matters → objectives → warm-up → definitions → visuals → worked examples → misconceptions → checks → summary → practice → exit ticket (adapted per subject).
-- **Real PowerPoint**: shapes, tables, embedded images, notes, native timing XML. Offline. Editable.
-- **Honest failures**: missing tables/figures/formulas reported in `validation_report.md` + `asset_warnings.md`, never silently dropped.
+- **Teacher-first**: scenes follow the pedagogical sequence, never the exporter template.
+- **Scenes, not slides**: each scene carries states (e.g. base → revealed → answered); the browser advances state without rebuilding.
+- **Clean contracts**: renderer executes IR literally; student bundle carries no source/objective IDs, intents, or teacher guidance (those live in `teacher.json`).
+- **Honest failures**: missing tables/figures/formulas reported, never silently dropped.
 
 ## Repo layout
 
-See `skill/SKILL.md` for the full skill contract and `docs/` for developer notes.
+See `skill/SKILL.md` for the full skill contract and `docs/` for developer notes (`ARCHITECTURE.md`, `USAGE.md`).
 
 ## Testing
 
@@ -53,15 +53,15 @@ python -m pytest tests/ -q
 | Papermorph | LessonMorph |
 |---|---|
 | PDF → outline/sections/pages | Same (PyMuPDF TOC + heading fallback + page refs) |
-| Chapter map + minutes + concepts | `ChapterPlan` per section |
-| Storyboard beats + narration triggers | `SlideSpec` + animation steps + speaker notes |
-| SVG stage animation | Native `<p:timing>` on shape IDs |
-| In-picture quizzes | 2-slide Question → Answer+Explanation |
-| Delivery review pass | 4 quality gates + validation report |
-| Web book output | Editable offline `.pptx` |
+| Chapter map + minutes + concepts | `PedagogicalPlan` per section (plan of record) |
+| Storyboard beats + narration triggers | Presentation IR (SlideIR) + locked assessments |
+| SVG stage animation | Visual/Motion directors → browser scenes + CSS/Web Animations |
+| In-picture quizzes | Choice scenes with locked answers + `answered` state |
+| Delivery review pass | Blueprint QA + LessonQA + exporter RenderQA |
+| Web book output | Offline browser lesson bundle (primary); PPTX exporter (regression) |
 
-## Limitations (v1)
+## Limitations
 
-- On-click reveals only; no motion paths/triggers. PowerPoint is the reference runtime.
-- Visual QA is heuristic; manual PDF-export inspection recommended for high-stakes decks.
-- Scanned-PDF OCR flagged, not auto-transcribed. Unrecreatable figures embedded as images with attribution.
+- Browser composition is functional, not a visual redesign (next phase).
+- PPTX exporter keeps its own animation/QA stack; PowerPoint is its reference runtime only.
+- Scanned-PDF OCR flagged, not auto-transcribed. Unrecreatable figures ship as local assets with attribution.

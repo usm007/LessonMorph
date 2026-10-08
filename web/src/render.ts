@@ -1,6 +1,10 @@
-/* Scene renderer. Executes the scene composition; never reinterprets meaning.
- * Renders only student-safe content fields. Internal metadata is not present
- * in the bundle and nothing here reads it. */
+/* Scene renderer — executes family composition + semantic type scale.
+ * Data-driven only: every string on screen comes from scene.content /
+ * scene.visual / scene.assets. No hardcoded lesson content lives here.
+ * Layer geometry arrives from the VisualDirector (logical 1280×720 regions);
+ * family classes from compositions.ts drive emphasis, order, and treatment.
+ * Cards are NOT the default: only answer banners, choice controls, and the
+ * misconception correction panel use bordered surfaces (see styles.css). */
 
 function esc(s: string): string {
   return String(s == null ? "" : s)
@@ -22,57 +26,299 @@ function place(node: HTMLElement, region: { x: number; y: number; w: number; h: 
   node.style.height = region.h + "px";
 }
 
+/* ---------- family components: 17 stagings, one focal point each ---------- */
+
+function renderFamily(fam: string, scene: Scene, st: RuntimeState, layers: SceneLayer[]): HTMLElement[] {
+  const placeAll = (extra?: (node: HTMLElement, layer: SceneLayer) => void): HTMLElement[] =>
+    layers.map((layer) => {
+      const node = renderLayer(scene, layer, st, fam);
+      if (node) {
+        place(node, layer.region);
+        node.dataset.layer = layer.id;
+        if (extra) extra(node, layer);
+      }
+      return node;
+    }).filter((n) => n) as HTMLElement[];
+
+  switch (fam) {
+    case "cinematic_hook": { // HeroScene: giant topic, kicker whisper
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "title") node.classList.add("focal-display");
+        if (layer.kind === "subtitle") node.classList.add("t-subtitle");
+      });
+      return [section("hook", nodes)];
+    }
+    case "hero_concept": { // HeroConcept: term as display type, definition large
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "text") node.classList.add("focal-hero");
+      });
+      return [section("hero", nodes)];
+    }
+    case "full_visual":
+    case "diagram_centered":
+    case "split_visual": { // media-first: diagram/photo owns the eye
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "diagram" || layer.kind === "media") node.classList.add("focal-media");
+      });
+      return [section("visual", nodes)];
+    }
+    case "process_pathway":
+    case "cycle": { // ProcessScene: numbered flow, steps read as a path
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "list") node.classList.add("steps-flow");
+      });
+      return [section("flow", nodes)];
+    }
+    case "comparison": { // ComparisonScene: A vs B with a quiet divider
+      const nodes = placeAll();
+      if (nodes.length >= 2) {
+        const versus = el("div", "versus", "<span>vs</span>");
+        const out: HTMLElement[] = [nodes[0], versus].concat(nodes.slice(1));
+        return [section("compare", out)];
+      }
+      return [section("compare", nodes)];
+    }
+    case "equation_focus": { // EquationScene: monument equation
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "equation") node.classList.add("focal-equation");
+      });
+      return [section("equation", nodes)];
+    }
+    case "data_visualization": { // DataScene: table/chart at reading scale
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "table") node.classList.add("focal-data");
+      });
+      return [section("data", nodes)];
+    }
+    case "question_focus": { // QuestionScene: the question IS the slide
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "prompt") node.classList.add("focal-question");
+        if (layer.kind === "options") node.classList.add("choices-lg");
+      });
+      return [section("question", nodes)];
+    }
+    case "answer_reveal": { // AnswerScene: verdict banner, rest recedes
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "answer") node.classList.add("answer-banner");
+      });
+      return [section("answer", nodes)];
+    }
+    case "misconception": { // MisconceptionScene: myth struck, correction lit
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "text") node.classList.add("myth-correction");
+      });
+      return [section("myth", nodes)];
+    }
+    case "practice_workspace": { // PracticeScene: prompt + generous working room
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "note") node.classList.add("workspace");
+      });
+      return [section("practice", nodes)];
+    }
+    case "concept_map": { // ConceptMapScene: hub + satellites
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "diagram") node.classList.add("focal-media");
+      });
+      return [section("map", nodes)];
+    }
+    case "synthesis": { // SynthesisScene: takeaway band
+      const nodes = placeAll((node, layer) => {
+        if (layer.kind === "list" || layer.kind === "table") node.classList.add("takeaways");
+      });
+      return [section("synth", nodes)];
+    }
+    case "reflection": { // ReflectionScene: two quiet prompts
+      const nodes = placeAll((node, layer) => node.classList.add("reflect-card"));
+      return [section("reflect", nodes)];
+    }
+    default:
+      return [section("hero", placeAll())];
+  }
+}
+
+function section(kind: string, nodes: HTMLElement[]): HTMLElement {
+  const s = document.createElement("div");
+  s.className = "scene-section sec-" + kind;
+  for (const n of nodes) s.appendChild(n);
+  return s;
+}
+
 function renderScene(stage: HTMLElement, lesson: Lesson, st: RuntimeState): void {
   const scene = currentScene(lesson, st);
   stage.innerHTML = "";
+  const fam = familyOf(scene);
+  const body = document.createElement("div");
+  body.className = "scene-body " + stageClass(scene);
+  body.dataset.composition = fam;
+  body.dataset.component = componentFor(fam);
   const layers = visibleLayers(scene, st);
-  for (const layer of layers) {
-    const node = renderLayer(scene, layer, st);
-    if (node) { place(node, layer.region); node.dataset.layer = layer.id; stage.appendChild(node); }
-  }
+  for (const node of renderFamily(fam, scene, st, layers)) body.appendChild(node);
+  stage.appendChild(body);
   stage.appendChild(renderChrome(lesson, st));
+  fitHeadlines(stage);
+  fitBody(stage);
 }
 
-function renderLayer(scene: Scene, layer: SceneLayer, st: RuntimeState): HTMLElement | null {
+/* Deterministic auto-fit: long titles/prompts shrink within their region
+ * (never below classroom minimums) instead of spilling over the scene. */
+function fitHeadlines(stage: HTMLElement): void {
+  const heads = stage.querySelectorAll(".lyr-title, .lyr-prompt");
+  for (let i = 0; i < heads.length; i++) {
+    const box = heads[i] as HTMLElement;
+    const text = box.querySelector("h1, p") as HTMLElement;
+    if (!text) continue;
+    let fs = parseFloat(getComputedStyle(text).fontSize) || 44;
+    const min = box.classList.contains("lyr-prompt") ? 24 : 28;
+    let guard = 0;
+    while (box.scrollHeight > box.clientHeight + 2 && fs > min && guard++ < 20) {
+      fs -= 2;
+      text.style.fontSize = fs + "px";
+    }
+  }
+}
+
+/* Body auto-fit: prose/tables/options shrink toward readability floors,
+ * then scale as one piece (never below 62%) rather than spill. Anything
+ * still spilling afterwards is a scene-split case upstream. */
+function fitBody(stage: HTMLElement): void {
+  const bodies = stage.querySelectorAll(".lyr-text, .lyr-list, .lyr-note, .lyr-options, .lyr-data, .lyr-equation, .lyr-diagram");
+  for (let i = 0; i < bodies.length; i++) {
+    const box = bodies[i] as HTMLElement;
+    let fs = parseFloat(getComputedStyle(box).fontSize) || 20;
+    const min = box.classList.contains("lyr-note") ? 14 : 16;
+    let guard = 0;
+    while (box.scrollHeight > box.clientHeight + 2 && fs > min && guard++ < 12) {
+      fs -= 1;
+      box.style.fontSize = fs + "px";
+    }
+    if (box.scrollHeight > box.clientHeight + 2) {
+      const s = box.clientHeight / box.scrollHeight;
+      if (s >= 0.62) {
+        box.style.transform = "scale(" + s.toFixed(3) + ")";
+        box.style.transformOrigin = box.classList.contains("lyr-equation")
+          ? "top center" : "top left";
+      }
+    }
+  }
+}
+
+function renderLayer(scene: Scene, layer: SceneLayer, st: RuntimeState, fam?: string): HTMLElement | null {
   const c = scene.content;
   switch (layer.kind) {
     case "title":
-      return el("div", "lyr-title", "<h1>" + esc(c.title || "") + "</h1>");
+      return el("div", "lyr-title t-title", "<h1>" + esc(c.title || "") + "</h1>");
     case "kicker":
-      return c.kicker ? el("div", "lyr-kicker", esc(c.kicker)) : null;
-    case "prompt":
-      return el("div", "lyr-prompt", "<p>" + esc(c.prompt || "") + "</p>");
+      return c.kicker ? el("div", "lyr-kicker t-label", esc(c.kicker)) : null;
+    case "prompt": {
+      const promptText = c.prompt || ((c.items && c.items[0]) || "");
+      return el("div", "lyr-prompt t-question", "<p>" + esc(promptText) + "</p>");
+    }
     case "text":
-      return el("div", "lyr-text", renderTextBody(scene));
+      if (scene.representation === "contrast") return renderContrastModel(scene, layer);
+      return el("div", "lyr-text t-body", renderTextBody(scene));
     case "list":
-      return el("div", "lyr-list", renderListBody(scene));
+      return renderSemanticList(scene, layer, st);
     case "options":
       return renderOptions(scene, st);
     case "table":
-      return renderTable(scene);
+      return renderDataNode(scene);
     case "equation":
-      return renderEquation(scene);
+      return renderEquationNode(scene);
     case "diagram":
-      return renderDiagram(scene);
+      return renderDiagramNode(scene, st);
     case "media":
-      return renderMedia(scene);
+      return renderMediaNode(scene);
     case "answer":
       return renderAnswer(scene, st);
     case "note":
-      return el("div", "lyr-note", "<p>" + esc(noteText(scene)) + "</p>");
+      if (scene.representation === "practice_problem") return renderPracticeNote(scene);
+      if (["labeled_diagram", "anatomy_map", "cutaway", "spatial_relationship"].indexOf(scene.representation) !== -1) {
+        const legend = renderDiagramLegend(scene);
+        const cap = scene.content.caption || noteText(scene);
+        if (!legend && !cap) return el("div", "lyr-note t-caption", "");
+        const wrap = document.createElement("div");
+        wrap.className = "lyr-note t-caption";
+        wrap.innerHTML = legend + (cap ? "<p>" + esc(cap) + "</p>" : "");
+        return wrap;
+      }
+      return el("div", "lyr-note t-caption", "<p>" + esc(noteText(scene)) + "</p>");
     case "subtitle":
-      return el("div", "lyr-subtitle", "<p>" + esc(c.topic || c.unit || "") + "</p>");
+      return el("div", "lyr-subtitle t-subtitle", "<p>" + esc(c.topic || c.unit || "") + "</p>");
     default:
       return null;
   }
 }
 
+/* Wrong/correct models: the two text layers of a contrast scene each stage
+ * ONE full-width model — the zone layout carries the relationship. */
+function renderContrastModel(scene: Scene, layer: SceneLayer): HTMLElement {
+  const c = scene.content;
+  const first = /1$/.test(layer.id) || layer.id === "text";
+  const html = first
+    ? engSoloModel("wrong", "Common idea", c.wrong_idea || "", c.why_wrong || "")
+    : engSoloModel("right", "Correct model", c.correct_idea || "", c.correct_reasoning || "");
+  const d = document.createElement("div");
+  d.className = "lyr-text t-body";
+  d.innerHTML = html;
+  return d;
+}
+
+function edgeKindForTask(task: string): string {
+  const t = String(task || "").toLowerCase();
+  if (/sequence|order|steps|chronolog/.test(t)) return "sequence";
+  if (/mechanism|process|caus|drives|leads/.test(t)) return "causal";
+  if (/depend|prereq|require/.test(t)) return "dependency";
+  return "plain";
+}
+
+/* Content type determines visual form — never a default text box. */
+function renderSemanticList(scene: Scene, layer: SceneLayer, st: RuntimeState): HTMLElement | null {
+  const c = scene.content;
+  const rep = scene.representation;
+  const wrap = document.createElement("div");
+  wrap.className = "lyr-list t-body";
+  const active = st.stateIndex;
+  if (rep === "worked_calculation" && c.steps) {
+    wrap.innerHTML = engPathway(c.steps, { activeIndex: active })
+      + (c.verify ? "<p class=\"verify\">" + esc(c.verify) + "</p>" : "");
+    return wrap;
+  }
+  const pts: string[] = c.points || c.takeaways || [];
+  if (rep === "flow" || rep === "sequence" || rep === "pathway") {
+    if (!pts.length) return null;
+    wrap.innerHTML = engPathway(pts, { activeIndex: active });
+    return wrap;
+  }
+  if (rep === "cause_effect") {
+    if (!pts.length) return null;
+    wrap.innerHTML = pts.length === 3 ? engCauseMechanismEffect(pts) : engPathway(pts, { activeIndex: active });
+    return wrap;
+  }
+  if (rep === "concept_map" || rep === "hierarchy") {
+    if (!pts.length) return null;
+    wrap.innerHTML = engConceptMap(c.title || "", pts, edgeKindForTask(scene.task), active);
+    wrap.classList.add("map-layer");
+    return wrap;
+  }
+  if (rep === "before_after") {
+    if (!pts.length) return null;
+    const half = Math.ceil(pts.length / 2);
+    const mine = (/1$/.test(layer.id) || layer.id === "list")
+      ? pts.slice(0, half) : pts.slice(half);
+    wrap.innerHTML = "<ul>" + mine.map((s) => "<li>" + esc(s) + "</li>").join("") + "</ul>";
+    return wrap;
+  }
+  wrap.innerHTML = renderListBody(scene);
+  if (!wrap.textContent || !wrap.textContent.trim()) return null;
+  return wrap;
+}
+
 function renderTextBody(scene: Scene): string {
   const c = scene.content;
-  if (c.definition) return "<p class=\"term\">" + esc(c.term || "") + "</p><p>" + esc(c.definition) + "</p>";
+  if (c.definition) return "<p class=\"term t-hero\">" + esc(c.term || "") + "</p><p class=\"t-body-large\">" + esc(c.definition) + "</p>";
   if (c.problem) {
-    let h = "<p class=\"problem\">" + esc(c.problem) + "</p>";
-    if (c.givens && c.givens.length) h += "<p class=\"givens\">" + esc(c.givens.join(" · ")) + "</p>";
+    let h = "<p class=\"problem t-body-large\">" + esc(c.problem) + "</p>";
+    if (c.givens && c.givens.length) h += "<p class=\"givens t-caption\">" + esc(c.givens.join(" · ")) + "</p>";
     return h;
   }
   if (c.caption) return "<p>" + esc(c.caption) + "</p>";
@@ -93,10 +339,6 @@ function renderListBody(scene: Scene): string {
   if (rep === "exit") {
     return "<p>" + esc(c.prompt_1 || "") + "</p><p>" + esc(c.prompt_2 || "") + "</p>";
   }
-  if (rep === "contrast") {
-    return "<div class=\"contrast\"><p><strong>Common idea:</strong> " + esc(c.wrong_idea || "") + "</p>"
-      + "<p><strong>Correction:</strong> " + esc(c.correct_idea || "") + "</p></div>";
-  }
   const pts: string[] = c.points || c.takeaways || [];
   if (!pts.length) return "";
   return "<ul>" + pts.map((s) => "<li>" + esc(s) + "</li>").join("") + "</ul>";
@@ -108,9 +350,16 @@ function renderOptions(scene: Scene, st: RuntimeState): HTMLElement {
   const opts: { [k: string]: string } = scene.content.options || {};
   const keys = Object.keys(opts).sort();
   const answered = scene.scene_id in st.answeredScenes;
+  if (keys.length >= 4) wrap.classList.add("opts-n4");
+  if (!answered && !st.selected) {
+    const think = document.createElement("p");
+    think.className = "think-cue inline t-body";
+    think.innerHTML = "<strong>Think first · 30 seconds.</strong> Commit, then continue.";
+    wrap.appendChild(think);
+  }
   for (const k of keys) {
     const b = document.createElement("button");
-    b.className = "opt";
+    b.className = "opt t-body";
     b.dataset.key = k;
     b.innerHTML = "<span class=\"opt-key\">" + esc(k) + "</span><span>" + esc(opts[k]) + "</span>";
     if (st.selected === k) b.classList.add("selected");
@@ -124,7 +373,7 @@ function renderOptions(scene: Scene, st: RuntimeState): HTMLElement {
   }
   if (!keys.length) {
     const p = document.createElement("p");
-    p.className = "think-cue";
+    p.className = "think-cue t-body";
     p.textContent = scene.interaction.type === "open"
       ? "Work it through, then continue."
       : "Think, then continue to check.";
@@ -133,76 +382,106 @@ function renderOptions(scene: Scene, st: RuntimeState): HTMLElement {
   return wrap;
 }
 
-function renderTable(scene: Scene): HTMLElement {
-  const v = scene.visual;
+function renderDataNode(scene: Scene): HTMLElement | null {
+  const v = scene.visual || {};
   const cols: string[] = v.columns || [];
-  const rows: any[] = v.rows || [];
-  let h = "";
-  if (scene.content.table_title) h += "<caption>" + esc(scene.content.table_title) + "</caption>";
-  h += "<thead><tr>" + cols.map((c) => "<th>" + esc(c) + "</th>").join("") + "</tr></thead><tbody>";
-  for (const r of rows) {
-    const cells: string[] = Array.isArray(r) ? r : cols.map((c) => r[c]);
-    h += "<tr>" + cells.map((c) => "<td>" + esc(c) + "</td>").join("") + "</tr>";
-  }
-  const t = document.createElement("table");
-  t.className = "lyr-table";
-  t.innerHTML = h + "</tbody>";
+  if (!cols.length) return null;
   const wrap = document.createElement("div");
-  wrap.className = "table-wrap";
-  wrap.appendChild(t);
+  wrap.className = "lyr-data data-kind-" + scene.representation;
+  if (scene.representation === "comparison_matrix" || scene.representation === "summary_matrix") {
+    const rows: string[][] = (v.rows || []).map((r: string[] | { [k: string]: string }) =>
+      Array.isArray(r) ? r.map((c) => String(c == null ? "" : c)) : cols.map((c) => String(r[c] == null ? "" : r[c])));
+    wrap.dataset.datakind = "comparison";
+    wrap.innerHTML = engComparison(cols, rows);
+    return wrap;
+  }
+  const d = engData(cols, v.rows || [], scene.representation);
+  if (scene.content.table_title) {
+    const cap = document.createElement("p");
+    cap.className = "t-caption data-title";
+    cap.textContent = scene.content.table_title;
+    wrap.appendChild(cap);
+  }
+  const fig = document.createElement("div");
+  fig.innerHTML = d.html;
+  wrap.appendChild(fig);
   return wrap;
 }
 
-function renderEquation(scene: Scene): HTMLElement {
-  const eq = scene.visual.equation || {};
-  const side = (terms: any[]) => (terms || []).map((t) =>
-    esc(((t.coefficient ? t.coefficient + " " : "") + (t.species || "")).trim())).join(" + ");
-  let h = "<div class=\"equation\">" + side(eq.lhs) + " " + esc(eq.arrow || "→") + " " + side(eq.rhs) + "</div>";
-  if (eq.energy) h += "<div class=\"energy\">+ [" + esc(eq.energy) + "]</div>";
-  const notes: string[] = [];
-  for (const t of (eq.lhs || []).concat(eq.rhs || [])) {
-    if (t && t.note) notes.push("<li><strong>" + esc(t.species) + ":</strong> " + esc(t.note) + "</li>");
-  }
-  if (notes.length) h += "<ul class=\"legend\">" + notes.join("") + "</ul>";
-  if (scene.content.context) h += "<p class=\"context\">" + esc(scene.content.context) + "</p>";
-  return el("div", "lyr-equation", h);
+function renderEquationNode(scene: Scene): HTMLElement | null {
+  const eq = (scene.visual || {}).equation;
+  if (!eq || (!eq.lhs && !eq.rhs)) return null;
+  const wrap = document.createElement("div");
+  wrap.className = "lyr-equation";
+  wrap.innerHTML = engEquation(eq)
+    + (scene.content.context ? "<p class=\"context t-caption\">" + esc(scene.content.context) + "</p>" : "");
+  return wrap;
 }
 
-function renderDiagram(scene: Scene): HTMLElement {
-  const v = scene.visual;
-  const labels: any[] = v.labels || [];
-  const structure: string[] = v.structure || [];
-  const W = 1088, H = 440;
-  let svg = "";
-  const cx = W / 2, cy = H / 2;
-  svg += "<ellipse cx=\"" + cx + "\" cy=\"" + cy + "\" rx=\"150\" ry=\"110\" class=\"dg-hub\"/>";
-  svg += "<text x=\"" + cx + "\" y=\"" + cy + "\" class=\"dg-hub-label\">" + esc(v.subject || "") + "</text>";
-  const items = labels.length ? labels : structure.map((s) => ({ name: s, explanation: "" }));
-  items.slice(0, 6).forEach((item: any, i: number) => {
-    const left = i % 2 === 0;
-    const lx = left ? 170 : W - 170;
-    const ly = 70 + Math.floor(i / 2) * 150;
-    const tx = left ? lx + 130 : lx - 130;
-    svg += "<line x1=\"" + lx + "\" y1=\"" + ly + "\" x2=\"" + tx + "\" y2=\"" + cy + "\" class=\"dg-leader\"/>";
-    svg += "<rect x=\"" + (lx - 130) + "\" y=\"" + (ly - 34) + "\" width=\"260\" height=\"68\" rx=\"8\" class=\"dg-card\"/>";
-    svg += "<text x=\"" + lx + "\" y=\"" + (ly - 8) + "\" class=\"dg-name\">" + esc(String(item.name || "").slice(0, 42)) + "</text>";
-    if (item.explanation) svg += "<text x=\"" + lx + "\" y=\"" + (ly + 14) + "\" class=\"dg-desc\">" + esc(String(item.explanation).slice(0, 60)) + "</text>";
-  });
+function renderDiagramNode(scene: Scene, st: RuntimeState): HTMLElement | null {
+  const v = scene.visual || {};
+  const rep = scene.representation;
+  const pts: string[] = scene.content.points || [];
+  if (rep === "cycle") {
+    if (!pts.length) return null;
+    const wrap = document.createElement("div");
+    wrap.className = "lyr-diagram";
+    wrap.innerHTML = engCycle(pts, st.stateIndex);
+    return wrap;
+  }
+  if (rep === "pathway" || rep === "flow" || rep === "sequence") {
+    if (!pts.length) return null;
+    const wrap = document.createElement("div");
+    wrap.className = "lyr-diagram";
+    wrap.innerHTML = engPathway(pts, { activeIndex: st.stateIndex });
+    return wrap;
+  }
+  const labels = v.labels || v.structure || [];
+  if (!labels.length && !scene.assets.length) return null;
   const wrap = document.createElement("div");
   wrap.className = "lyr-diagram";
-  wrap.innerHTML = "<svg viewBox=\"0 0 " + W + " " + H + "\" preserveAspectRatio=\"xMidYMid meet\">" + svg + "</svg>";
+  const active = Math.min(st.stateIndex, Math.max(0, labels.length - 1));
+  const d = engDiagram(v, labels.length ? active : 999);
+  wrap.innerHTML = d.svg;
+  wrap.dataset.legend = d.legend;
   return wrap;
 }
 
-function renderMedia(scene: Scene): HTMLElement | null {
+function renderDiagramLegend(scene: Scene): string {
+  const v = scene.visual || {};
+  const labels = v.labels || v.structure || [];
+  if (!labels.length) return "";
+  const d = engDiagram(v, 999);
+  return d.legend;
+}
+
+function renderMediaNode(scene: Scene): HTMLElement | null {
   if (!scene.assets.length) return null;
-  const img = document.createElement("img");
-  img.className = "lyr-media";
-  img.src = scene.assets[0];
-  img.alt = "";
+  const v = scene.visual || {};
+  const layouts = { full_visual: "bleed", split_visual: "split", cinematic_hook: "hero" } as { [k: string]: string };
+  const layout = v.image_layout || layouts[v.composition] || "hero";
   const wrap = document.createElement("div");
-  wrap.className = "media-wrap";
-  wrap.appendChild(img);
+  wrap.className = "lyr-mediawrap";
+  wrap.innerHTML = engImage(scene.assets, scene.content.caption || "", layout, scene.content.kicker || "");
+  if (!wrap.querySelector("img")) return null;
+  return wrap;
+}
+
+function renderPracticeNote(scene: Scene): HTMLElement {
+  const sc = scene.content.scaffold || {};
+  const wrap = document.createElement("div");
+  wrap.className = "lyr-note t-caption";
+  if (sc.columns && sc.columns.length >= 2) {
+    const heads = sc.columns.map((c: string) => String(c));
+    let h = "<table class=\"cmp-matrix workspace\"><thead><tr>";
+    heads.forEach((c: string) => { h += "<th>" + esc(c) + "</th>"; });
+    h += "</tr></thead><tbody><tr>";
+    heads.forEach(() => { h += "<td class=\"blank\"></td>"; });
+    h += "</tr></tbody></table>";
+    wrap.innerHTML = h + (sc.note ? "<p>" + esc(sc.note) + "</p>" : "");
+    return wrap;
+  }
+  wrap.innerHTML = "<p>" + esc(noteText(scene)) + "</p>";
   return wrap;
 }
 
@@ -214,7 +493,7 @@ function renderAnswer(scene: Scene, st: RuntimeState): HTMLElement {
     const ok = String(chosen) === String(inter.correct);
     verdict = "<p class=\"verdict " + (ok ? "ok" : "miss") + "\">" + (ok ? "Correct" : "Not quite") + "</p>";
   }
-  return el("div", "lyr-answer", verdict + "<p>" + esc(inter.explanation || "") + "</p>");
+  return el("div", "lyr-answer t-answer", verdict + "<p>" + esc(inter.explanation || "") + "</p>");
 }
 
 function noteText(scene: Scene): string {
@@ -230,8 +509,9 @@ function renderChrome(lesson: Lesson, st: RuntimeState): HTMLElement {
   bar.id = "progress";
   const pct = lesson.scenes.length <= 1 ? 100
     : Math.round((st.sceneIndex / (lesson.scenes.length - 1)) * 100);
-  bar.innerHTML = "<div class=\"track\"><div class=\"fill\" style=\"width:" + pct + "%\"></div></div>"
-    + "<div class=\"count\">" + (st.sceneIndex + 1) + " / " + lesson.scenes.length + "</div>"
+  bar.innerHTML = "<div class=\"lesson-tag t-label\">" + esc(lesson.title || "") + "</div>"
+    + "<div class=\"track\"><div class=\"fill\" style=\"width:" + pct + "%\"></div></div>"
+    + "<div class=\"count t-label\">" + (st.sceneIndex + 1) + " / " + lesson.scenes.length + "</div>"
     + "<button id=\"fs-btn\" title=\"Fullscreen\">⛶</button>";
   const btn = bar.querySelector("#fs-btn");
   if (btn) btn.addEventListener("click", (ev) => { ev.stopPropagation(); toggleFullscreen(); });

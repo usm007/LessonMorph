@@ -25,7 +25,8 @@ def _build(tmp_path):
     assert DEMO.exists(), "demo source missing"
     out = tmp_path / "photo.pptx"
     work = tmp_path / "work"
-    res = compile_document(DEMO, output_file=out, work_dir=work)
+    res = compile_document(DEMO, output_file=out, work_dir=work,
+                           lesson_dir=tmp_path / "lesson", build_lesson=False)
     assert res["status"] in ("PASS", "WARN")
     bp = json.load(io.open(work / "blueprint_ch01.json", encoding="utf-8"))
     return out, bp

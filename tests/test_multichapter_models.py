@@ -30,7 +30,7 @@ def test_multi_chapter_deck_has_dividers_and_full_coverage(tmp_path: Path):
     src.write_text(MULTI_MD, encoding="utf-8")
     out = tmp_path / "multi.pptx"
     work = tmp_path / "work"
-    res = compile_document(src, out, work)
+    res = compile_document(src, out, work, lesson_dir=tmp_path / "lesson")
     assert res["chapters_count"] == 2
     assert res["uncovered_units"] == 0
     prs = pptx.Presentation(out)

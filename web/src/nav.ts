@@ -34,8 +34,21 @@ function initNav(app: { lesson: Lesson; state: RuntimeState; stage: HTMLElement 
     } else if (ev.key === "End") {
       ev.preventDefault();
       if (goTo(app.lesson, app.state, app.lesson.scenes.length - 1)) paint(app, true);
+    } else if (ev.key === "Enter") {
+      // Reveal/confirm: on a choice scene with a committed answer, Enter
+      // discloses the locked answer; elsewhere it steps like Space.
+      const scene = currentScene(app.lesson, app.state);
+      if (scene.interaction && scene.interaction.type === "choice" && app.state.selected) {
+        ev.preventDefault();
+        stepForward(app);
+      } else if ((ev.target as HTMLElement) && (ev.target as HTMLElement).tagName !== "BUTTON") {
+        ev.preventDefault();
+        stepForward(app);
+      }
+      // Inside a focused button, Enter keeps its native activate behavior.
     }
-    // Escape exits fullscreen natively; nothing to do here.
+    // Escape exits fullscreen natively and closes no overlays (there are
+    // none — temporary UI like path captions dismiss themselves).
   });
   app.stage.addEventListener("click", () => stepForward(app));
 }

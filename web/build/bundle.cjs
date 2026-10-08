@@ -4,7 +4,8 @@ const fs = require("fs");
 const path = require("path");
 
 const dist = path.join(__dirname, "..", "dist");
-const order = ["types.js", "store.js", "viewport.js", "render.js", "motion.js", "nav.js", "main.js"];
+const order = ["types.js", "tokens.js", "compositions.js", "engines.js", "store.js", "viewport.js", "render.js", "motion.js", "nav.js", "main.js"];
+const keep = ["engines.js"]; // retained for build/engines.test.cjs (pure string builders)
 
 let out = "";
 for (const name of order) {
@@ -16,6 +17,8 @@ for (const name of order) {
   out += fs.readFileSync(p, "utf8") + "\n";
 }
 fs.writeFileSync(path.join(dist, "runtime.js"), out);
-for (const name of order) fs.unlinkSync(path.join(dist, name));
+for (const name of order) {
+  if (keep.indexOf(name) === -1) fs.unlinkSync(path.join(dist, name));
+}
 fs.copyFileSync(path.join(__dirname, "..", "src", "styles.css"), path.join(dist, "styles.css"));
 console.log("runtime.js written");
