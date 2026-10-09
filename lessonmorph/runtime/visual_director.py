@@ -306,6 +306,16 @@ def family_regions(family: str, variant: str, kinds: List[str],
 
     if family == "answer_reveal":
         # Merged Q&A geometry: prompt, options, and verdict each own a band.
+        if kinds and kinds[0] == "prompt" and "options" not in kinds:
+            # Short-answer reveal: the question IS the slide. Two bands, full
+            # width — no dead strip where the choices would have been, and the
+            # prompt keeps a real focal size instead of being squeezed into a
+            # 88px caption bar.
+            if variant == "banner":
+                return ([{"x": 96.0, "y": 64.0, "w": 1088.0, "h": 204.0},
+                         {"x": 96.0, "y": 304.0, "w": 1088.0, "h": 316.0}])[: n or 1]
+            return ([{"x": 96.0, "y": 80.0, "w": 596.0, "h": 416.0},
+                     {"x": 740.0, "y": 80.0, "w": 444.0, "h": 520.0}])[: n or 1]
         if variant == "banner":
             return ([{"x": 96.0, "y": 56.0, "w": 1088.0, "h": 88.0}]
                     + ([{"x": 96.0, "y": 156.0, "w": 1088.0, "h": 296.0}] if m >= 1 else [])
@@ -425,6 +435,27 @@ def _regions_for(kinds: List[str]) -> List[Dict[str, float]]:
     return regions
 
 
+def _asset_strategy(composition: str, slide: Dict[str, Any]) -> str:
+    """Per-scene visual-asset decision (recorded, never decorated at random).
+
+    Source figures win when present; scientific content gets native SVG;
+    typographic scenes (questions, answers, practice, reflection) need none.
+    """
+    body = slide.get("body", {}) or {}
+    visual = slide.get("visual", {}) or {}
+    if body.get("image_id") or body.get("image_path"):
+        return "USE_SOURCE_FIGURE"
+    if any(visual.get(k) for k in ("labels", "structure", "edges", "equation",
+                                   "columns", "rows")):
+        return "NATIVE_SVG"
+    if composition in ("diagram_centered", "split_visual", "full_visual",
+                        "concept_map", "process_pathway", "cycle",
+                        "equation_focus", "data_visualization", "comparison",
+                        "cinematic_hook", "synthesis"):
+        return "NATIVE_SVG"
+    return "NO_EXTERNAL_ASSET_NEEDED"
+
+
 class VisualDirector:
     """Composes scene layers + states from a SlideIR (dict form).
 
@@ -478,6 +509,7 @@ class VisualDirector:
         visual["composition"] = composition
         visual["variant"] = variant
         visual["density"] = density
+        visual["asset_strategy"] = _asset_strategy(composition, slide)
         interaction = cls._interaction(slide, rep)
         assets = cls._assets(slide)
         return {"layers": layers, "states": states, "content": content,
@@ -497,7 +529,8 @@ class VisualDirector:
                         "topic": clean(b.get("topic", slide.get("content_title", "")))})
         elif rep == "definition_focus":
             out.update({"term": clean(b.get("term", "")),
-                        "definition": clean(b.get("definition", ""))})
+                        "definition": clean(b.get("definition", "")),
+                        "detail": clean(b.get("detail", ""))})
         elif rep in ("mcq", "true_false", "prediction", "diagnostic_question",
                      "retrieval"):
             out.update({"prompt": clean(b.get("prompt", "")),

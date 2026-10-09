@@ -40,6 +40,17 @@ from lessonmorph.core.models import (
     QuizQuestion,
     TeachingMove,
 )
+from lessonmorph.core.text_refs import (
+    clip_sentences,
+    clip_words,
+    extract_term,
+    first_sentences,
+    is_heading_block,
+    leading_label,
+    section_topic,
+    short_headline,
+    strip_markup_line,
+)
 from lessonmorph.ledger.ledger import ContentCompletenessLedger
 
 # ---------------------------------------------------------------------------
@@ -349,6 +360,7 @@ class BlueprintCompiler:
             u.id: u for u in self.ledger.units}
         self._units = units
         self._order = [u.id for u in self.ledger.units if u.id in units]
+        self._recall_titles: set = set()
         bp = Blueprint(chapter_id=plan.id, chapter_title=plan.title,
                        subject_domain=plan.subject_domain.value)
         for u in units.values():
@@ -380,7 +392,13 @@ class BlueprintCompiler:
 
         def _attach_kicker(slide_ir: SlideIR) -> None:
             if pending:
-                slide_ir.kicker = pending[-1][0][:160]
+                # Kicker is a short section label, never a sentence cut short:
+                # if the pending wording cannot fit whole, name its section.
+                ptext, pu = pending[-1]
+                label = short_headline(ptext, 80)
+                if "…" in label or "..." in label:
+                    label = section_topic(pu.section_title or "") or ""
+                slide_ir.kicker = label
                 for _, pu in pending:
                     _claim(pu, slide_ir.id)
                 pending.clear()
@@ -440,6 +458,11 @@ class BlueprintCompiler:
                     if cid in taught:
                         continue
                     u = units[cid]
+                    if u.content_type == ContentType.HEADING:
+                        # Structure, not content: forwarded as kicker context
+                        # (claimed on attach; trailing ones attach at sweep end).
+                        pending.append((clean(u.normalized_content), u))
+                        continue
                     if (_is_header_only(u.normalized_content)
                             and not _has_equation(u.normalized_content)):
                         # Section header, not a slide: forward as kicker subtitle.
@@ -570,27 +593,39 @@ class BlueprintCompiler:
             elif state in ("RETRIEVAL", "CUMULATIVE_RETRIEVAL", "ASSESSMENT"):
                 qs = self._move_questions(move, by_objective, plan.questions, used_questions,
                                           state == "ASSESSMENT")
+                qs = [q for q in qs if _is_askable(q)]
                 if qs and state != "CUMULATIVE_RETRIEVAL":
                     for q in qs:
                         _lock_and_emit(q, move, state)
                 else:
                     cids_named = [c for c in cids if c in units
                                   and not _is_header_only(units[c].normalized_content)]
-                    concepts = [_retrieval_label(units[c]) for c in cids_named]
-                    target = "; ".join(concepts[:3]) or "the recent concepts"
+                    # One probe, one target. The target is a TOPIC the source
+                    # itself names — never a slice of source prose. "reconstruct
+                    # Where:." and "reconstruct <half a sentence>…" are not
+                    # prompts; a student can act on "about the chloroplast".
+                    verb = "Revisit" if state == "CUMULATIVE_RETRIEVAL" else "Recall"
+                    topic = self._recall_topic(cids_named, units, verb)
+                    if topic is None:
+                        topic = section_topic(plan.title) or "the key ideas"
+                    ask = (f"Come back to {topic} now: state it again in your own words."
+                           if verb == "Revisit" else
+                           f"Without looking back: what do you remember about {topic}?")
                     sid = _next_id()
                     slide_ir = SlideIR(
                         id=sid, purpose=move.purpose,
-                        concept_title="Recall & Reconstruct", task=TaskType.RETRIEVAL.value,
-                        learning_goal=[f"retrieve {target} from memory"],
+                        concept_title=topic, task=TaskType.RETRIEVAL.value,
+                        learning_goal=[f"recall {topic} from memory"],
                         representation=Representation.RETRIEVAL.value,
-                        content_title="Recall & Reconstruct",
-                        body={"prompt": f"Without looking back: reconstruct {target}.",
+                        content_title=f"{verb}: {topic}",
+                        body={"prompt": ask,
                               "origin": "model_generated"},
                         reveal_sequence=["prompt", "response"],
                         teacher_action=TeacherAction(type="prompt", prompt=move.teacher_move),
                         source_ids=list(cids), objective_ids=list(move.objective_ids),
-                        instructional_state=state)
+                        instructional_state=state,
+                        representation_reason="retrieval move with no unused question -> topic recall prompt",
+                        pedagogical_ref=f"{plan.id}:{state}")
                     bp.slides.append(slide_ir)
                     _attach_kicker(slide_ir)
                     for c in cids:
@@ -636,12 +671,14 @@ class BlueprintCompiler:
                             learning_goal=["apply the lesson independently"],
                             representation=Representation.PRACTICE_PROBLEM.value,
                             content_title="Independent Practice",
-                            body={"items": [clean(units[c].normalized_content)[:500] for c in src_ids],
+                            body={"items": [clean(units[c].normalized_content) for c in src_ids],
                                   "origin": "source"},
                             reveal_sequence=["problem", "attempt", "verify"],
                             teacher_action=TeacherAction(type="prompt", prompt=move.teacher_move),
                             source_ids=src_ids, objective_ids=list(move.objective_ids),
-                            instructional_state=state)
+                            instructional_state=state,
+                            representation_reason="unassessed source exercises -> practice set",
+                            pedagogical_ref=f"{plan.id}:{state}")
                         bp.slides.append(slide_ir)
                         _attach_kicker(slide_ir)
         # Coverage sweep: every important unit needs a destination (traceability).
@@ -664,7 +701,7 @@ class BlueprintCompiler:
             # Headers with no following content: subtitle the last slide, keep destiny.
             last = bp.slides[-1]
             if not last.kicker:
-                last.kicker = pending[-1][0][:160]
+                last.kicker = short_headline(pending[-1][0], 80)
             for _, pu in pending:
                 _claim(pu, last.id)
             pending.clear()
@@ -676,7 +713,10 @@ class BlueprintCompiler:
             representation=Representation.EXIT.value, content_title="Exit Ticket",
             body={"prompt_1": "Most important concept from today?",
                   "prompt_2": "One question you still have?"},
-            reveal_sequence=["prompt"], source_ids=[], instructional_state="EXIT"))
+            reveal_sequence=["prompt"], source_ids=[], instructional_state="EXIT",
+            representation_reason="chrome:exit",
+            pedagogical_ref=f"{plan.id}:EXIT"))
+        resolve_duplicate_titles(bp, plan, units)
         return bp
 
     # -- slide builders (translation) --------------------------------------
@@ -687,28 +727,35 @@ class BlueprintCompiler:
     def _chrome_slide(self, sid: str, plan: ChapterPlan, ped: PedagogicalPlan,
                       move: TeachingMove, rep: Representation, kind: str) -> SlideIR:
         body: Dict[str, Any] = {}
+        chrome_title = plan.title
         if kind == "title":
             body = {"unit": plan.subject_domain.value.upper(), "topic": plan.title}
         elif kind == "prior_knowledge":
             body = {"prerequisites": list(plan.prior_knowledge)}
+            chrome_title = "Prior Knowledge"
         elif kind == "objectives":
             body = {"objectives": [o.text for o in ped.learning_objectives]}
+            chrome_title = "Learning Objectives"
         elif kind == "recap":
             raw = plan.core_concepts[:4] or [f"Mastery of {plan.title}"]
-            body = {"takeaways": [clean(t)[:260] for t in raw]}
+            body = {"takeaways": [clip_sentences(clean(t), 260) for t in raw]}
+            chrome_title = "Key Takeaways"
         return SlideIR(id=sid, purpose=move.purpose, concept_title=plan.title,
                        task=TaskType.CONCEPT.value,
                        learning_goal=[o.text for o in ped.learning_objectives[:2]],
-                       representation=rep.value, content_title=plan.title, body=body,
+                       representation=rep.value, content_title=chrome_title, body=body,
                        reveal_sequence=["title", "detail"],
                        teacher_action=self._teacher(move.teacher_move, plan.title),
                        source_ids=[], objective_ids=list(move.objective_ids),
-                       instructional_state=move.state)
+                       instructional_state=move.state,
+                       representation_reason=f"chrome:{kind}",
+                       pedagogical_ref=f"{plan.id}:{move.state}")
 
     def _content_slide(self, sid: str, plan: ChapterPlan, u: ContentUnit, task: TaskType,
                        rep: Representation, oids: List[str], state: str, purpose: str,
                        teacher_move: str = "") -> SlideIR:
-        title = clean(u.section_title or plan.title)
+        section = (u.section_title or "").strip()
+        title = clean(section or plan.title)
         slide_extra_ids: List[str] = []
         # Payload cascade: if the chosen representation has no extractable
         # payload, reclassify to CONCEPT (translation correction, not pedagogy).
@@ -731,12 +778,17 @@ class BlueprintCompiler:
             legend = [l for l in u.normalized_content.splitlines() if "represent" in l.lower()]
             eq = structure_equation(u.normalized_content, legend)
             visual = VisualSpec(subject=title, equation=eq)
-            body = {"context": clean(u.original_wording)[:200]}
+            body = {"context": clip_sentences(clean(u.original_wording), 200)}
             reveal = ["equation", "terms", "meaning"]
+            if title == plan.title and eq is not None:
+                # The equation names itself: "6 CO₂ → C₆H₁₂O₆" beats any fallback.
+                inline_title = short_headline(eq.inline(), 80)
+                if inline_title and len(inline_title) > 4:
+                    title = inline_title
         elif rep in (Representation.LABELED_DIAGRAM, Representation.ANATOMY_MAP):
             parts, labels = _extract_structure(u.normalized_content)
             visual = VisualSpec(subject=title, structure=parts, labels=labels)
-            body = {"caption": clean(u.normalized_content)[:300]}
+            body = {"caption": clip_sentences(clean(u.normalized_content), 300)}
             reveal = parts + ["functions"] if parts else ["diagram", "labels"]
         elif rep in (Representation.PATHWAY, Representation.SEQUENCE, Representation.FLOW,
                      Representation.CYCLE):
@@ -757,7 +809,13 @@ class BlueprintCompiler:
             body = {"title": clean(u.metadata.get("title", ""))}
             reveal = ["headers", "rows", "pattern"]
         elif rep == Representation.DEFINITION_FOCUS:
-            body = {"term": title, "definition": clean(u.normalized_content)[:500]}
+            term = extract_term(u.normalized_content) or extract_term(u.original_wording)
+            full_def = clean(u.normalized_content)
+            body = {"term": term or "",
+                    "definition": first_sentences(full_def, 2, 260),
+                    "detail": full_def}
+            if term:
+                title = term
         elif rep == Representation.WORKED_CALCULATION:
             problem, steps = _worked_from_unit(u.normalized_content)
             body = {"problem": problem, "givens": _extract_givens(problem),
@@ -773,7 +831,7 @@ class BlueprintCompiler:
             slide_extra_ids = extra
         else:
             body = {"points": _split_points(u.normalized_content)}
-        display = _display_title(title, body, rep)
+        display = _display_title(title, body, rep, section, plan.title)
         # Truthful instructional states (what the slide DOES, not which move made it).
         emit_state = state
         if task == TaskType.MISCONCEPTION:
@@ -787,7 +845,9 @@ class BlueprintCompiler:
                        visual=visual, reveal_sequence=reveal[:8],
                        teacher_action=self._teacher(teacher_move, title),
                        source_ids=[u.id] + slide_extra_ids, objective_ids=list(oids),
-                       instructional_state=emit_state)
+                       instructional_state=emit_state,
+                       representation_reason=_rep_reason(task, rep, u),
+                       pedagogical_ref=f"{plan.id}:{state}")
 
     def _worked_slide(self, sid: str, plan: ChapterPlan, grouped: List[ContentUnit],
                       task: TaskType, rep: Representation, oids: List[str],
@@ -818,12 +878,15 @@ class BlueprintCompiler:
                        body=body, reveal_sequence=reveal[:10],
                        teacher_action=self._teacher(teacher_move, "worked reasoning"),
                        source_ids=[u.id for u in grouped], objective_ids=list(oids),
-                       instructional_state=emit_state)
+                       instructional_state=emit_state,
+                       representation_reason=_rep_reason(task, rep, first),
+                       pedagogical_ref=f"{plan.id}:{emit_state}")
 
     def _practice_slide(self, sid: str, plan: ChapterPlan, u: ContentUnit, task: TaskType,
                         oids: List[str], state: str, purpose: str, teacher_move: str,
                         faded: bool = False) -> SlideIR:
-        text = clean(u.normalized_content)[:600]
+        # Practice problems must stay complete: a cut problem is broken, not dense.
+        text = clean(u.normalized_content)
         body: Dict[str, Any] = {"items": [text], "origin": "source", "faded": faded}
         if task == TaskType.COMPARISON:
             body["scaffold"] = {"columns": _comparison_parties(text),
@@ -835,11 +898,15 @@ class BlueprintCompiler:
                        concept_title=clean(u.section_title or plan.title),
                        task=task.value, learning_goal=[f"{task.value}: apply the lesson"],
                        representation=Representation.PRACTICE_PROBLEM.value,
-                       content_title="Practice Problem (source)",
+                       content_title=(leading_label(text)
+                                      or section_topic(u.section_title or "")
+                                      or "Independent Practice"),
                        body=body, reveal_sequence=["problem", "attempt", "verify"],
                        teacher_action=self._teacher(teacher_move, text[:120]),
                        source_ids=[u.id], objective_ids=list(oids),
-                       instructional_state=state)
+                       instructional_state=state,
+                       representation_reason=_rep_reason(task, Representation.PRACTICE_PROBLEM, u),
+                       pedagogical_ref=f"{plan.id}:{state}")
 
     def _misconception_slide(self, sid: str, plan: ChapterPlan, m: Dict[str, str],
                              move: TeachingMove,
@@ -855,12 +922,18 @@ class BlueprintCompiler:
                 combined, extra = self._assemble_context(src)
                 wrong, why, correct = _parse_misconception_spans(combined)
                 src_ids = [src.id] + extra
+        core = ""
+        m_wrong = re.search(r"(?:Common Mistake|Misconception)\s*:\s*(.+?)(?:\.|$)",
+                            clean(m.get("wrong_idea", "")), re.IGNORECASE | re.DOTALL)
+        if m_wrong:
+            core = m_wrong.group(1).strip().split("\n")[0][:70]
+        title = f"Misconception: {core}" if core else "Misconception → Correction"
         return SlideIR(
             id=sid, purpose=move.purpose, concept_title=clean(m.get("topic", plan.title)),
             task=TaskType.MISCONCEPTION.value,
             learning_goal=[f"distinguish {clean(m.get('topic', ''))} from the tempting error"],
             representation=Representation.CONTRAST.value,
-            content_title="Misconception → Correction",
+            content_title=title,
             body={"wrong_idea": wrong,
                   "why_wrong": why,
                   "correct_idea": correct,
@@ -868,7 +941,9 @@ class BlueprintCompiler:
             reveal_sequence=["tempting_error", "conflict", "correction", "check"],
             teacher_action=self._teacher(move.teacher_move, clean(m.get("wrong_idea", ""))[:120]),
             source_ids=list(src_ids),
-            objective_ids=list(move.objective_ids), instructional_state=move.state)
+            objective_ids=list(move.objective_ids), instructional_state=move.state,
+            representation_reason="task=misconception + mistake/correction spans -> contrast",
+            pedagogical_ref=f"{plan.id}:{move.state}")
 
     def _assessment_slides(self, next_id, plan: ChapterPlan, q: QuizQuestion,
                            locked: LockedAssessment, state: str, move: TeachingMove
@@ -876,18 +951,26 @@ class BlueprintCompiler:
         rep = {"mcq": Representation.MCQ, "true_false": Representation.TRUE_FALSE}.get(
             locked.type, Representation.RETRIEVAL)
         task = question_task(locked.stem)
+        # The scene is titled for what it checks, not with a generic label
+        # shared by every question in the lesson.
+        all_units = getattr(self, "_units", {}) or {}
+        src = next((all_units[c] for c in q.source_content_ids if c in all_units), None)
+        sec = section_topic(src.section_title or "") if src is not None else ""
+        check_title = f"Check: {sec}" if sec else "Check for Understanding"
         base_body = {"question_id": q.id, "prompt": locked.stem, "options": locked.options,
                      "origin": locked.origin}
         prompt_slide = SlideIR(
             id=next_id(), purpose=f"Assess: {locked.stem[:80]}",
-            concept_title="Check for Understanding", task=task.value,
+            concept_title=check_title, task=task.value,
             learning_goal=[locked.stem[:150]],
-            representation=rep.value, content_title="Check for Understanding",
+            representation=rep.value, content_title=check_title,
             body=dict(base_body), reveal_sequence=["prompt", "think"],
             teacher_action=TeacherAction(type="prompt",
                                          prompt="Think time first; who can explain their reasoning?"),
             assessment=locked, source_ids=list(q.source_content_ids),
-            objective_ids=list(q.objective_ids), instructional_state=state)
+            objective_ids=list(q.objective_ids), instructional_state=state,
+            representation_reason=f"locked {locked.type} assessment -> {rep.value}",
+            pedagogical_ref=f"{plan.id}:{state}")
         reveal_slide = SlideIR(
             id=next_id(), purpose=f"Reveal locked answer for {q.id}",
             concept_title="Answer & Explanation", task=task.value,
@@ -898,7 +981,9 @@ class BlueprintCompiler:
             teacher_action=TeacherAction(type="explanation",
                                          focus="Explain why each distractor fails."),
             assessment=locked, source_ids=list(q.source_content_ids),
-            objective_ids=list(q.objective_ids), instructional_state=state)
+            objective_ids=list(q.objective_ids), instructional_state=state,
+            representation_reason=f"locked {locked.type} answer reveal -> {rep.value}",
+            pedagogical_ref=f"{plan.id}:{state}")
         return [prompt_slide, reveal_slide]
 
     def _assemble_context(self, u: ContentUnit) -> Tuple[str, List[str]]:
@@ -928,6 +1013,47 @@ class BlueprintCompiler:
                 break
         return "\n".join(parts), extra
 
+    def _recall_topic(self, cids: List[str], units: Dict[str, ContentUnit],
+                      verb: str) -> Optional[str]:
+        """A section-derived topic no earlier recall scene already claimed.
+
+        Candidates run strongest-first per unit: the section the source names
+        itself, then that section with the unit's own label in front of it
+        ("Correct Reasoning — The Dark Reactions…") when a sibling checkpoint
+        took the plain section, then the label alone. Two checkpoints in the
+        same section therefore stay distinguishable.
+        """
+        seen: set = getattr(self, "_recall_titles", None)
+        if seen is None:
+            seen = set()
+            self._recall_titles = seen
+        candidates: List[str] = []
+        for c in cids:
+            u = units.get(c)
+            if u is None:
+                continue
+            sec = section_topic(u.section_title or "")
+            lab = leading_label(u.normalized_content)
+            if sec:
+                candidates.append(sec)
+                sec_lab = leading_label(sec)
+                bare = sec
+                if sec_lab:
+                    bare = re.sub(rf"^{re.escape(sec_lab)}\s*:\s*", "", sec,
+                                  flags=re.IGNORECASE).strip() or sec
+                if lab and bare:
+                    candidates.append(f"{lab} — {bare}")
+                elif bare != sec:
+                    candidates.append(bare)
+            if lab:
+                candidates.append(lab)
+        for cand in candidates:
+            title = f"{verb}: {cand}"
+            if len(title) <= 90 and title not in seen:
+                seen.add(title)
+                return cand
+        return candidates[0] if candidates else None
+
     def _move_questions(self, move: TeachingMove, by_objective: Dict[str, List[QuizQuestion]],
                         all_qs: List[QuizQuestion], used: set, take_all: bool
                         ) -> List[QuizQuestion]:
@@ -946,12 +1072,52 @@ class BlueprintCompiler:
 # Content-derived visual payloads (extraction, never invention)
 # ---------------------------------------------------------------------------
 
+def _is_askable(q: QuizQuestion) -> bool:
+    """A locked question must ask something: a real question mark, options to
+    choose from, or a substantive non-heading prompt. Headings are never asked."""
+    prompt = (q.prompt or "").strip()
+    if not prompt or is_heading_block(prompt):
+        return False
+    if "?" in prompt or (q.options or []):
+        return True
+    return len(prompt) > 40
+
+
+def _rep_reason(task: TaskType, rep: Representation, u: ContentUnit) -> str:
+    """One-line record of why this representation was selected (debugging)."""
+    text = u.normalized_content
+    cue = ""
+    if rep in (Representation.LABELED_DIAGRAM, Representation.ANATOMY_MAP):
+        cue = "compartment bullets" if "**" in text else "legend lines"
+    elif rep in (Representation.PATHWAY, Representation.SEQUENCE, Representation.FLOW,
+                 Representation.CYCLE):
+        cue = "numbered steps" if re.search(r"Step\s*\d+", text) else "directional markers"
+    elif rep == Representation.EQUATION_FOCUS:
+        cue = "stoichiometric equation"
+    elif rep in (Representation.DATA_TABLE, Representation.COMPARISON_MATRIX):
+        cue = "tabular source"
+    elif rep == Representation.DEFINITION_FOCUS:
+        cue = "definition wording"
+    elif rep == Representation.WORKED_CALCULATION:
+        cue = "worked steps"
+    elif rep == Representation.CONTRAST:
+        cue = "mistake/correction spans"
+    parts = [f"task={task.value}", f"unit={u.content_type.value}"]
+    if cue:
+        parts.append(cue)
+    parts.append(f"-> {rep.value}")
+    return " + ".join(parts)
+
+
 def _split_points(text: str, limit: int = 4) -> List[str]:
     t = clean(text)
     parts = [p.strip("- •* ") for p in re.split(r"\n+", t) if p.strip()]
     if len(parts) <= 1:
         parts = [p.strip() for p in re.split(r";\s+", t) if p.strip()]
-    return [p[:220] for p in parts[:limit]] or [t[:220]]
+    # Drop bare section-numbering lines ("1. Introduction and Big Picture").
+    parts = [p for p in parts
+             if not re.match(r"^\d+\.\s+[A-Z][^.?!]{0,70}$", p.strip()) or len(parts) == 1]
+    return [clip_sentences(p, 350) for p in parts[:limit]] or [clip_sentences(t, 350)]
 
 
 def _extract_structure(text: str) -> Tuple[List[str], List[Dict[str, str]]]:
@@ -1041,15 +1207,15 @@ def _worked_from_unit(text: str) -> Tuple[str, List[str]]:
     t = clean(text)
     parts = re.split(r"(Step\s*\d+\s*:)", t, flags=re.IGNORECASE)
     if len(parts) >= 3:
-        problem = parts[0].strip()[:400] or parts[1] + parts[2][:200]
+        problem = clip_sentences(parts[0].strip(), 400) or parts[1] + parts[2][:200]
         steps = []
         for i in range(1, len(parts) - 1, 2):
-            steps.append((parts[i] + " " + parts[i + 1]).strip()[:300])
+            steps.append(clip_sentences((parts[i] + " " + parts[i + 1]).strip(), 300))
         return problem, steps[:6]
     lines = [l.strip() for l in t.splitlines() if l.strip()]
     if len(lines) > 1:
-        return lines[0][:400], [l[:300] for l in lines[1:7]]
-    return t[:400], [t[:300]]
+        return clip_sentences(lines[0], 400), [clip_sentences(l, 300) for l in lines[1:7]]
+    return clip_sentences(t, 400), [clip_sentences(t, 300)]
 
 
 def _parse_misconception_spans(text: str) -> Tuple[str, str, str]:
@@ -1059,17 +1225,17 @@ def _parse_misconception_spans(text: str) -> Tuple[str, str, str]:
     m = re.search(r"(?:Common Mistake|Common Misconception|Misconception)\s*:\s*(.+?)(?=(?:Why it is flawed|Why it is wrong|Correction|Correct Reasoning)\s*:|\Z)",
                   t, re.IGNORECASE | re.DOTALL)
     if m:
-        wrong = m.group(1).strip()[:300]
+        wrong = clip_sentences(m.group(1).strip(), 300)
     m = re.search(r"Why it is (?:flawed|wrong)\s*:\s*(.+?)(?=(?:Correction|Correct Reasoning)\s*:|\Z)",
                   t, re.IGNORECASE | re.DOTALL)
     if m:
-        why = m.group(1).strip()[:300]
+        why = clip_sentences(m.group(1).strip(), 300)
     m = re.search(r"(?:Correct Reasoning|Correction)\s*:\s*(.+)", t,
                   re.IGNORECASE | re.DOTALL)
     if m:
-        correct = m.group(1).strip()[:400]
+        correct = clip_sentences(m.group(1).strip(), 400)
     if not wrong:
-        wrong = t[:300]
+        wrong = clip_sentences(t, 300)
     return wrong, why, correct
 
 
@@ -1114,15 +1280,21 @@ def _is_calc_material(u: ContentUnit) -> bool:
     return False
 
 
-def _display_title(fallback: str, body: Dict[str, Any], rep: Representation) -> str:
-    """Slide title from content (first point/term), never the bare chapter name."""
+def _display_title(fallback: str, body: Dict[str, Any], rep: Representation,
+                   section: str = "", chapter: str = "") -> str:
+    """Scene-specific title: term, first specific point, or section — never
+    a bare chapter name unless nothing else exists (flagged downstream)."""
     if rep == Representation.DEFINITION_FOCUS and body.get("term"):
         return body["term"][:100]
     points = body.get("points") or []
     if points:
         first = re.sub(r"^\d+\.\s*", "", points[0]).strip()
-        if 8 < len(first) <= 100:
+        if (8 < len(first) <= 100 and first != chapter
+                and first != short_headline(section or "", 100)):
             return first
+    sec_head = short_headline(section, 80) if section else ""
+    if sec_head and sec_head != chapter:
+        return sec_head
     return fallback
 
 
@@ -1145,17 +1317,75 @@ def _parse_markdown_table(text: str) -> Tuple[List[str], List[List[str]]]:
     return rows[0], rows[1:6]
 
 
-def _retrieval_label(u: ContentUnit) -> str:
-    """Human-readable retrieval target (never raw C-ids or source markers)."""
-    if u.content_type == ContentType.TABLE or _parse_markdown_table(u.normalized_content)[0]:
-        return "the data table"
-    t = clean(u.normalized_content)
-    t = re.sub(r"^(Why it is (?:flawed|wrong)|Correct Reasoning|Correction|"
-               r"Common Mistake|Common Misconception|Question|Step\s*\d+)\s*:\s*",
-               "", t, flags=re.IGNORECASE)
-    first = t.split("\n")[0].strip()
-    first = re.sub(r"^\d+\.\s*", "", first)
-    return first[:80] or "the recent concepts"
+def _title_alternates(s, units: Dict[str, Any]) -> List[str]:
+    """Titles derived from this scene's own payload, strongest first.
+
+    Only ever consulted when the scene's first-choice title is already taken
+    by an earlier scene — so the fallback still names THIS scene instead of
+    repeating the last one.
+    """
+    out: List[str] = []
+
+    def add(x: Any, cap: int = 80) -> None:
+        if not x:
+            return
+        t = strip_markup_line(clean(str(x)))
+        # A clipped headline is a fragment; fragments are never titles.
+        if not t or len(t) > cap or "…" in t or "..." in t:
+            return
+        if t not in out:
+            out.append(t)
+
+    b = s.body or {}
+    add(b.get("term"), 60)
+    pts = b.get("points") or []
+    if pts:
+        add(short_headline(str(pts[0]), 70))
+    for it in (b.get("items") or [])[:2]:
+        add(leading_label(str(it)), 60)
+    visual = getattr(s, "visual", None)
+    parts = [clean(str(p)) for p in (getattr(visual, "structure", None) or [])]
+    parts = [p for p in parts if p and "\\" not in p]
+    if 1 < len(parts) <= 4:
+        add(", ".join(parts[:3]), 60)
+    add(b.get("problem"), 70)
+    add(b.get("wrong_idea"), 70)
+    u = next((units[c] for c in s.source_ids if c in units), None)
+    if u is not None:
+        sec = section_topic(u.section_title or "")
+        if sec:
+            lab = leading_label(u.normalized_content)
+            if lab:
+                add(f"{lab} — {sec}", 80)
+            add(sec, 80)
+    return out
+
+
+def resolve_duplicate_titles(bp, plan, units: Dict[str, Any]) -> None:
+    """Every scene headline must name THAT scene.
+
+    Walks in slide order so the first scene keeps the section title; a later
+    scene that would repeat it falls back to payload the earlier one did not
+    use (its term, its first point, its structure parts, its own label).
+    """
+    used: set = set()
+    for s in bp.slides:
+        cands = [s.content_title] + _title_alternates(s, units)
+        pick = next((c for c in cands if c and len(c) <= 90 and c not in used), None)
+        if pick is None:
+            # Every candidate taken: qualify with the scene's own task so the
+            # headline still says what THIS scene does.
+            task = (s.task or "").replace("_", " ").strip().title()
+            base = cands[0] or plan.title
+            for n in range(1, 100):
+                cand = (f"{task}: {base}" if n == 1 else
+                        f"{task}: {base} ({n})")[:90]
+                if cand not in used:
+                    pick = cand
+                    break
+            pick = pick or base
+        s.content_title = pick
+        used.add(pick)
 
 
 def _comparison_parties(text: str) -> List[str]:

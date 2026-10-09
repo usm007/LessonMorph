@@ -1,0 +1,546 @@
+{
+  "scenes": [
+    {
+      "scene_id": "s01",
+      "purpose": "create relevance and curiosity for the chapter",
+      "instructional_state": "HOOK",
+      "learning_goal": [
+        "Define Photosynthesis and explain what it means.",
+        "Correct the common misconception about The Dark Reactions and Plant Respiration."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Define Photosynthesis and explain what it means.; Correct the common misconception about The Dark Reactions and Plant Respiration.\n\nASK STUDENTS (ORAL CHECK):\nask students to predict before revealing anything — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "ask students to predict before revealing anything — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "chrome:title",
+      "pedagogical_ref": "ch01:HOOK"
+    },
+    {
+      "scene_id": "s02",
+      "purpose": "activate prerequisites before new complexity",
+      "instructional_state": "PRIOR_KNOWLEDGE",
+      "learning_goal": [
+        "Define Photosynthesis and explain what it means.",
+        "Correct the common misconception about The Dark Reactions and Plant Respiration."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Define Photosynthesis and explain what it means.; Correct the common misconception about The Dark Reactions and Plant Respiration.\n\nASK STUDENTS (ORAL CHECK):\nelicit prior knowledge; cold-call one summary — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "elicit prior knowledge; cold-call one summary — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "chrome:prior_knowledge",
+      "pedagogical_ref": "ch01:PRIOR_KNOWLEDGE"
+    },
+    {
+      "scene_id": "s03",
+      "purpose": "state observable outcomes (backward design)",
+      "instructional_state": "OBJECTIVE",
+      "learning_goal": [
+        "Define Photosynthesis and explain what it means.",
+        "Correct the common misconception about The Dark Reactions and Plant Respiration."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Define Photosynthesis and explain what it means.; Correct the common misconception about The Dark Reactions and Plant Respiration.\n\nASK STUDENTS (ORAL CHECK):\nread objectives aloud; ask which looks hardest — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "read objectives aloud; ask which looks hardest — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "chrome:objectives",
+      "pedagogical_ref": "ch01:OBJECTIVE"
+    },
+    {
+      "scene_id": "s04",
+      "purpose": "teach C002 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "concept: Introduction and Big Picture"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: concept: Introduction and Big Picture\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Introduction and Big Picture",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Introduction and Big Picture",
+      "source_ids": [
+        "C002"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C002",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=concept + unit=explanation + -> concept_card",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "scene_id": "s05",
+      "purpose": "teach C003 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "definition: Photosynthesis"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: definition: Photosynthesis\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Photosynthesis",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Photosynthesis",
+      "source_ids": [
+        "C003"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C003",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=definition + unit=definition + definition wording + -> definition_focus",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "scene_id": "s06",
+      "purpose": "retrieve C001, C002, C003 before moving on",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "recall Introduction and Big Picture from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: recall Introduction and Big Picture from memory\n\nASK STUDENTS (ORAL CHECK):\nhide the source slide; require recall, not recognition",
+      "teacher_prompt": "hide the source slide; require recall, not recognition",
+      "source_ids": [
+        "C001",
+        "C002",
+        "C003"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "scene_id": "s07",
+      "purpose": "teach C006 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "derivation: The Overall Chemical Reaction and Thermodynamic Balance"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: derivation: The Overall Chemical Reaction and Thermodynamic Balance\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — The Overall Chemical Reaction and Thermodynamic Balance",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — The Overall Chemical Reaction and Thermodynamic Balance",
+      "source_ids": [
+        "C006"
+      ],
+      "objective_ids": [
+        "O03"
+      ],
+      "concept_id": "C006",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=derivation + unit=formula + stoichiometric equation + -> equation_focus",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "scene_id": "s08",
+      "purpose": "Assess: Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unk",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities.\n\nASK STUDENTS (ORAL CHECK):\nThink time first; who can explain their reasoning?",
+      "teacher_prompt": "Think time first; who can explain their reasoning?",
+      "source_ids": [
+        "C006"
+      ],
+      "objective_ids": [
+        "O03"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "locked short_answer assessment -> retrieval",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "scene_id": "s09",
+      "purpose": "teach C007 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "mechanism: The Overall Chemical Reaction and Thermodynamic Balance"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: mechanism: The Overall Chemical Reaction and Thermodynamic Balance\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — The Overall Chemical Reaction and Thermodynamic Balance",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — The Overall Chemical Reaction and Thermodynamic Balance",
+      "source_ids": [
+        "C007"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C007",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=mechanism + unit=explanation + legend lines + -> labeled_diagram",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "scene_id": "s10",
+      "purpose": "teach C009 in a manageable chunk",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "mechanism: Subcellular Architecture: The Chloroplast"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: mechanism: Subcellular Architecture: The Chloroplast\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Subcellular Architecture: The Chloroplast",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Subcellular Architecture: The Chloroplast",
+      "source_ids": [
+        "C009"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C009",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=mechanism + unit=explanation + compartment bullets + -> labeled_diagram",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "scene_id": "s11",
+      "purpose": "retrieve C007, C008, C009 before moving on",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "recall The Overall Chemical Reaction and Thermodynamic Balance from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: recall The Overall Chemical Reaction and Thermodynamic Balance from memory\n\nASK STUDENTS (ORAL CHECK):\nhide the source slide; require recall, not recognition",
+      "teacher_prompt": "hide the source slide; require recall, not recognition",
+      "source_ids": [
+        "C007",
+        "C008",
+        "C009"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "scene_id": "s12",
+      "purpose": "teach C011 in a manageable chunk",
+      "instructional_state": "GUIDED_EXAMPLE",
+      "learning_goal": [
+        "calculation: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: calculation: Chapter 4: Photosynthesis and the Transformation of Energy\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — worked reasoning",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — worked reasoning",
+      "source_ids": [
+        "C011",
+        "C012",
+        "C013",
+        "C014",
+        "C015"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C011",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=calculation + unit=formula + worked steps + -> worked_calculation",
+      "pedagogical_ref": "ch01:GUIDED_EXAMPLE"
+    },
+    {
+      "scene_id": "s13",
+      "purpose": "Assess: Determine the theoretical moles of glucose produced if the experimental quantum ",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved.\n\nASK STUDENTS (ORAL CHECK):\nThink time first; who can explain their reasoning?",
+      "teacher_prompt": "Think time first; who can explain their reasoning?",
+      "source_ids": [
+        "C012"
+      ],
+      "objective_ids": [
+        "O05"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "locked short_answer assessment -> retrieval",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "scene_id": "s14",
+      "purpose": "retrieve C013, C014, C015 before moving on",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "recall Worked Calculation: Photochemical Quantum Yield and Efficiency from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: recall Worked Calculation: Photochemical Quantum Yield and Efficiency from memory\n\nASK STUDENTS (ORAL CHECK):\nhide the source slide; require recall, not recognition",
+      "teacher_prompt": "hide the source slide; require recall, not recognition",
+      "source_ids": [
+        "C013",
+        "C014",
+        "C015"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "scene_id": "s15",
+      "purpose": "teach C017 in a manageable chunk",
+      "instructional_state": "MISCONCEPTION",
+      "learning_goal": [
+        "misconception: Common Misconception: The Dark Reactions and Plant Respiration"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: misconception: Common Misconception: The Dark Reactions and Plant Respiration\n\nASK STUDENTS (ORAL CHECK):\nexplain, then pause; ask 'why does this step follow?' — Common Misconception: The Dark Reactions and Plant Respiration",
+      "teacher_prompt": "explain, then pause; ask 'why does this step follow?' — Common Misconception: The Dark Reactions and Plant Respiration",
+      "source_ids": [
+        "C017",
+        "C018",
+        "C019"
+      ],
+      "objective_ids": [
+        "O02"
+      ],
+      "concept_id": "C017",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=misconception + unit=misconception + mistake/correction spans + -> contrast",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "scene_id": "s16",
+      "purpose": "retrieve C016, C017, C018 before moving on",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "recall Common Misconception: The Dark Reactions and Plant Respiration from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: recall Common Misconception: The Dark Reactions and Plant Respiration from memory\n\nASK STUDENTS (ORAL CHECK):\nhide the source slide; require recall, not recognition",
+      "teacher_prompt": "hide the source slide; require recall, not recognition",
+      "source_ids": [
+        "C016",
+        "C017",
+        "C018"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "scene_id": "s17",
+      "purpose": "retrieve C019, C020, C021 before moving on",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "recall Correct Reasoning — The Dark Reactions and Plant Respiration from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: recall Correct Reasoning — The Dark Reactions and Plant Respiration from memory\n\nASK STUDENTS (ORAL CHECK):\nhide the source slide; require recall, not recognition",
+      "teacher_prompt": "hide the source slide; require recall, not recognition",
+      "source_ids": [
+        "C019",
+        "C020",
+        "C021"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "scene_id": "s18",
+      "purpose": "Assess: If the thylakoid membrane becomes permeable to protons due to a chemical ionopho",
+      "instructional_state": "EXPLANATION",
+      "learning_goal": [
+        "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?\n\nASK STUDENTS (ORAL CHECK):\nThink time first; who can explain their reasoning?",
+      "teacher_prompt": "Think time first; who can explain their reasoning?",
+      "source_ids": [
+        "C022"
+      ],
+      "objective_ids": [
+        "O06"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "locked mcq assessment -> mcq",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "scene_id": "s19",
+      "purpose": "model reasoning for C024",
+      "instructional_state": "GUIDED_EXAMPLE",
+      "learning_goal": [
+        "process: apply the lesson"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: process: apply the lesson\n\nASK STUDENTS (ORAL CHECK):\nmodel the first step (I DO), let students attempt the next (WE DO) — Practice Problem 1: Trace the path of an electron extracted from water photolysis in Photosystem II until its terminal r",
+      "teacher_prompt": "model the first step (I DO), let students attempt the next (WE DO) — Practice Problem 1: Trace the path of an electron extracted from water photolysis in Photosystem II until its terminal r",
+      "source_ids": [
+        "C024"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C024",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=process + unit=example + -> practice_problem",
+      "pedagogical_ref": "ch01:GUIDED_EXAMPLE"
+    },
+    {
+      "scene_id": "s20",
+      "purpose": "retrieve C022, C023, C024 before moving on",
+      "instructional_state": "RETRIEVAL",
+      "learning_goal": [
+        "recall Formative Assessment: Checks for Understanding from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: recall Formative Assessment: Checks for Understanding from memory\n\nASK STUDENTS (ORAL CHECK):\nhide the source slide; require recall, not recognition",
+      "teacher_prompt": "hide the source slide; require recall, not recognition",
+      "source_ids": [
+        "C022",
+        "C023",
+        "C024"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "scene_id": "s21",
+      "purpose": "model reasoning for C025",
+      "instructional_state": "GUIDED_EXAMPLE",
+      "learning_goal": [
+        "comparison: apply the lesson"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: comparison: apply the lesson\n\nASK STUDENTS (ORAL CHECK):\nmodel the first step (I DO), let students attempt the next (WE DO) — Practice Problem 2: Contrast the physiological advantages and energetic costs of the C3 photosynthetic pathway with the",
+      "teacher_prompt": "model the first step (I DO), let students attempt the next (WE DO) — Practice Problem 2: Contrast the physiological advantages and energetic costs of the C3 photosynthetic pathway with the",
+      "source_ids": [
+        "C025"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "concept_id": "C025",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=comparison + unit=example + -> practice_problem",
+      "pedagogical_ref": "ch01:GUIDED_EXAMPLE"
+    },
+    {
+      "scene_id": "s22",
+      "purpose": "coordinate explanation + visual for C026",
+      "instructional_state": "VISUAL_MODEL",
+      "learning_goal": [
+        "experimental_data: Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: experimental_data: Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum\n\nASK STUDENTS (ORAL CHECK):\npause before revealing each stage; ask what comes next — Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+      "teacher_prompt": "pause before revealing each stage; ask what comes next — Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+      "source_ids": [
+        "C026"
+      ],
+      "objective_ids": [
+        "O04"
+      ],
+      "concept_id": "C026",
+      "estimated_minutes": 2.0,
+      "representation_reason": "task=experimental_data + unit=table + tabular source + -> data_table",
+      "pedagogical_ref": "ch01:VISUAL_MODEL"
+    },
+    {
+      "scene_id": "s23",
+      "purpose": "revisit the earliest important idea in a new context",
+      "instructional_state": "CUMULATIVE_RETRIEVAL",
+      "learning_goal": [
+        "recall Introduction and Big Picture from memory"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: recall Introduction and Big Picture from memory\n\nASK STUDENTS (ORAL CHECK):\nrevisit an earlier concept in a new context",
+      "teacher_prompt": "revisit an earlier concept in a new context",
+      "source_ids": [
+        "C001",
+        "C002"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:CUMULATIVE_RETRIEVAL"
+    },
+    {
+      "scene_id": "s24",
+      "purpose": "consolidate golden rules",
+      "instructional_state": "RECAP",
+      "learning_goal": [
+        "Define Photosynthesis and explain what it means.",
+        "Correct the common misconception about The Dark Reactions and Plant Respiration."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Define Photosynthesis and explain what it means.; Correct the common misconception about The Dark Reactions and Plant Respiration.\n\nASK STUDENTS (ORAL CHECK):\nask a student to teach back the golden rule — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "teacher_prompt": "ask a student to teach back the golden rule — Chapter 4: Photosynthesis and the Transformation of Energy",
+      "source_ids": [],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "chrome:recap",
+      "pedagogical_ref": "ch01:RECAP"
+    },
+    {
+      "scene_id": "s25",
+      "purpose": "Assess: Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorpt",
+      "instructional_state": "ASSESSMENT",
+      "learning_goal": [
+        "Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum."
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum.\n\nASK STUDENTS (ORAL CHECK):\nThink time first; who can explain their reasoning?",
+      "teacher_prompt": "Think time first; who can explain their reasoning?",
+      "source_ids": [
+        "C026"
+      ],
+      "objective_ids": [
+        "O04"
+      ],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "locked short_answer assessment -> retrieval",
+      "pedagogical_ref": "ch01:ASSESSMENT"
+    },
+    {
+      "scene_id": "s26",
+      "purpose": "Rapid formative exit check",
+      "instructional_state": "EXIT",
+      "learning_goal": [
+        "surface one takeaway and one question"
+      ],
+      "teacher_notes": "EMPHASIS / KEY POINT:\nLearning goal: surface one takeaway and one question",
+      "teacher_prompt": "",
+      "source_ids": [],
+      "objective_ids": [],
+      "concept_id": "",
+      "estimated_minutes": 2.0,
+      "representation_reason": "chrome:exit",
+      "pedagogical_ref": "ch01:EXIT"
+    }
+  ]
+}

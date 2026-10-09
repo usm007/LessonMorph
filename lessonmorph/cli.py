@@ -113,6 +113,25 @@ def _build_ir(input_file: Path | str, work_path: Path, learner_hint: dict | None
     if fatal:
         raise RuntimeError(f"Blueprint QA FAILED with {len(fatal)} error(s); refusing to render.")
 
+    # Debug record: every slide's source refs + pedagogical + representation refs.
+    storyboard = []
+    for p, bp in zip(chapter_plans, blueprints):
+        for s in bp.slides:
+            storyboard.append({
+                "slide_id": s.id,
+                "chapter_id": p.id,
+                "title": s.content_title,
+                "representation": s.representation,
+                "task": s.task,
+                "source_refs": list(s.source_ids),
+                "objective_ids": list(s.objective_ids),
+                "pedagogical_ref": s.pedagogical_ref,
+                "representation_reason": s.representation_reason,
+                "instructional_state": s.instructional_state,
+            })
+    (work_path / "storyboard.json").write_text(
+        json.dumps(storyboard, ensure_ascii=False, indent=2), encoding="utf-8")
+
     return {
         "src_path": src_path,
         "ingest_res": ingest_res,

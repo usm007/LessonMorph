@@ -120,7 +120,8 @@ class SlideComposer:
                                 "reveal_sequence": list(ir.reveal_sequence)}
         if rep == "definition_focus":
             base.update({"term": clean(b.get("term", ir.concept_title)),
-                         "definition": clean(b.get("definition", ""))})
+                         "definition": clean(b.get("definition", "")),
+                         "detail": clean(b.get("detail", ""))})
         elif rep in ("labeled_diagram", "anatomy_map", "cutaway", "spatial_relationship"):
             base.update({"subject": clean(v.subject or ir.concept_title),
                          "structure": [clean(s) for s in v.structure],

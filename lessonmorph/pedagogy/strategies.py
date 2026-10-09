@@ -14,10 +14,14 @@ complexity, and likely misconceptions.
 
 from __future__ import annotations
 import re
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 from lessonmorph.core.models import (
     ContentType, ContentUnit, LearnerProfile, LearningObjective,
     OBSERVABLE_VERBS, SubjectDomain,
+)
+from lessonmorph.core.text_refs import (
+    clip_words, extract_term, is_equation, is_step_fragment, short_headline,
+    strip_markup_line, task_sentence,
 )
 
 PROCEDURAL_TYPES = (ContentType.WORKED_STEP, ContentType.EXERCISE, ContentType.FORMULA)
@@ -51,7 +55,13 @@ def profile_content(units: List[ContentUnit]) -> Dict[str, str]:
 def synthesize_objectives(
     units: List[ContentUnit], chapter_title: str, content_profile: Dict[str, str],
 ) -> List[LearningObjective]:
-    """Backward design: observable verbs bound to the content that teaches them."""
+    """Backward design: observable verbs bound to the content that teaches them.
+
+    Every objective names real content extracted from the units (terms,
+    formulas, misconception topics, tables). Generic filler such as
+    "Explain conceptual content in …" is never emitted: if nothing specific
+    is derivable, fewer objectives are returned instead.
+    """
     # 1. Explicit objectives in source win.
     for u in units:
         if "objective" in u.normalized_content.lower() or "you will learn" in u.normalized_content.lower():
@@ -61,33 +71,140 @@ def synthesize_objectives(
                 return [LearningObjective(f"O{i+1:02d}", _with_verb(t), _guess_verb(t)[0],
                                           _guess_verb(t)[1], [u.id])
                         for i, t in enumerate(clean)]
-    # 2. Synthesize from content mix — verbs match the dominant content nature.
-    counts = {"conceptual": 0, "procedural": 0, "factual": 0}
-    by_nature: Dict[str, List[ContentUnit]] = {"conceptual": [], "procedural": [], "factual": []}
-    for u in units:
-        n = content_profile.get(u.id, "conceptual")
-        counts[n] += 1
-        by_nature[n].append(u)
-    ranked = sorted(counts, key=lambda k: counts[k], reverse=True)
+    # 2. Derive one student-facing outcome per salient idea (cap 6, core first).
+    #    Numbered steps of one worked example are parts of that example, never
+    #    outcomes of their own; prose that merely contains inline math is not
+    #    "a relationship". Ranks an explicitly stated task above worked-example
+    #    bookkeeping so the example yields ONE outcome from its own task.
+    ranked = sorted(units, key=lambda u: (0 if u.importance.value == "core" else 1,
+                                          _objective_rank(u)))
     objectives: List[LearningObjective] = []
+    seen_terms: set = set()
     oid = 1
-    for nature in ranked:
-        group = by_nature[nature]
-        if not group:
-            continue
-        for verb, bloom in _VERB_BY_TYPE[nature][:2]:
-            if oid > 6:
-                break
-            ids = [u.id for u in group[:4]]
-            objectives.append(LearningObjective(
-                f"O{oid:02d}", f"{verb.capitalize()} {nature} content in {chapter_title}.",
-                verb, bloom, ids))
-            oid += 1
+    for u in ranked:
         if oid > 6:
             break
-    return objectives or [LearningObjective("O01", f"Explain key ideas in {chapter_title}.",
-                                            "explain", "understanding",
-                                            [u.id for u in units[:4]])]
+        if is_step_fragment(u.normalized_content):
+            continue  # a step belongs to its worked example, not to the goals
+        text = _objective_text(u)
+        if text is None:
+            continue
+        key = text.lower()
+        if key in seen_terms:
+            continue
+        seen_terms.add(key)
+        verb, bloom = _guess_verb(text)
+        objectives.append(LearningObjective(f"O{oid:02d}", text, verb, bloom, [u.id]))
+        oid += 1
+    return objectives
+
+
+_TYPE_RANK = {
+    "definition": 0, "misconception": 1, "formula": 2, "table": 3,
+    "example": 5, "exercise": 5, "worked_step": 6,
+}
+
+
+def _objective_rank(u: ContentUnit) -> int:
+    """Order candidates for the (capped) objective set.
+
+    An explanation that states an explicit task ("Determine the theoretical
+    moles of glucose…") is a real learning outcome and ranks above example
+    bookkeeping, so a worked example contributes its own task rather than a
+    pile of per-step fragments. Everything else falls to its content type.
+    """
+    if u.content_type == ContentType.EXPLANATION and task_sentence(u.normalized_content):
+        return 4
+    return _TYPE_RANK.get(u.content_type.value, 9)
+
+
+def _objective_text(u: ContentUnit) -> Optional[str]:
+    """One student-facing objective sentence, or None if not derivable."""
+    ctype = u.content_type
+    if ctype == ContentType.DEFINITION:
+        term = extract_term(u.normalized_content) or extract_term(u.original_wording)
+        if term:
+            return f"Define {term} and explain what it means."
+        head = short_headline(u.normalized_content, 60)
+        if head and len(head) > 8:
+            return f"Explain: {head}."
+        return None
+    if ctype == ContentType.FORMULA:
+        from lessonmorph.blueprint.sanitize import clean
+        if not is_equation(u.normalized_content):
+            # Prose containing inline math is not a relationship. Use its own
+            # stated task if it has one; otherwise emit nothing rather than
+            # "Use the relationship <paragraph>…".
+            return _task_objective(u)
+        head = short_headline(clean(u.normalized_content), 70)
+        if head and len(head) > 8:
+            return f"Use the relationship {head} to calculate unknown quantities."
+        return None
+    if ctype == ContentType.MISCONCEPTION:
+        topic = ""
+        if u.section_title:
+            topic = re.sub(r"^(?:common\s+)?(?:misconception|mistake|error)\s*:\s*", "",
+                           u.section_title.strip(), flags=re.IGNORECASE).strip()
+        if not topic:
+            m = re.search(r"(?:Common Mistake|Misconception)\s*:\s*(.+?)(?:\.|;|$)",
+                          u.normalized_content, re.IGNORECASE | re.DOTALL)
+            topic = clip_words(m.group(1), 70) if m else short_headline(u.normalized_content, 70)
+        if topic:
+            return f"Correct the common misconception about {topic}."
+        return None
+    if ctype == ContentType.TABLE:
+        title = (u.metadata or {}).get("title") or ""
+        # "Table 1" carries no meaning — prefer the source section that names
+        # what the data actually is.
+        if not title or re.fullmatch(r"table\s*\d+", title.strip(), re.IGNORECASE):
+            title = u.section_title or title
+        if title:
+            return f"Interpret the data in {strip_markup_line(title)}."
+        return None
+    if ctype in (ContentType.EXAMPLE, ContentType.WORKED_STEP, ContentType.EXERCISE):
+        if is_step_fragment(u.normalized_content):
+            return None  # a step is assessed through its worked example
+        # Only an outcome we can also assess: the unit must show more than
+        # the task it asks for, or there is no source wording to reveal.
+        if not _demonstrates(u):
+            return None
+        return _task_objective(u) or _example_objective(u)
+    if ctype == ContentType.EXPLANATION:
+        # Only when the wording states an explicit task — never invent an
+        # outcome from expository prose.
+        return _task_objective(u)
+    return None
+
+
+_LABEL_RE = re.compile(
+    r"^(?:\*\*)?(?:practice\s+problem|worked\s+(?:example|calculation)|example|question"
+    r"|exercise|problem|task)\s*\d*\s*(?:\*\*)?\s*[:.]\s*", re.IGNORECASE)
+
+
+def _demonstrates(u: ContentUnit) -> bool:
+    """True when the unit carries content BEYOND its opening ask."""
+    t = _LABEL_RE.sub("", u.normalized_content.strip())
+    sentences = [s for s in re.split(r"(?<=[.!?])\s+", t.strip()) if s]
+    rest = " ".join(sentences[1:]).strip() if len(sentences) > 1 else ""
+    return len(strip_markup_line(rest)) >= 40
+
+
+def _task_objective(u: ContentUnit) -> Optional[str]:
+    """Objective taken verbatim from the unit's own stated task/question."""
+    sent = task_sentence(u.normalized_content) or task_sentence(u.original_wording or "")
+    if not sent:
+        return None
+    return clip_words(sent, 150).rstrip(".") + "."
+
+
+def _example_objective(u: ContentUnit) -> Optional[str]:
+    """Fallback outcome for example/practice wording with no stated task."""
+    head = short_headline(re.sub(r"^(?:practice\s+problem|example)\s*\d*\s*[:.]\s*", "",
+                                 u.normalized_content.strip(),
+                                 flags=re.IGNORECASE), 80)
+    if head and len(head) > 12:
+        return f"Solve problems like: {head}."
+    return None
 
 
 def _guess_verb(text: str) -> Tuple[str, str]:

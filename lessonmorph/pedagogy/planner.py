@@ -34,12 +34,57 @@ from lessonmorph.pedagogy.misconceptions import MisconceptionDetector, Structure
 from lessonmorph.pedagogy.pacing import PacingCalculator
 from lessonmorph.pedagogy.quality import safety_check
 from lessonmorph.pedagogy.sequencing import build_teaching_sequence
+from lessonmorph.core.text_refs import (
+    clip_sentences, extract_term, is_heading_block, is_step_fragment,
+    strip_markup_line, task_sentence,
+)
 from lessonmorph.pedagogy.strategies import (
     build_dependency_chain,
     profile_content,
     select_strategies,
     synthesize_objectives,
 )
+
+
+def clip_headline_clean(u: ContentUnit, max_chars: int = 110) -> str:
+    """Clean LaTeX/markdown FIRST, then clip at a sentence boundary.
+
+    Clipping raw source text cuts inside commands (``\\text{O`` → "textO").
+    """
+    from lessonmorph.blueprint.sanitize import clean
+    from lessonmorph.core.text_refs import clip_sentences
+    return clip_sentences(clean(u.normalized_content), max_chars)
+
+
+def answer_source(u: ContentUnit, units: List[ContentUnit],
+                  max_chars: int = 340) -> tuple:
+    """The wording that RESPONDS to this unit: (correct_answer, explanation).
+
+    A worked example's steps and a misconception's correction live in the
+    units that follow it in its own section; anything else is answered by the
+    unit's own wording. Units are kept whole, and the selection keeps a
+    suffix, so the final step — the actual result — is never clipped away.
+    """
+    from lessonmorph.blueprint.sanitize import clean
+    texts: List[str] = []
+    wants_following = bool(task_sentence(u.normalized_content)) or \
+        u.content_type == ContentType.MISCONCEPTION
+    if wants_following and u.section_title:
+        idx = next((i for i, x in enumerate(units) if x.id == u.id), -1)
+        texts = [clean(x.normalized_content) for x in units[idx + 1:]
+                 if x.content_type != ContentType.HEADING
+                 and x.section_title == u.section_title]
+    texts = [t for t in texts if t] or [clean(u.normalized_content)]
+    picked: List[str] = []
+    total = 0
+    for t in reversed(texts):
+        add = len(t) + (1 if picked else 0)
+        if picked and total + add > max_chars:
+            break
+        picked.insert(0, t)
+        total += add
+    explanation = clip_sentences(" ".join(picked), max_chars)
+    return clip_sentences(picked[-1], 170), explanation
 
 
 class PedagogicalPlanner:
@@ -163,7 +208,12 @@ class PedagogicalPlanner:
 
     def _ensure_objective_coverage(self, questions: List[QuizQuestion],
                                      objectives, units: List[ContentUnit]) -> None:
-        """Constructive alignment: every objective gets >= 1 assessment item."""
+        """Constructive alignment: every objective gets >= 1 assessment item.
+
+        The prompt is the unit's own stated task, or the objective itself —
+        never a meta-instruction glued to raw source. The reveal carries the
+        wording that answers it, taken from the locked source.
+        """
         by_unit = {u.id: u for u in units}
         covered: set = set()
         for q in questions:
@@ -177,13 +227,14 @@ class PedagogicalPlanner:
             if cid is None:
                 continue
             u = by_unit[cid]
-            snippet = u.normalized_content[:110]
+            prompt = clip_sentences(task_sentence(u.normalized_content) or o.text, 150)
+            correct, explanation = answer_source(u, units)
             questions.append(QuizQuestion(
                 id=f"Q{n:02d}", question_type=QuestionType.SHORT_ANSWER,
                 source_content_ids=[cid], difficulty=o.bloom_level,
-                prompt=f"{o.verb.capitalize()} ({o.id}): {snippet}",
-                correct_answer="See explanation and source reasoning.",
-                explanation=f"Aligned to {o.id} ({o.verb}/{o.bloom_level}): {u.normalized_content[:200]}",
+                prompt=prompt,
+                correct_answer=correct,
+                explanation=explanation,
             ))
             covered.add(cid)
             n += 1
@@ -262,14 +313,16 @@ class PedagogicalPlanner:
         questions: List[QuizQuestion] = []
         q_counter = 1
 
-        # Check for explicit source exercises
-        exercise_units = [u for u in units if u.content_type == ContentType.EXERCISE]
+        # Check for explicit source exercises (skip bare headings: structure, not tasks)
+        exercise_units = [u for u in units
+                          if u.content_type == ContentType.EXERCISE
+                          and not is_heading_block(u.normalized_content)]
         for eu in exercise_units:
             text = eu.normalized_content
             # Check if MCQ options exist
             mcq_match = re.findall(r"([A-D]\))\s*([^\n]+)", text)
             if mcq_match:
-                prompt_line = text.splitlines()[0]
+                prompt_line = clip_sentences(text.splitlines()[0], 200)
                 options = [f"{letter} {opt.strip()}" for letter, opt in mcq_match]
                 correct = options[0]  # default fallback if not specified
                 questions.append(
@@ -281,7 +334,9 @@ class PedagogicalPlanner:
                         prompt=prompt_line,
                         options=options,
                         correct_answer=correct,
-                        explanation="Direct application of source exercise.",
+                        # The locked option text IS the answer — show that,
+                        # not a generic note about the source.
+                        explanation=correct,
                     )
                 )
                 q_counter += 1
@@ -292,30 +347,49 @@ class PedagogicalPlanner:
                         question_type=QuestionType.SHORT_ANSWER,
                         source_content_ids=[eu.id],
                         difficulty="understanding",
-                        prompt=text[:140],
+                        prompt=clip_sentences(text, 140),
                         correct_answer="See worked explanation and step guidelines.",
                         explanation=text,
                     )
                 )
                 q_counter += 1
 
-        # If few or no exercises in source, synthesize quick checks from definitions and formulas
+        # If few or no exercises in source, check the definitions directly.
+        # A definition is only usable as a True/False STATEMENT if it fits
+        # whole: cutting it mid-sentence makes a statement no one can judge.
         if len(questions) < 3:
             defs = [u for u in units if u.content_type == ContentType.DEFINITION]
             for du in defs[:2]:
-                snippet = du.normalized_content[:90]
-                questions.append(
-                    QuizQuestion(
-                        id=f"Q{q_counter:02d}",
-                        question_type=QuestionType.TRUE_FALSE,
-                        source_content_ids=[du.id],
-                        difficulty="recall",
-                        prompt=f"True or False: {snippet}",
-                        options=["True", "False"],
-                        correct_answer="True",
-                        explanation=f"Based on the core definition: '{snippet}'.",
+                statement = strip_markup_line(du.normalized_content)
+                if len(statement) <= 150:
+                    questions.append(
+                        QuizQuestion(
+                            id=f"Q{q_counter:02d}",
+                            question_type=QuestionType.TRUE_FALSE,
+                            source_content_ids=[du.id],
+                            difficulty="recall",
+                            prompt=f"True or False: {statement}",
+                            options=["True", "False"],
+                            correct_answer="True",
+                            explanation=clip_sentences(statement, 340),
+                        )
                     )
-                )
+                else:
+                    # Too long to state whole: ask for the meaning instead and
+                    # reveal the full source wording as the answer.
+                    term = (extract_term(du.normalized_content)
+                            or extract_term(du.original_wording) or "this term")
+                    questions.append(
+                        QuizQuestion(
+                            id=f"Q{q_counter:02d}",
+                            question_type=QuestionType.SHORT_ANSWER,
+                            source_content_ids=[du.id],
+                            difficulty="recall",
+                            prompt=f"State in your own words what {term} means.",
+                            correct_answer=clip_sentences(statement, 170),
+                            explanation=clip_sentences(statement, 340),
+                        )
+                    )
                 q_counter += 1
 
         return questions

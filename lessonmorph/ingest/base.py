@@ -15,6 +15,7 @@ class ExtractedTable:
     rows: List[List[str]]
     page_number: int
     source_ref: str
+    section_context: str = ""  # nearest preceding heading (for scene titles)
 
 
 @dataclass

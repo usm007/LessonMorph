@@ -1,0 +1,1940 @@
+{
+  "chapter_id": "ch01",
+  "chapter_title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+  "subject_domain": "biology",
+  "slides": [
+    {
+      "id": "slide_01",
+      "purpose": "create relevance and curiosity for the chapter",
+      "concept_id": "",
+      "concept_title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+      "task": "concept",
+      "learning_goal": [
+        "Define Photosynthesis and explain what it means.",
+        "Correct the common misconception about The Dark Reactions and Plant Respiration."
+      ],
+      "representation": "title",
+      "content_title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+      "body": {
+        "unit": "BIOLOGY",
+        "topic": "Chapter 4: Photosynthesis and the Transformation of Energy"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "title",
+        "detail"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "ask students to predict before revealing anything — Chapter 4: Photosynthesis and the Transformation of Energy",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "HOOK",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "chrome:title",
+      "pedagogical_ref": "ch01:HOOK"
+    },
+    {
+      "id": "slide_02",
+      "purpose": "activate prerequisites before new complexity",
+      "concept_id": "",
+      "concept_title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+      "task": "concept",
+      "learning_goal": [
+        "Define Photosynthesis and explain what it means.",
+        "Correct the common misconception about The Dark Reactions and Plant Respiration."
+      ],
+      "representation": "concept_card",
+      "content_title": "Prior Knowledge",
+      "body": {
+        "prerequisites": [
+          "Cell theory fundamentals",
+          "Basic energy conversion principles"
+        ]
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "title",
+        "detail"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "elicit prior knowledge; cold-call one summary — Chapter 4: Photosynthesis and the Transformation of Energy",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "PRIOR_KNOWLEDGE",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "chrome:prior_knowledge",
+      "pedagogical_ref": "ch01:PRIOR_KNOWLEDGE"
+    },
+    {
+      "id": "slide_03",
+      "purpose": "state observable outcomes (backward design)",
+      "concept_id": "",
+      "concept_title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+      "task": "concept",
+      "learning_goal": [
+        "Define Photosynthesis and explain what it means.",
+        "Correct the common misconception about The Dark Reactions and Plant Respiration."
+      ],
+      "representation": "objectives",
+      "content_title": "Learning Objectives",
+      "body": {
+        "objectives": [
+          "Define Photosynthesis and explain what it means.",
+          "Correct the common misconception about The Dark Reactions and Plant Respiration.",
+          "Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities.",
+          "Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum.",
+          "Determine the theoretical moles of glucose produced if the experimental quantum requirement is $8\\text{ photons per molecule of }\\text{O}_2$ evolved.",
+          "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?."
+        ]
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "title",
+        "detail"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "read objectives aloud; ask which looks hardest — Chapter 4: Photosynthesis and the Transformation of Energy",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "instructional_state": "OBJECTIVE",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "chrome:objectives",
+      "pedagogical_ref": "ch01:OBJECTIVE"
+    },
+    {
+      "id": "slide_04",
+      "purpose": "teach C002 in a manageable chunk",
+      "concept_id": "C002",
+      "concept_title": "Introduction and Big Picture",
+      "task": "concept",
+      "learning_goal": [
+        "concept: Introduction and Big Picture"
+      ],
+      "representation": "concept_card",
+      "content_title": "Introduction and Big Picture",
+      "body": {
+        "points": [
+          "All biological activity on Earth is ultimately driven by solar energy. Phototrophic organisms—including terrestrial green plants, cyanobacteria, and eukaryotic algae—possess the specialized machinery required to capture solar photons and convert electromagnetic energy into stable chemical bonds."
+        ]
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "title",
+        "body"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "explain, then pause; ask 'why does this step follow?' — Introduction and Big Picture",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C002"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "EXPLANATION",
+      "estimated_minutes": 2.0,
+      "kicker": "Introduction and Big Picture",
+      "representation_reason": "task=concept + unit=explanation + -> concept_card",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "id": "slide_05",
+      "purpose": "teach C003 in a manageable chunk",
+      "concept_id": "C003",
+      "concept_title": "Photosynthesis",
+      "task": "definition",
+      "learning_goal": [
+        "definition: Photosynthesis"
+      ],
+      "representation": "definition_focus",
+      "content_title": "Photosynthesis",
+      "body": {
+        "term": "Photosynthesis",
+        "definition": "Definition: Photosynthesis is the anabolic, endergonic biochemical process by which photoautotrophic organisms synthesize high-energy hexose carbohydrates from inorganic carbon dioxide and water, using radiant solar energy captured by photosynthetic pigments…",
+        "detail": "Definition: Photosynthesis is the anabolic, endergonic biochemical process by which photoautotrophic organisms synthesize high-energy hexose carbohydrates from inorganic carbon dioxide and water, using radiant solar energy captured by photosynthetic pigments, with molecular oxygen released as a metabolic byproduct."
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "title",
+        "body"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "explain, then pause; ask 'why does this step follow?' — Photosynthesis",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C003"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "EXPLANATION",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "task=definition + unit=definition + definition wording + -> definition_focus",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "id": "slide_06",
+      "purpose": "retrieve C001, C002, C003 before moving on",
+      "concept_id": "",
+      "concept_title": "Introduction and Big Picture",
+      "task": "retrieval",
+      "learning_goal": [
+        "recall Introduction and Big Picture from memory"
+      ],
+      "representation": "retrieval",
+      "content_title": "Recall: Introduction and Big Picture",
+      "body": {
+        "prompt": "Without looking back: what do you remember about Introduction and Big Picture?",
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "response"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "hide the source slide; require recall, not recognition",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C001",
+        "C002",
+        "C003"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_07",
+      "purpose": "teach C006 in a manageable chunk",
+      "concept_id": "C006",
+      "concept_title": "The Overall Chemical Reaction and Thermodynamic Balance",
+      "task": "derivation",
+      "learning_goal": [
+        "derivation: The Overall Chemical Reaction and Thermodynamic Balance"
+      ],
+      "representation": "equation_focus",
+      "content_title": "The Overall Chemical Reaction and Thermodynamic Balance",
+      "body": {
+        "context": "6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂"
+      },
+      "visual": {
+        "subject": "The Overall Chemical Reaction and Thermodynamic Balance",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": {
+          "lhs": [
+            {
+              "coefficient": "6",
+              "species": "CO₂",
+              "note": ""
+            },
+            {
+              "coefficient": "6",
+              "species": "H₂O",
+              "note": ""
+            }
+          ],
+          "energy": "light energy",
+          "arrow": "→",
+          "rhs": [
+            {
+              "coefficient": "",
+              "species": "C₆H₁₂O₆",
+              "note": ""
+            },
+            {
+              "coefficient": "6",
+              "species": "O₂",
+              "note": ""
+            }
+          ],
+          "raw_source": "$$6\\text{CO}_2 + 6\\text{H}_2\\text{O} + \\text{light energy} \\longrightarrow \\text{C}_6\\text{H}_{12}\\text{O}_6 + 6\\text{O}_2$$"
+        },
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "equation",
+        "terms",
+        "meaning"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "explain, then pause; ask 'why does this step follow?' — The Overall Chemical Reaction and Thermodynamic Balance",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C006"
+      ],
+      "objective_ids": [
+        "O03"
+      ],
+      "instructional_state": "EXPLANATION",
+      "estimated_minutes": 2.0,
+      "kicker": "The Overall Chemical Reaction and Thermodynamic Balance",
+      "representation_reason": "task=derivation + unit=formula + stoichiometric equation + -> equation_focus",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "id": "slide_08",
+      "purpose": "Assess: Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unk",
+      "concept_id": "",
+      "concept_title": "Check: The Overall Chemical Reaction and Thermodynamic Balance",
+      "task": "calculation",
+      "learning_goal": [
+        "Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities."
+      ],
+      "representation": "retrieval",
+      "content_title": "Check: The Overall Chemical Reaction and Thermodynamic Balance",
+      "body": {
+        "question_id": "Q04",
+        "prompt": "Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities.",
+        "options": {},
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "think"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "Think time first; who can explain their reasoning?",
+        "focus": ""
+      },
+      "assessment": {
+        "id": "Q04_sa",
+        "type": "short_answer",
+        "stem": "Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities.",
+        "options": {},
+        "correct_option": "",
+        "explanation": "6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂",
+        "source_anchor": "",
+        "origin": "model_generated",
+        "objective_ids": [
+          "O03"
+        ]
+      },
+      "source_ids": [
+        "C006"
+      ],
+      "objective_ids": [
+        "O03"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "locked short_answer assessment -> retrieval",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_09",
+      "purpose": "Reveal locked answer for Q04",
+      "concept_id": "",
+      "concept_title": "Answer & Explanation",
+      "task": "calculation",
+      "learning_goal": [
+        "Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities."
+      ],
+      "representation": "retrieval",
+      "content_title": "Answer & Explanation",
+      "body": {
+        "question_id": "Q04",
+        "prompt": "Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities.",
+        "options": {},
+        "origin": "model_generated",
+        "reveal": true
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "answer",
+        "explanation"
+      ],
+      "teacher_action": {
+        "type": "explanation",
+        "prompt": "",
+        "focus": "Explain why each distractor fails."
+      },
+      "assessment": {
+        "id": "Q04_sa",
+        "type": "short_answer",
+        "stem": "Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities.",
+        "options": {},
+        "correct_option": "",
+        "explanation": "6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂",
+        "source_anchor": "",
+        "origin": "model_generated",
+        "objective_ids": [
+          "O03"
+        ]
+      },
+      "source_ids": [
+        "C006"
+      ],
+      "objective_ids": [
+        "O03"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "locked short_answer answer reveal -> retrieval",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_10",
+      "purpose": "teach C007 in a manageable chunk",
+      "concept_id": "C007",
+      "concept_title": "The Overall Chemical Reaction and Thermodynamic Balance",
+      "task": "mechanism",
+      "learning_goal": [
+        "mechanism: The Overall Chemical Reaction and Thermodynamic Balance"
+      ],
+      "representation": "labeled_diagram",
+      "content_title": "CO₂, H₂O, C₆H₁₂O₆",
+      "body": {
+        "caption": "Where: CO₂ represents atmospheric carbon dioxide, entering via foliar stomatal pores H₂O represents water absorbed from the rhizosphere through root xylem tissue C₆H₁₂O₆ represents glucose, the primary phosphorylated monosaccharide substrate O₂ represents molecular diatomic oxygen, released as a…"
+      },
+      "visual": {
+        "subject": "The Overall Chemical Reaction and Thermodynamic Balance",
+        "structure": [
+          "CO₂",
+          "H₂O",
+          "C₆H₁₂O₆",
+          "O₂"
+        ],
+        "labels": [
+          {
+            "name": "CO₂",
+            "target": "co₂",
+            "explanation": "atmospheric carbon dioxide, entering via foliar stomatal pores"
+          },
+          {
+            "name": "H₂O",
+            "target": "h₂o",
+            "explanation": "water absorbed from the rhizosphere through root xylem tissue"
+          },
+          {
+            "name": "C₆H₁₂O₆",
+            "target": "c₆h₁₂o₆",
+            "explanation": "glucose, the primary phosphorylated monosaccharide substrate"
+          },
+          {
+            "name": "O₂",
+            "target": "o₂",
+            "explanation": "molecular diatomic oxygen, released as a gaseous byproduct"
+          }
+        ],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "CO₂",
+        "H₂O",
+        "C₆H₁₂O₆",
+        "O₂",
+        "functions"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "explain, then pause; ask 'why does this step follow?' — The Overall Chemical Reaction and Thermodynamic Balance",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C007"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "EXPLANATION",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "task=mechanism + unit=explanation + legend lines + -> labeled_diagram",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "id": "slide_11",
+      "purpose": "teach C009 in a manageable chunk",
+      "concept_id": "C009",
+      "concept_title": "Subcellular Architecture: The Chloroplast",
+      "task": "mechanism",
+      "learning_goal": [
+        "mechanism: Subcellular Architecture: The Chloroplast"
+      ],
+      "representation": "labeled_diagram",
+      "content_title": "Subcellular Architecture: The Chloroplast",
+      "body": {
+        "caption": "Photosynthetic reactions in eukaryotes are compartmentalized within double-membrane chloroplasts. Thylakoid Membrane System: Site of the light-dependent reactions, housing Photosystem II (P680), Photosystem I (P700), the cytochrome b6f complex, and ATP synthase."
+      },
+      "visual": {
+        "subject": "Subcellular Architecture: The Chloroplast",
+        "structure": [
+          "Thylakoid Membrane System",
+          "Stroma",
+          "Thylakoid Lumen"
+        ],
+        "labels": [
+          {
+            "name": "Thylakoid Membrane System",
+            "target": "thylakoid_membrane_system",
+            "explanation": "Site of the light-dependent reactions"
+          },
+          {
+            "name": "Stroma",
+            "target": "stroma",
+            "explanation": "The semi-fluid matrix surrounding thylakoids"
+          },
+          {
+            "name": "Thylakoid Lumen",
+            "target": "thylakoid_lumen",
+            "explanation": "The acidified interior compartment across which a transmembrane proton motive force (ΔμH^₊) is established."
+          }
+        ],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "Thylakoid Membrane System",
+        "Stroma",
+        "Thylakoid Lumen",
+        "functions"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "explain, then pause; ask 'why does this step follow?' — Subcellular Architecture: The Chloroplast",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C009"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "EXPLANATION",
+      "estimated_minutes": 2.0,
+      "kicker": "Subcellular Architecture: The Chloroplast",
+      "representation_reason": "task=mechanism + unit=explanation + compartment bullets + -> labeled_diagram",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "id": "slide_12",
+      "purpose": "retrieve C007, C008, C009 before moving on",
+      "concept_id": "",
+      "concept_title": "The Overall Chemical Reaction and Thermodynamic Balance",
+      "task": "retrieval",
+      "learning_goal": [
+        "recall The Overall Chemical Reaction and Thermodynamic Balance from memory"
+      ],
+      "representation": "retrieval",
+      "content_title": "Recall: The Overall Chemical Reaction and Thermodynamic Balance",
+      "body": {
+        "prompt": "Without looking back: what do you remember about The Overall Chemical Reaction and Thermodynamic Balance?",
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "response"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "hide the source slide; require recall, not recognition",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C007",
+        "C008",
+        "C009"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_13",
+      "purpose": "teach C011 in a manageable chunk",
+      "concept_id": "C011",
+      "concept_title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+      "task": "calculation",
+      "learning_goal": [
+        "calculation: Chapter 4: Photosynthesis and the Transformation of Energy"
+      ],
+      "representation": "worked_calculation",
+      "content_title": "Worked Example",
+      "body": {
+        "problem": "A researcher illuminates a suspension of Chlorella vulgaris with monochromatic red light at a wavelength of λ = 680 nm. The molar photon flux absorbed is 8.0 mol of photons. Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved.",
+        "steps": [
+          "Step 1: Determine the ratio of oxygen evolution to photon absorption: Moles of O₂ = 8.0 mol photons/8 photons/molecule = 1.0 mol O₂",
+          "Step 2: Relate oxygen evolution to glucose synthesis using the stoichiometric equation: 6 mol O₂ evolved corresponds to 1 mol C₆H₁₂O₆ synthesized.",
+          "Step 3: Compute the theoretical glucose yield: Moles of Glucose = 1.0 mol O₂/6 ≈ 0.167 mol of Glucose (approx. 30.0 grams)."
+        ],
+        "verify": "check units, boundary conditions, and result",
+        "givens": [
+          "chromatic red light at a wavelength of λ = 680 nm"
+        ]
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "problem",
+        "step_1",
+        "step_2",
+        "step_3",
+        "verify"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "explain, then pause; ask 'why does this step follow?' — worked reasoning",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C011",
+        "C012",
+        "C013",
+        "C014",
+        "C015"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "GUIDED_EXAMPLE",
+      "estimated_minutes": 2.0,
+      "kicker": "Worked Calculation: Photochemical Quantum Yield and Efficiency",
+      "representation_reason": "task=calculation + unit=formula + worked steps + -> worked_calculation",
+      "pedagogical_ref": "ch01:GUIDED_EXAMPLE"
+    },
+    {
+      "id": "slide_14",
+      "purpose": "Assess: Determine the theoretical moles of glucose produced if the experimental quantum ",
+      "concept_id": "",
+      "concept_title": "Check: Worked Calculation: Photochemical Quantum Yield and Efficiency",
+      "task": "calculation",
+      "learning_goal": [
+        "Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved."
+      ],
+      "representation": "retrieval",
+      "content_title": "Check: Worked Calculation: Photochemical Quantum Yield and Efficiency",
+      "body": {
+        "question_id": "Q06",
+        "prompt": "Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved.",
+        "options": {},
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "think"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "Think time first; who can explain their reasoning?",
+        "focus": ""
+      },
+      "assessment": {
+        "id": "Q06_sa",
+        "type": "short_answer",
+        "stem": "Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved.",
+        "options": {},
+        "correct_option": "",
+        "explanation": "Step 2: Relate oxygen evolution to glucose synthesis using the stoichiometric equation: 6 mol O₂ evolved corresponds to 1 mol C₆H₁₂O₆ synthesized. Step 3: Compute the theoretical glucose yield: Moles of Glucose = 1.0 mol O₂/6 ≈ 0.167 mol of Glucose (approx. 30.0 grams).",
+        "source_anchor": "",
+        "origin": "model_generated",
+        "objective_ids": [
+          "O05"
+        ]
+      },
+      "source_ids": [
+        "C012"
+      ],
+      "objective_ids": [
+        "O05"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "locked short_answer assessment -> retrieval",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_15",
+      "purpose": "Reveal locked answer for Q06",
+      "concept_id": "",
+      "concept_title": "Answer & Explanation",
+      "task": "calculation",
+      "learning_goal": [
+        "Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved."
+      ],
+      "representation": "retrieval",
+      "content_title": "Worked Calculation: Photochemical Quantum Yield and Efficiency",
+      "body": {
+        "question_id": "Q06",
+        "prompt": "Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved.",
+        "options": {},
+        "origin": "model_generated",
+        "reveal": true
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "answer",
+        "explanation"
+      ],
+      "teacher_action": {
+        "type": "explanation",
+        "prompt": "",
+        "focus": "Explain why each distractor fails."
+      },
+      "assessment": {
+        "id": "Q06_sa",
+        "type": "short_answer",
+        "stem": "Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved.",
+        "options": {},
+        "correct_option": "",
+        "explanation": "Step 2: Relate oxygen evolution to glucose synthesis using the stoichiometric equation: 6 mol O₂ evolved corresponds to 1 mol C₆H₁₂O₆ synthesized. Step 3: Compute the theoretical glucose yield: Moles of Glucose = 1.0 mol O₂/6 ≈ 0.167 mol of Glucose (approx. 30.0 grams).",
+        "source_anchor": "",
+        "origin": "model_generated",
+        "objective_ids": [
+          "O05"
+        ]
+      },
+      "source_ids": [
+        "C012"
+      ],
+      "objective_ids": [
+        "O05"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "locked short_answer answer reveal -> retrieval",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_16",
+      "purpose": "retrieve C013, C014, C015 before moving on",
+      "concept_id": "",
+      "concept_title": "Worked Calculation: Photochemical Quantum Yield and Efficiency",
+      "task": "retrieval",
+      "learning_goal": [
+        "recall Worked Calculation: Photochemical Quantum Yield and Efficiency from memory"
+      ],
+      "representation": "retrieval",
+      "content_title": "Recall: Worked Calculation: Photochemical Quantum Yield and Efficiency",
+      "body": {
+        "prompt": "Without looking back: what do you remember about Worked Calculation: Photochemical Quantum Yield and Efficiency?",
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "response"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "hide the source slide; require recall, not recognition",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C013",
+        "C014",
+        "C015"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_17",
+      "purpose": "teach C017 in a manageable chunk",
+      "concept_id": "C017",
+      "concept_title": "Common Misconception: The Dark Reactions and Plant Respiration",
+      "task": "misconception",
+      "learning_goal": [
+        "misconception: Common Misconception: The Dark Reactions and Plant Respiration"
+      ],
+      "representation": "contrast",
+      "content_title": "Common Misconception: The Dark Reactions and Plant Respiration",
+      "body": {
+        "wrong_idea": "Plants perform photosynthesis during the day and cellular respiration only at night; furthermore, the 'dark reactions' (Calvin cycle) occur only in total darkness.",
+        "why_wrong": "Respiration is required continuously (24/7) to sustain baseline metabolic homeostasis and ATP production in all living plant cells.",
+        "correct_idea": "Cellular respiration occurs around the clock in all living plant tissues. The Calvin cycle is 'light-independent' only in the sense that it does not directly absorb photons, but it relies continuously on ATP and NADPH generated by light reactions and is deactivated in extended darkness.",
+        "correct_reasoning": "Cellular respiration occurs around the clock in all living plant tissues. The Calvin cycle is 'light-independent' only in the sense that it does not directly absorb photons, but it relies continuously on ATP and NADPH generated by light reactions and is deactivated in extended darkness."
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "tempting_error",
+        "conflict",
+        "correction",
+        "check"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "explain, then pause; ask 'why does this step follow?' — Common Misconception: The Dark Reactions and Plant Respiration",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C017",
+        "C018",
+        "C019"
+      ],
+      "objective_ids": [
+        "O02"
+      ],
+      "instructional_state": "MISCONCEPTION",
+      "estimated_minutes": 2.0,
+      "kicker": "Common Misconception: The Dark Reactions and Plant Respiration",
+      "representation_reason": "task=misconception + unit=misconception + mistake/correction spans + -> contrast",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "id": "slide_18",
+      "purpose": "retrieve C016, C017, C018 before moving on",
+      "concept_id": "",
+      "concept_title": "Common Misconception: The Dark Reactions and Plant Respiration",
+      "task": "retrieval",
+      "learning_goal": [
+        "recall Common Misconception: The Dark Reactions and Plant Respiration from memory"
+      ],
+      "representation": "retrieval",
+      "content_title": "Recall: Common Misconception: The Dark Reactions and Plant Respiration",
+      "body": {
+        "prompt": "Without looking back: what do you remember about Common Misconception: The Dark Reactions and Plant Respiration?",
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "response"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "hide the source slide; require recall, not recognition",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C016",
+        "C017",
+        "C018"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_19",
+      "purpose": "retrieve C019, C020, C021 before moving on",
+      "concept_id": "",
+      "concept_title": "Correct Reasoning — The Dark Reactions and Plant Respiration",
+      "task": "retrieval",
+      "learning_goal": [
+        "recall Correct Reasoning — The Dark Reactions and Plant Respiration from memory"
+      ],
+      "representation": "retrieval",
+      "content_title": "Recall: Correct Reasoning — The Dark Reactions and Plant Respiration",
+      "body": {
+        "prompt": "Without looking back: what do you remember about Correct Reasoning — The Dark Reactions and Plant Respiration?",
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "response"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "hide the source slide; require recall, not recognition",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C019",
+        "C020",
+        "C021"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "Formative Assessment: Checks for Understanding",
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_21",
+      "purpose": "Assess: If the thylakoid membrane becomes permeable to protons due to a chemical ionopho",
+      "concept_id": "",
+      "concept_title": "Check: Formative Assessment: Checks for Understanding",
+      "task": "prediction",
+      "learning_goal": [
+        "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?"
+      ],
+      "representation": "mcq",
+      "content_title": "Check: Formative Assessment: Checks for Understanding",
+      "body": {
+        "question_id": "Q01",
+        "prompt": "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?",
+        "options": {
+          "A": "Photolysis of water ceases immediately",
+          "B": "Photophosphorylation of ADP to ATP stops, while electron transport may continue",
+          "C": "Carbon dioxide fixation in the stroma accelerates dramatically",
+          "D": "Chlorophyll pigments cease photon absorption"
+        },
+        "origin": "source"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "think"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "Think time first; who can explain their reasoning?",
+        "focus": ""
+      },
+      "assessment": {
+        "id": "q01_c022",
+        "type": "mcq",
+        "stem": "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?",
+        "options": {
+          "A": "Photolysis of water ceases immediately",
+          "B": "Photophosphorylation of ADP to ATP stops, while electron transport may continue",
+          "C": "Carbon dioxide fixation in the stroma accelerates dramatically",
+          "D": "Chlorophyll pigments cease photon absorption"
+        },
+        "correct_option": "B",
+        "explanation": "The thylakoid lumen holds the proton motive force built by electron transport. A proton-permeable membrane collapses that gradient, so ATP synthase cannot phosphorylate ADP to ATP, while electron flow itself may continue.",
+        "source_anchor": "Section 3, Thylakoid Lumen: acidified interior compartment across which a transmembrane proton motive force is established.",
+        "origin": "source",
+        "objective_ids": [
+          "O06"
+        ]
+      },
+      "source_ids": [
+        "C022"
+      ],
+      "objective_ids": [
+        "O06"
+      ],
+      "instructional_state": "EXPLANATION",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "locked mcq assessment -> mcq",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "id": "slide_22",
+      "purpose": "Reveal locked answer for Q01",
+      "concept_id": "",
+      "concept_title": "Answer & Explanation",
+      "task": "prediction",
+      "learning_goal": [
+        "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?"
+      ],
+      "representation": "mcq",
+      "content_title": "Formative Assessment: Checks for Understanding",
+      "body": {
+        "question_id": "Q01",
+        "prompt": "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?",
+        "options": {
+          "A": "Photolysis of water ceases immediately",
+          "B": "Photophosphorylation of ADP to ATP stops, while electron transport may continue",
+          "C": "Carbon dioxide fixation in the stroma accelerates dramatically",
+          "D": "Chlorophyll pigments cease photon absorption"
+        },
+        "origin": "source",
+        "reveal": true
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "answer",
+        "explanation"
+      ],
+      "teacher_action": {
+        "type": "explanation",
+        "prompt": "",
+        "focus": "Explain why each distractor fails."
+      },
+      "assessment": {
+        "id": "q01_c022",
+        "type": "mcq",
+        "stem": "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?",
+        "options": {
+          "A": "Photolysis of water ceases immediately",
+          "B": "Photophosphorylation of ADP to ATP stops, while electron transport may continue",
+          "C": "Carbon dioxide fixation in the stroma accelerates dramatically",
+          "D": "Chlorophyll pigments cease photon absorption"
+        },
+        "correct_option": "B",
+        "explanation": "The thylakoid lumen holds the proton motive force built by electron transport. A proton-permeable membrane collapses that gradient, so ATP synthase cannot phosphorylate ADP to ATP, while electron flow itself may continue.",
+        "source_anchor": "Section 3, Thylakoid Lumen: acidified interior compartment across which a transmembrane proton motive force is established.",
+        "origin": "source",
+        "objective_ids": [
+          "O06"
+        ]
+      },
+      "source_ids": [
+        "C022"
+      ],
+      "objective_ids": [
+        "O06"
+      ],
+      "instructional_state": "EXPLANATION",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "locked mcq answer reveal -> mcq",
+      "pedagogical_ref": "ch01:EXPLANATION"
+    },
+    {
+      "id": "slide_23",
+      "purpose": "model reasoning for C024",
+      "concept_id": "C024",
+      "concept_title": "Independent Practice and Exam-Style Problems",
+      "task": "process",
+      "learning_goal": [
+        "process: apply the lesson"
+      ],
+      "representation": "practice_problem",
+      "content_title": "Practice Problem 1",
+      "body": {
+        "items": [
+          "Practice Problem 1: Trace the path of an electron extracted from water photolysis in Photosystem II until its terminal reduction of NADP+ to NADPH."
+        ],
+        "origin": "source",
+        "faded": true,
+        "scaffold": {
+          "stages": [],
+          "note": "Number each transfer step; cite the source mechanism."
+        }
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "problem",
+        "attempt",
+        "verify"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "model the first step (I DO), let students attempt the next (WE DO) — Practice Problem 1: Trace the path of an electron extracted from water photolysis in Photosystem II until its terminal r",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C024"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "GUIDED_EXAMPLE",
+      "estimated_minutes": 2.0,
+      "kicker": "Independent Practice and Exam-Style Problems",
+      "representation_reason": "task=process + unit=example + -> practice_problem",
+      "pedagogical_ref": "ch01:GUIDED_EXAMPLE"
+    },
+    {
+      "id": "slide_24",
+      "purpose": "retrieve C022, C023, C024 before moving on",
+      "concept_id": "",
+      "concept_title": "Formative Assessment: Checks for Understanding",
+      "task": "retrieval",
+      "learning_goal": [
+        "recall Formative Assessment: Checks for Understanding from memory"
+      ],
+      "representation": "retrieval",
+      "content_title": "Recall: Formative Assessment: Checks for Understanding",
+      "body": {
+        "prompt": "Without looking back: what do you remember about Formative Assessment: Checks for Understanding?",
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "response"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "hide the source slide; require recall, not recognition",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C022",
+        "C023",
+        "C024"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:RETRIEVAL"
+    },
+    {
+      "id": "slide_25",
+      "purpose": "model reasoning for C025",
+      "concept_id": "C025",
+      "concept_title": "Independent Practice and Exam-Style Problems",
+      "task": "comparison",
+      "learning_goal": [
+        "comparison: apply the lesson"
+      ],
+      "representation": "practice_problem",
+      "content_title": "Practice Problem 2",
+      "body": {
+        "items": [
+          "Practice Problem 2: Contrast the physiological advantages and energetic costs of the C3 photosynthetic pathway with the C4 dicarboxylic acid pathway in arid environments."
+        ],
+        "origin": "source",
+        "faded": true,
+        "scaffold": {
+          "columns": [
+            "C3",
+            "C4"
+          ],
+          "note": "Complete each cell from the lesson; no invented facts."
+        }
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "problem",
+        "attempt",
+        "verify"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "model the first step (I DO), let students attempt the next (WE DO) — Practice Problem 2: Contrast the physiological advantages and energetic costs of the C3 photosynthetic pathway with the",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C025"
+      ],
+      "objective_ids": [
+        "O01"
+      ],
+      "instructional_state": "GUIDED_EXAMPLE",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "task=comparison + unit=example + -> practice_problem",
+      "pedagogical_ref": "ch01:GUIDED_EXAMPLE"
+    },
+    {
+      "id": "slide_26",
+      "purpose": "coordinate explanation + visual for C026",
+      "concept_id": "C026",
+      "concept_title": "Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+      "task": "experimental_data",
+      "learning_goal": [
+        "experimental_data: Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum"
+      ],
+      "representation": "data_table",
+      "content_title": "Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+      "body": {
+        "title": "Table 1"
+      },
+      "visual": {
+        "subject": "Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [
+          "Pigment Component",
+          "Peak Absorption Blue (nm)",
+          "Peak Absorption Red (nm)",
+          "Relative Abundance (%)"
+        ],
+        "rows": [
+          {
+            "Pigment Component": "Chlorophyll a",
+            "Peak Absorption Blue (nm)": "430",
+            "Peak Absorption Red (nm)": "662",
+            "Relative Abundance (%)": "65"
+          },
+          {
+            "Pigment Component": "Chlorophyll b",
+            "Peak Absorption Blue (nm)": "453",
+            "Peak Absorption Red (nm)": "642",
+            "Relative Abundance (%)": "25"
+          },
+          {
+            "Pigment Component": "Carotenoids (Lutein & β-Carotene)",
+            "Peak Absorption Blue (nm)": "445",
+            "Peak Absorption Red (nm)": "None",
+            "Relative Abundance (%)": "10"
+          }
+        ],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "headers",
+        "rows",
+        "pattern"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "pause before revealing each stage; ask what comes next — Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C026"
+      ],
+      "objective_ids": [
+        "O04"
+      ],
+      "instructional_state": "VISUAL_MODEL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "task=experimental_data + unit=table + tabular source + -> data_table",
+      "pedagogical_ref": "ch01:VISUAL_MODEL"
+    },
+    {
+      "id": "slide_27",
+      "purpose": "revisit the earliest important idea in a new context",
+      "concept_id": "",
+      "concept_title": "Introduction and Big Picture",
+      "task": "retrieval",
+      "learning_goal": [
+        "recall Introduction and Big Picture from memory"
+      ],
+      "representation": "retrieval",
+      "content_title": "Revisit: Introduction and Big Picture",
+      "body": {
+        "prompt": "Come back to Introduction and Big Picture now: state it again in your own words.",
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "response"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "revisit an earlier concept in a new context",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [
+        "C001",
+        "C002"
+      ],
+      "objective_ids": [
+        "O01",
+        "O02"
+      ],
+      "instructional_state": "CUMULATIVE_RETRIEVAL",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "retrieval move with no unused question -> topic recall prompt",
+      "pedagogical_ref": "ch01:CUMULATIVE_RETRIEVAL"
+    },
+    {
+      "id": "slide_28",
+      "purpose": "consolidate golden rules",
+      "concept_id": "",
+      "concept_title": "Chapter 4: Photosynthesis and the Transformation of Energy",
+      "task": "concept",
+      "learning_goal": [
+        "Define Photosynthesis and explain what it means.",
+        "Correct the common misconception about The Dark Reactions and Plant Respiration."
+      ],
+      "representation": "big_picture",
+      "content_title": "Key Takeaways",
+      "body": {
+        "takeaways": [
+          "Definition: Photosynthesis is the anabolic, endergonic biochemical process b",
+          "6CO₂ + 6H₂O + light energy → text",
+          "A researcher illuminates a suspension of Chlorella vulgaris with monochromatic",
+          "Step 1: Determine the ratio of oxygen evolution to photon absorption: textMo"
+        ]
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "title",
+        "detail"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "ask a student to teach back the golden rule — Chapter 4: Photosynthesis and the Transformation of Energy",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [],
+      "objective_ids": [
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06"
+      ],
+      "instructional_state": "RECAP",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "chrome:recap",
+      "pedagogical_ref": "ch01:RECAP"
+    },
+    {
+      "id": "slide_29",
+      "purpose": "Assess: Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorpt",
+      "concept_id": "",
+      "concept_title": "Check: Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+      "task": "retrieval",
+      "learning_goal": [
+        "Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum."
+      ],
+      "representation": "retrieval",
+      "content_title": "Check: Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+      "body": {
+        "question_id": "Q05",
+        "prompt": "Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum.",
+        "options": {},
+        "origin": "model_generated"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt",
+        "think"
+      ],
+      "teacher_action": {
+        "type": "prompt",
+        "prompt": "Think time first; who can explain their reasoning?",
+        "focus": ""
+      },
+      "assessment": {
+        "id": "Q05_sa",
+        "type": "short_answer",
+        "stem": "Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum.",
+        "options": {},
+        "correct_option": "",
+        "explanation": "Headers: Pigment Component, Peak Absorption Blue (nm), Peak Absorption Red (nm), Relative Abundance (%) Rows: Chlorophyll a, 430, 662, 65 Chlorophyll b, 453, 642, 25 Carotenoids (Lutein & β-Carotene), 445, None, 10",
+        "source_anchor": "",
+        "origin": "model_generated",
+        "objective_ids": [
+          "O04"
+        ]
+      },
+      "source_ids": [
+        "C026"
+      ],
+      "objective_ids": [
+        "O04"
+      ],
+      "instructional_state": "ASSESSMENT",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "locked short_answer assessment -> retrieval",
+      "pedagogical_ref": "ch01:ASSESSMENT"
+    },
+    {
+      "id": "slide_30",
+      "purpose": "Reveal locked answer for Q05",
+      "concept_id": "",
+      "concept_title": "Answer & Explanation",
+      "task": "retrieval",
+      "learning_goal": [
+        "Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum."
+      ],
+      "representation": "retrieval",
+      "content_title": "Headers — Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum",
+      "body": {
+        "question_id": "Q05",
+        "prompt": "Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum.",
+        "options": {},
+        "origin": "model_generated",
+        "reveal": true
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "answer",
+        "explanation"
+      ],
+      "teacher_action": {
+        "type": "explanation",
+        "prompt": "",
+        "focus": "Explain why each distractor fails."
+      },
+      "assessment": {
+        "id": "Q05_sa",
+        "type": "short_answer",
+        "stem": "Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum.",
+        "options": {},
+        "correct_option": "",
+        "explanation": "Headers: Pigment Component, Peak Absorption Blue (nm), Peak Absorption Red (nm), Relative Abundance (%) Rows: Chlorophyll a, 430, 662, 65 Chlorophyll b, 453, 642, 25 Carotenoids (Lutein & β-Carotene), 445, None, 10",
+        "source_anchor": "",
+        "origin": "model_generated",
+        "objective_ids": [
+          "O04"
+        ]
+      },
+      "source_ids": [
+        "C026"
+      ],
+      "objective_ids": [
+        "O04"
+      ],
+      "instructional_state": "ASSESSMENT",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "locked short_answer answer reveal -> retrieval",
+      "pedagogical_ref": "ch01:ASSESSMENT"
+    },
+    {
+      "id": "slide_31",
+      "purpose": "Rapid formative exit check",
+      "concept_id": "",
+      "concept_title": "Exit Ticket",
+      "task": "retrieval",
+      "learning_goal": [
+        "surface one takeaway and one question"
+      ],
+      "representation": "exit",
+      "content_title": "Exit Ticket",
+      "body": {
+        "prompt_1": "Most important concept from today?",
+        "prompt_2": "One question you still have?"
+      },
+      "visual": {
+        "subject": "",
+        "structure": [],
+        "labels": [],
+        "edges": [],
+        "columns": [],
+        "rows": [],
+        "equation": null,
+        "extra": {}
+      },
+      "reveal_sequence": [
+        "prompt"
+      ],
+      "teacher_action": {
+        "type": "",
+        "prompt": "",
+        "focus": ""
+      },
+      "assessment": null,
+      "source_ids": [],
+      "objective_ids": [],
+      "instructional_state": "EXIT",
+      "estimated_minutes": 2.0,
+      "kicker": "",
+      "representation_reason": "chrome:exit",
+      "pedagogical_ref": "ch01:EXIT"
+    }
+  ],
+  "inventory": [
+    {
+      "source_id": "C001",
+      "kind": "principle",
+      "slide_id": "slide_04+slide_06+slide_27",
+      "preserved": true
+    },
+    {
+      "source_id": "C002",
+      "kind": "principle",
+      "slide_id": "slide_04+slide_06+slide_27",
+      "preserved": true
+    },
+    {
+      "source_id": "C003",
+      "kind": "definition",
+      "slide_id": "slide_05+slide_06",
+      "preserved": true
+    },
+    {
+      "source_id": "C004",
+      "kind": "principle",
+      "slide_id": "slide_07",
+      "preserved": true
+    },
+    {
+      "source_id": "C005",
+      "kind": "principle",
+      "slide_id": "slide_07",
+      "preserved": true
+    },
+    {
+      "source_id": "C006",
+      "kind": "equation",
+      "slide_id": "slide_07+slide_08+slide_09",
+      "preserved": true
+    },
+    {
+      "source_id": "C007",
+      "kind": "principle",
+      "slide_id": "slide_10+slide_12",
+      "preserved": true
+    },
+    {
+      "source_id": "C008",
+      "kind": "principle",
+      "slide_id": "slide_11+slide_12",
+      "preserved": true
+    },
+    {
+      "source_id": "C009",
+      "kind": "principle",
+      "slide_id": "slide_11+slide_12",
+      "preserved": true
+    },
+    {
+      "source_id": "C010",
+      "kind": "principle",
+      "slide_id": "slide_13",
+      "preserved": true
+    },
+    {
+      "source_id": "C011",
+      "kind": "equation",
+      "slide_id": "slide_13",
+      "preserved": true
+    },
+    {
+      "source_id": "C012",
+      "kind": "principle",
+      "slide_id": "slide_13+slide_14+slide_15",
+      "preserved": true
+    },
+    {
+      "source_id": "C013",
+      "kind": "equation",
+      "slide_id": "slide_13+slide_16",
+      "preserved": true
+    },
+    {
+      "source_id": "C014",
+      "kind": "equation",
+      "slide_id": "slide_13+slide_16",
+      "preserved": true
+    },
+    {
+      "source_id": "C015",
+      "kind": "equation",
+      "slide_id": "slide_13+slide_16",
+      "preserved": true
+    },
+    {
+      "source_id": "C016",
+      "kind": "principle",
+      "slide_id": "slide_17+slide_18",
+      "preserved": true
+    },
+    {
+      "source_id": "C017",
+      "kind": "misconception",
+      "slide_id": "slide_17+slide_18",
+      "preserved": true
+    },
+    {
+      "source_id": "C018",
+      "kind": "principle",
+      "slide_id": "slide_17+slide_18",
+      "preserved": true
+    },
+    {
+      "source_id": "C019",
+      "kind": "principle",
+      "slide_id": "slide_17+slide_19",
+      "preserved": true
+    },
+    {
+      "source_id": "C020",
+      "kind": "principle",
+      "slide_id": "slide_19+slide_19",
+      "preserved": true
+    },
+    {
+      "source_id": "C021",
+      "kind": "principle",
+      "slide_id": "slide_19+slide_19",
+      "preserved": true
+    },
+    {
+      "source_id": "C022",
+      "kind": "question",
+      "slide_id": "slide_21+slide_22+slide_24",
+      "preserved": true
+    },
+    {
+      "source_id": "C023",
+      "kind": "principle",
+      "slide_id": "slide_23+slide_24",
+      "preserved": true
+    },
+    {
+      "source_id": "C024",
+      "kind": "practice_problem",
+      "slide_id": "slide_23+slide_24",
+      "preserved": true
+    },
+    {
+      "source_id": "C025",
+      "kind": "practice_problem",
+      "slide_id": "slide_25",
+      "preserved": true
+    },
+    {
+      "source_id": "C026",
+      "kind": "table",
+      "slide_id": "slide_26+slide_29+slide_30",
+      "preserved": true
+    }
+  ],
+  "answer_keys": [
+    {
+      "id": "Q04_sa",
+      "type": "short_answer",
+      "stem": "Use the relationship 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂ to calculate unknown quantities.",
+      "options": {},
+      "correct_option": "",
+      "explanation": "6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂",
+      "source_anchor": "",
+      "origin": "model_generated",
+      "objective_ids": [
+        "O03"
+      ]
+    },
+    {
+      "id": "Q06_sa",
+      "type": "short_answer",
+      "stem": "Determine the theoretical moles of glucose produced if the experimental quantum requirement is 8 photons per molecule of O₂ evolved.",
+      "options": {},
+      "correct_option": "",
+      "explanation": "Step 2: Relate oxygen evolution to glucose synthesis using the stoichiometric equation: 6 mol O₂ evolved corresponds to 1 mol C₆H₁₂O₆ synthesized. Step 3: Compute the theoretical glucose yield: Moles of Glucose = 1.0 mol O₂/6 ≈ 0.167 mol of Glucose (approx. 30.0 grams).",
+      "source_anchor": "",
+      "origin": "model_generated",
+      "objective_ids": [
+        "O05"
+      ]
+    },
+    {
+      "id": "q01_c022",
+      "type": "mcq",
+      "stem": "If the thylakoid membrane becomes permeable to protons due to a chemical ionophore, what is the immediate biochemical consequence?",
+      "options": {
+        "A": "Photolysis of water ceases immediately",
+        "B": "Photophosphorylation of ADP to ATP stops, while electron transport may continue",
+        "C": "Carbon dioxide fixation in the stroma accelerates dramatically",
+        "D": "Chlorophyll pigments cease photon absorption"
+      },
+      "correct_option": "B",
+      "explanation": "The thylakoid lumen holds the proton motive force built by electron transport. A proton-permeable membrane collapses that gradient, so ATP synthase cannot phosphorylate ADP to ATP, while electron flow itself may continue.",
+      "source_anchor": "Section 3, Thylakoid Lumen: acidified interior compartment across which a transmembrane proton motive force is established.",
+      "origin": "source",
+      "objective_ids": [
+        "O06"
+      ]
+    },
+    {
+      "id": "Q05_sa",
+      "type": "short_answer",
+      "stem": "Interpret the data in Quantitative Experimental Data: Action Spectrum vs Absorption Spectrum.",
+      "options": {},
+      "correct_option": "",
+      "explanation": "Headers: Pigment Component, Peak Absorption Blue (nm), Peak Absorption Red (nm), Relative Abundance (%) Rows: Chlorophyll a, 430, 662, 65 Chlorophyll b, 453, 642, 25 Carotenoids (Lutein & β-Carotene), 445, None, 10",
+      "source_anchor": "",
+      "origin": "model_generated",
+      "objective_ids": [
+        "O04"
+      ]
+    }
+  ]
+}

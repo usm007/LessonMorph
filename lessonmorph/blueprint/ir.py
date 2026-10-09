@@ -241,6 +241,8 @@ class SlideIR:
     instructional_state: str = ""
     estimated_minutes: float = 2.0
     kicker: str = ""  # section header forwarded onto this slide (traceable)
+    representation_reason: str = ""  # why this representation was selected (debugging)
+    pedagogical_ref: str = ""  # chapter:state that decided this slide (debugging)
 
 
 @dataclass

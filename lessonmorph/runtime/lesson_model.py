@@ -98,3 +98,5 @@ class TeacherScene:
     objective_ids: List[str] = field(default_factory=list)
     concept_id: str = ""
     estimated_minutes: float = 2.0
+    representation_reason: str = ""  # why this visual was selected (debugging)
+    pedagogical_ref: str = ""  # chapter:state that decided this scene (debugging)

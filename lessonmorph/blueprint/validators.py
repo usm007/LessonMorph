@@ -61,6 +61,7 @@ class BlueprintValidator:
         findings += cls._pedagogical_qa(bp)
         findings += cls._representation_qa(bp)
         findings += cls._assessment_qa(bp)
+        findings += cls._integrity_qa(bp)
         status = "PASS"
         if any(f.severity == "ERROR" for f in findings):
             status = "FAIL"
@@ -244,4 +245,65 @@ class BlueprintValidator:
                     "Assessment QA", "substituted_practice", "ERROR", s.id,
                     "Model-generated retrieval presented as practice problem — "
                     "source questions must never be silently substituted."))
+        return out
+
+    # -- Integrity QA (scene-generation contract) --------------------------------
+    @classmethod
+    def _integrity_qa(cls, bp: Blueprint) -> List[BlueprintFinding]:
+        """No placeholders, no chapter-title scenes, no heading-prompts, no
+        generic objectives. Corrupted scene data fails here, before rendering."""
+        from lessonmorph.core.text_refs import is_heading_block
+        out: List[BlueprintFinding] = []
+        garbage = {"text", "undefined", "null", "todo", "placeholder", "textmo",
+                   "[object object]"}
+        chrome_reps = {"title", "roadmap", "objectives", "exit"}
+        for s in bp.slides:
+            texts: List[str] = []
+            for v in s.body.values():
+                if isinstance(v, str):
+                    texts.append(v)
+                elif isinstance(v, list):
+                    texts.extend(str(x) for x in v if isinstance(x, str))
+                elif isinstance(v, dict):
+                    texts.extend(str(x) for x in v.values() if isinstance(x, str))
+            for t in texts:
+                if t.strip().lower() in garbage:
+                    out.append(BlueprintFinding(
+                        "Integrity QA", "placeholder_content", "ERROR", s.id,
+                        f"Placeholder payload {t.strip()!r} must fail validation, never render."))
+            if (s.representation not in chrome_reps and s.content_title
+                    and s.content_title == bp.chapter_title):
+                out.append(BlueprintFinding(
+                    "Integrity QA", "generic_title", "ERROR", s.id,
+                    "Scene carries the bare chapter title; derive a scene-specific title."))
+            if s.representation in ("mcq", "true_false", "retrieval", "prediction",
+                                    "diagnostic_question"):
+                prompt = str(s.body.get("prompt", ""))
+                if prompt and is_heading_block(prompt):
+                    out.append(BlueprintFinding(
+                        "Integrity QA", "heading_as_prompt", "ERROR", s.id,
+                        f"Source heading used as question prompt: {prompt[:80]!r}."))
+            if s.representation == "definition_focus" and not str(s.body.get("definition", "")).strip():
+                out.append(BlueprintFinding(
+                    "Integrity QA", "empty_definition", "ERROR", s.id,
+                    "Definition slide without definition text."))
+            if s.representation == "practice_problem" and not s.body.get("items"):
+                out.append(BlueprintFinding(
+                    "Integrity QA", "empty_practice", "ERROR", s.id,
+                    "Practice slide without source items."))
+            for obj in s.body.get("objectives", []) if isinstance(s.body.get("objectives"), list) else []:
+                if any(p in str(obj) for p in ("conceptual content in", "procedural content in",
+                                               "factual content in", "key ideas in")):
+                    out.append(BlueprintFinding(
+                        "Integrity QA", "generic_objective", "ERROR", s.id,
+                        f"Implementation artifact, not a learning outcome: {obj[:80]!r}."))
+                    break
+            if s.kicker and len(s.kicker) > 80:
+                out.append(BlueprintFinding(
+                    "Integrity QA", "kicker_overflow", "WARNING", s.id,
+                    "Kicker exceeds 80 chars; shorten to a section label."))
+            if s.representation not in chrome_reps and not s.representation_reason:
+                out.append(BlueprintFinding(
+                    "Integrity QA", "missing_rep_reason", "WARNING", s.id,
+                    "No representation_reason recorded for debugging."))
         return out

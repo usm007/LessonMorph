@@ -42,6 +42,40 @@ def _slug_concept(title: str) -> str:
     return "".join(c.lower() if c.isalnum() else "-" for c in title)[:40].strip("-")
 
 
+def _default_motion_purpose(representation: str, task: str) -> str:
+    """Representation-driven motion vocabulary (never generic).
+
+    Used only when the storyboard carries no explicit animation purpose.
+    Each default names an instructional reason tied to what the scene shows.
+    """
+    rep_defaults = {
+        "labeled_diagram": "diagram_reveal",
+        "anatomy_map": "diagram_reveal",
+        "cutaway": "diagram_reveal",
+        "spatial_relationship": "diagram_reveal",
+        "flow": "sequencing",
+        "sequence": "sequencing",
+        "pathway": "sequencing",
+        "cycle": "sequencing",
+        "cause_effect": "causal_explanation",
+        "before_after": "comparison",
+        "comparison_matrix": "comparison",
+        "contrast": "error_correction",
+        "equation_focus": "decomposition",
+        "worked_calculation": "sequencing",
+        "mcq": "answer_reveal",
+        "true_false": "answer_reveal",
+        "prediction": "answer_reveal",
+        "diagnostic_question": "answer_reveal",
+        "retrieval": "answer_reveal",
+    }
+    if representation in rep_defaults:
+        return rep_defaults[representation]
+    if (task or "").lower() in ("mechanism", "process"):
+        return "causal_explanation"
+    return "signalling"
+
+
 def build_scenes(blueprint: Dict[str, Any],
                  storyboard: List[Dict[str, Any]],
                  asset_map: Dict[str, str]) -> Tuple[List[Scene], List[TeacherScene]]:
@@ -75,19 +109,26 @@ def build_scenes(blueprint: Dict[str, Any],
             directed["variant"] = _sv("answer_reveal", "standard", recent)
             directed["visual"]["composition"] = "answer_reveal"
             directed["visual"]["variant"] = directed["variant"]
-            pair_regions = _regions("answer_reveal", directed["variant"],
-                                    ["prompt", "options", "answer"])
-            by_kind = {}
+            # Regions are keyed to the layers that actually exist: a
+            # short-answer reveal has no options band, so the question and the
+            # verdict each own a full band instead of stranding a dead strip.
+            pair_kinds = [l["kind"] for l in directed["layers"]] + ["answer"]
+            pair_regions = _regions("answer_reveal", directed["variant"], pair_kinds)
             for layer, region in zip(directed["layers"], pair_regions):
                 layer["region"] = region
-                by_kind[layer["kind"]] = layer
             directed["_pair_regions"] = pair_regions
         recent.append(directed.get("composition", ""))
         recent = recent[-6:]
         layers = [SceneLayer(**l) for l in directed["layers"]]
         states = [SceneState(**st) for st in directed["states"]]
+        purposes = (storyboard[i].get("animation_purposes", []) if i < len(storyboard) else [])
+        if not purposes:
+            # Representation-driven defaults (never generic): the motion
+            # vocabulary follows what the scene shows, not a template.
+            purposes = [_default_motion_purpose(directed.get("representation", ""),
+                                                s.get("task", ""))]
         motion_in = MotionDirector.direct(
-            s, (storyboard[i].get("animation_purposes", []) if i < len(storyboard) else []),
+            s, purposes,
             layers=[{"id": l.id} for l in layers],
             states=[{"visible_layers": st.visible_layers} for st in states])
         motion = SceneMotion(enter_transition=motion_in["enter_transition"],
@@ -102,14 +143,19 @@ def build_scenes(blueprint: Dict[str, Any],
         assets = _resolve_assets(group, asset_map)
         interaction = SceneInteraction(**directed["interaction"])
         assessment = s.get("assessment") or {}
-        if assessment and assessment.get("correct_option"):
-            interaction.correct = str(assessment["correct_option"])
-            interaction.explanation = str(assessment.get("explanation", ""))
-            if not content.get("explanation"):
-                content["explanation"] = str(assessment.get("explanation", ""))
+        if assessment:
+            # Short-answer reveals carry no option key, but they always carry
+            # the source reasoning the reveal is for — never drop it.
+            if assessment.get("correct_option"):
+                interaction.correct = str(assessment["correct_option"])
+            expl = str(assessment.get("explanation", "") or "")
+            if expl:
+                interaction.explanation = expl
+                if not content.get("explanation"):
+                    content["explanation"] = expl
         if pair:
             pair_regions = directed.pop("_pair_regions", None) or []
-            answer_region = pair_regions[2] if len(pair_regions) > 2 else {
+            answer_region = pair_regions[-1] if pair_regions else {
                 "x": 96, "y": 470, "w": 1088, "h": 170}
             states.append(SceneState(id="answered", label="Answer",
                                      visible_layers=[l.id for l in layers]
@@ -140,7 +186,9 @@ def build_scenes(blueprint: Dict[str, Any],
             source_ids=[str(c) for c in (s.get("source_ids", []) or [])],
             objective_ids=[str(o) for o in (s.get("objective_ids", []) or [])],
             concept_id=str(s.get("concept_id", "")),
-            estimated_minutes=float(s.get("estimated_minutes", 2.0) or 2.0)))
+            estimated_minutes=float(s.get("estimated_minutes", 2.0) or 2.0),
+            representation_reason=str(s.get("representation_reason", "")),
+            pedagogical_ref=str(s.get("pedagogical_ref", ""))))
         i += len(group)
         n += 1
     return scenes, teachers

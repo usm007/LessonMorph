@@ -1,0 +1,385 @@
+/* LessonMorph student design system.
+ * Single source of truth lives in tokens.ts — these :root values mirror it.
+ * The stage is a fixed 1280×720 logical canvas scaled by viewport.ts:
+ * no scrolling, no document flow, letterboxed, centered. */
+
+:root {
+  --canvas-w: 1280px;
+  --canvas-h: 720px;
+  --safe-margin: 64px;
+  --grid-unit: 8px;
+  --sp-xs: 8px; --sp-sm: 16px; --sp-md: 24px; --sp-lg: 32px;
+  --sp-xl: 48px; --sp-xxl: 64px; --sp-xxxl: 96px;
+  --gutter: 24px; --section-gap: 48px;
+  --fs-display: 76px; --fs-hero: 56px; --fs-title: 44px; --fs-subtitle: 22px;
+  --fs-body: 21px; --fs-body-large: 24px; --fs-label: 13px; --fs-caption: 15px;
+  --fs-question: 32px; --fs-answer: 22px; --fs-equation: 64px; --fs-data: 18px;
+  --ink: #1a2332; --ink-soft: #3c4a61; --ink-faint: #5b6b82;
+  --paper: #fafafa; --paper-warm: #f4f1ea; --paper-dark: #0b0e14;
+  --accent: #2f6fed; --accent-ink: #1d4fc4;
+  --success: #1c7a4d; --success-wash: #e9f6ef;
+  --danger: #c0362c; --danger-wash: #fdeeee;
+  --warn: #9a6a00; --warn-wash: #fdf3dd;
+  --hairline: #d7dee8; --wash-blue: #eef4ff;
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 12px;
+  --motion-fast: 180ms; --motion-normal: 250ms; --motion-slow: 400ms; --motion-process: 600ms;
+}
+
+/* ---------- viewport (untouchable rules) ---------- */
+#viewport {
+  position: fixed; inset: 0; overflow: hidden;
+  background: var(--paper-dark);
+}
+#stage {
+  position: absolute; left: 50%; top: 50%;
+  transform-origin: center center;
+  background: var(--paper); color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0,0,0,.55);
+}
+.scene-body { position: absolute; inset: 0; overflow: hidden; }
+.scene-body > div { position: static; }
+/* Cardless default: layers are transparent; only named treatments add surface. */
+.scene-body [data-layer] { position: absolute; box-sizing: border-box; background: transparent; border: 0; }
+
+/* ---------- semantic typography ---------- */
+.t-display { font-size: var(--fs-display); font-weight: 800; line-height: 1.05; }
+.t-hero { font-size: var(--fs-hero); font-weight: 800; line-height: 1.1; }
+.t-title { font-size: var(--fs-title); font-weight: 700; line-height: 1.15; }
+.t-subtitle { font-size: var(--fs-subtitle); font-weight: 400; line-height: 1.4; color: var(--ink-soft); }
+.t-body { font-size: var(--fs-body); font-weight: 400; line-height: 1.55; }
+.t-body-large { font-size: var(--fs-body-large); font-weight: 400; line-height: 1.5; }
+.t-label { font-size: var(--fs-label); font-weight: 700; line-height: 1.4; letter-spacing: .14em; text-transform: uppercase; }
+.t-caption { font-size: var(--fs-caption); font-weight: 400; line-height: 1.5; color: var(--ink-soft); }
+.t-question { font-size: var(--fs-question); font-weight: 600; line-height: 1.35; }
+.t-answer { font-size: var(--fs-answer); font-weight: 400; line-height: 1.5; }
+.t-equation { font-size: var(--fs-equation); font-weight: 600; line-height: 1.2; }
+.t-data { font-size: var(--fs-data); font-weight: 400; line-height: 1.45; }
+
+#stage h1 { font-size: 1em; margin: 0; font-weight: inherit; }
+#stage p { margin: 0; }
+.lyr-kicker { color: var(--ink-faint); padding-top: 88px; }
+.lyr-text .term { margin: 0 0 12px; }
+.lyr-text .problem { font-weight: 600; }
+.lyr-text .givens { color: var(--ink-soft); }
+.lyr-list ul, .lyr-list ol { margin: 0; padding-left: 28px; }
+.lyr-list li { margin-bottom: 10px; }
+.lyr-list .verify { color: var(--success); font-weight: 600; }
+
+/* ---------- focal treatments (one dominant element per scene) ---------- */
+.focal-display h1 { font-size: var(--fs-display); }
+.focal-hero .term { font-size: var(--fs-display); }
+.focal-hero .t-body-large { font-size: 28px; }
+.focal-media svg, .focal-media img { width: 100%; height: 100%; }
+.focal-question p { font-size: 36px; }
+.focal-equation .equation { font-size: var(--fs-display); }
+.focal-data table.lyr-table { font-size: 20px; }
+
+/* ---------- 17 composition families (distinct spatial logic) ---------- */
+/* 1. cinematic_hook: bottom-anchored monument over a quiet field */
+.fam-cinematic_hook .scene-section { background: var(--paper-dark); position: absolute; inset: 0; }
+.fam-cinematic_hook .lyr-title h1, .fam-cinematic_hook .focal-display h1 { color: #fff; }
+.fam-cinematic_hook .lyr-subtitle p { color: #b9c4d6; }
+.fam-cinematic_hook .lyr-kicker { color: var(--accent); }
+/* 2. hero_concept: generous whitespace, term as architecture */
+.fam-hero_concept .focal-hero .term { letter-spacing: -0.01em; }
+.fam-hero_concept .lyr-kicker { color: var(--accent-ink); }
+/* 3. full_visual: image-led, text recedes to a caption rail */
+.fam-full_visual .lyr-note p { color: #fff; background: rgba(11,14,20,.72); padding: 8px 14px; border-radius: var(--radius-sm); }
+.fam-full_visual .lyr-title h1 { font-size: 30px; }
+/* 4. split_visual: two-pane editorial spread */
+.fam-split_visual.var-media-right .focal-media { border-left: 3px solid var(--accent); }
+.fam-split_visual.var-media-left .focal-media { border-right: 3px solid var(--accent); }
+/* 5. diagram_centered: radial hub, labels orbit */
+.fam-diagram_centered .lyr-title { text-align: center; }
+/* 6/7. process_pathway + cycle: numbered journey */
+.fam-process_pathway .steps-flow ol, .fam-cycle .steps-flow ol { counter-reset: step; list-style: none; padding-left: 0; }
+.fam-process_pathway .steps-flow li, .fam-cycle .steps-flow li {
+  counter-increment: step; position: relative; padding-left: 56px; margin-bottom: 18px;
+}
+.fam-process_pathway .steps-flow li::before, .fam-cycle .steps-flow li::before {
+  content: counter(step); position: absolute; left: 0; top: 0;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--ink); color: #fff; font-weight: 700; font-size: 19px;
+  display: flex; align-items: center; justify-content: center;
+}
+.fam-process_pathway.var-vertical .steps-flow li { border-left: 3px solid var(--accent); padding-left: 24px; }
+.fam-process_pathway.var-vertical .steps-flow li::before { display: none; }
+/* 8. comparison: A vs B across a hairline */
+.fam-comparison .versus {
+  position: absolute; left: 50%; top: 46%; transform: translate(-50%,-50%);
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--ink); color: #fff; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; font-size: 19px;
+}
+/* 9. equation_focus: monument math on an open field */
+.fam-equation_focus .lyr-equation .equation { letter-spacing: .01em; }
+.fam-equation_focus .lyr-equation .legend { border-left: 3px solid var(--accent); }
+/* 10. data_visualization: reading-scale table, ink header */
+.table-wrap { overflow: hidden; }
+table.lyr-table { border-collapse: collapse; width: 100%; }
+table.lyr-table caption { text-align: left; font-weight: 600; margin-bottom: 8px; }
+table.lyr-table th, table.lyr-table td { border: 1px solid var(--hairline); padding: 8px 12px; text-align: left; }
+table.lyr-table th { background: var(--ink); color: #fff; }
+table.lyr-table tr:nth-child(even) td { background: #f1f4f8; }
+/* 11. question_focus: the question owns the room */
+.fam-question_focus .choices-lg .opt { font-size: 22px; padding: 16px 20px; }
+.lyr-options { display: flex; flex-direction: column; gap: var(--sp-sm); justify-content: center; }
+.opt {
+  display: flex; gap: var(--sp-sm); align-items: baseline; text-align: left;
+  font-size: 19px; padding: var(--sp-sm) var(--sp-md); cursor: pointer;
+  background: #fff; color: var(--ink);
+  border: 2px solid var(--hairline); border-radius: var(--radius-md);
+}
+.opt:hover { border-color: var(--accent); }
+.opt-key { font-weight: 700; color: var(--accent); min-width: 28px; }
+.opt.selected { border-color: var(--accent); background: var(--wash-blue); }
+.opt.correct { border-color: var(--success); background: var(--success-wash); }
+.opt.correct .opt-key { color: var(--success); }
+.opt.incorrect { border-color: var(--danger); background: var(--danger-wash); }
+.opt.incorrect .opt-key { color: var(--danger); }
+.opt:disabled { cursor: default; }
+.think-cue { font-size: 19px; color: var(--ink-soft); }
+/* 12. answer_reveal: verdict banner, everything else quiet */
+.answer-banner { background: #fff; border: 2px solid var(--hairline); border-radius: var(--radius-lg); padding: var(--sp-md) var(--sp-lg); }
+.lyr-answer .verdict { font-weight: 800; font-size: 24px; margin: 0 0 8px; }
+.lyr-answer .verdict.ok { color: var(--success); }
+.lyr-answer .verdict.miss { color: var(--danger); }
+/* 13. misconception: myth struck through, correction lit */
+.fam-misconception .myth { color: var(--ink-faint); }
+.fam-misconception .myth strong { text-decoration: line-through; }
+.fam-misconception .correction {
+  background: var(--success-wash); border-left: 4px solid var(--success);
+  padding: 12px 18px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+/* 14. practice_workspace: prompt + calm ruled room */
+.fam-practice_workspace .workspace p {
+  background: repeating-linear-gradient(#fff 0 34px, var(--hairline) 34px 35px);
+  min-height: 300px; padding: 8px 4px; border-radius: var(--radius-sm);
+}
+/* 15. concept_map: hub + satellite lanes */
+.fam-concept_map .lyr-diagram svg { width: 100%; height: 100%; }
+.dg-leader { stroke: var(--accent); stroke-width: 1.5; }
+/* 16. synthesis: takeaway band, first idea leads */
+.fam-synthesis .takeaways li:first-child { font-weight: 700; font-size: 24px; }
+.fam-synthesis .takeaways li::marker { color: var(--accent); }
+/* 17. reflection: two quiet prompts, no chrome noise */
+.fam-reflection .reflect-card p { font-size: 26px; font-weight: 600; }
+.fam-reflection .lyr-title h1 { font-size: 30px; color: var(--ink-soft); }
+
+/* ---------- scientific diagram engine ---------- */
+.dg-boundary { fill: #fff; stroke: var(--hairline); stroke-width: 1.5; }
+.dg-subject { font-size: 15px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; fill: var(--ink-faint); }
+.dg-zone { fill: var(--wash-blue); stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 0; }
+.dg-fluid { fill: #e8f4ec; stroke: var(--success); stroke-width: 1.5; }
+.dg-particle { fill: var(--success); opacity: .55; }
+.dg-membrane { stroke: var(--accent-ink); stroke-width: 3; }
+.dg-disc { fill: #dce9fa; stroke: var(--accent); stroke-width: 1.5; }
+.dg-marker { fill: var(--ink); }
+.dg-marker-n { font-size: 13px; font-weight: 800; fill: #fff; text-anchor: middle; }
+.dg-chipbox { fill: #fff; stroke: var(--hairline); stroke-width: 1.5; }
+.dg-chiptext { font-size: 15px; font-weight: 600; fill: var(--ink); text-anchor: middle; }
+.dg-leader { stroke: var(--accent); stroke-width: 1.5; }
+.dg-annotation { font-size: 13px; fill: var(--ink-faint); }
+.dg-region.dimmed, .dg-chip.dimmed { opacity: .28; }
+.dg-region.lit .dg-zone, .dg-region.lit .dg-fluid { stroke-width: 2.5; }
+.dg-region.active .dg-zone, .dg-region.active .dg-fluid, .dg-region.active .dg-disc { stroke: var(--accent-ink); stroke-width: 3; }
+.dg-region.active .dg-marker { fill: var(--accent-ink); }
+.dg-legend { font-size: 15px; line-height: 1.5; color: var(--ink-soft); margin: 8px 0 0; padding-left: 24px; columns: 2; column-gap: var(--sp-xl); }
+.dg-legend strong { color: var(--ink); }
+
+/* ---------- pathway / process engine (no boxes: numbers + flow line) ---------- */
+.pw-chain { position: relative; padding-left: 8px; }
+.pw-node { display: flex; gap: var(--sp-sm); align-items: baseline; padding: 10px 0; }
+.pw-step {
+  flex: 0 0 auto; width: 38px; height: 38px; border-radius: 50%;
+  background: var(--ink); color: #fff; font-weight: 800; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+}
+.pw-node.lit .pw-step { background: var(--ink-faint); }
+.pw-node.active .pw-step { background: var(--accent-ink); }
+.pw-arrow { margin-left: 18px; color: var(--accent); font-size: 24px; font-weight: 800; line-height: 1; }
+.pw-loopback { margin: 8px 0 0 19px; padding-top: 10px; border-top: 2px dashed var(--accent); color: var(--accent-ink); font-size: 15px; font-weight: 700; }
+/* Long chains compact deterministically instead of spilling. */
+.chain-n5 .pw-node, .chain-n6 .pw-node, .chain-n7 .pw-node, .chain-n8 .pw-node { padding: 6px 0; font-size: 18px; }
+.chain-n5 .pw-arrow, .chain-n6 .pw-arrow, .chain-n7 .pw-arrow, .chain-n8 .pw-arrow { font-size: 18px; }
+.pw-branch { display: flex; gap: var(--sp-xl); }
+.pw-branch .pw-lane { flex: 1; border-top: 3px solid var(--accent); padding-top: 12px; }
+.pw-cme { display: flex; align-items: stretch; gap: var(--sp-sm); }
+.pw-lanebox { flex: 1; }
+.pw-lanelabel { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+.pw-cme .pw-node { background: var(--wash-blue); border-radius: var(--radius-sm); padding: 12px 16px; }
+
+/* ---------- cycle engine ---------- */
+.cy-edge { stroke: var(--accent); stroke-width: 2.5; fill: none; }
+.cy-arrowhead { stroke: var(--accent); }
+.cy-node circle { fill: #fff; stroke: var(--hairline); stroke-width: 2; }
+.cy-node.lit circle { stroke: var(--ink-faint); }
+.cy-node.active circle { fill: var(--accent); stroke: var(--accent-ink); stroke-width: 3; }
+.cy-node.active .cy-n { fill: #fff; }
+.cy-n { font-size: 20px; font-weight: 800; text-anchor: middle; fill: var(--ink); }
+.cy-t { font-size: 13px; text-anchor: middle; fill: var(--ink-soft); }
+.cy-node.active .cy-t { fill: #fff; font-weight: 700; }
+.cy-legend { font-size: 16px; color: var(--ink-soft); columns: 2; column-gap: var(--sp-xl); margin: 8px 0 0; padding-left: 24px; }
+.cy-legend li.active { color: var(--ink); font-weight: 700; }
+
+/* ---------- comparison engine ---------- */
+table.cmp-matrix { border-collapse: collapse; width: 100%; font-size: 19px; }
+table.cmp-matrix th, table.cmp-matrix td { border: 1px solid var(--hairline); padding: 10px 16px; text-align: left; }
+table.cmp-matrix th { background: var(--ink); color: #fff; }
+table.cmp-matrix th.feat, table.cmp-matrix td.feat { background: #f1f4f8; font-weight: 700; width: 26%; }
+table.cmp-matrix td.diff { background: var(--warn-wash); font-weight: 600; }
+table.cmp-matrix tr.shared td.val { color: var(--ink-faint); }
+table.cmp-matrix td.blank { height: 120px; background: repeating-linear-gradient(#fff 0 30px, var(--hairline) 30px 31px); }
+.wc-models { display: flex; gap: var(--sp-lg); height: 100%; }
+.wc-model { width: 100%; }
+.wc-wrong { flex: 1; opacity: .78; }
+.wc-wrong .wc-claim { text-decoration: none; }
+.played .wc-wrong .wc-claim { color: var(--ink-faint); }
+.wc-tag { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
+.wc-wrong .wc-tag { color: var(--danger); }
+.wc-right { flex: 1.4; background: var(--success-wash); border-left: 4px solid var(--success); padding: 12px 18px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.wc-right .wc-tag { color: var(--success); }
+.wc-claim { font-size: 22px; font-weight: 600; margin: 0 0 10px; }
+.wc-why { font-size: 16px; color: var(--ink-soft); margin: 0; }
+/* Stacked myth: the error is shown but de-emphasized; correction leads. */
+.var-stacked .wc-wrong .wc-claim { font-size: 19px; }
+.var-stacked .wc-wrong .wc-why { font-size: 14px; }
+.var-stacked .wc-right .wc-claim { font-size: 24px; }
+
+/* ---------- equation engine: first-class monument ---------- */
+.eqn { display: flex; align-items: center; gap: var(--sp-md); flex-wrap: wrap; }
+.eqn .side { display: flex; align-items: baseline; gap: var(--sp-sm); }
+.eqn .coef { font-size: 40px; font-weight: 600; color: var(--ink-soft); margin-right: 6px; }
+.eqn .species { font-size: var(--fs-equation); font-weight: 700; }
+.eqn .plus { font-size: 40px; color: var(--ink-faint); font-weight: 300; }
+.eqn .eq-arrow { font-size: 56px; color: var(--accent-ink); font-weight: 800; }
+.eqn .energy { font-size: 19px; color: var(--accent-ink); border: 2px solid var(--accent); border-radius: var(--radius-sm); padding: 4px 12px; }
+.eqn .ref { color: var(--accent-ink); font-size: 16px; }
+.eqn .frac { display: inline-flex; flex-direction: column; text-align: center; vertical-align: middle; }
+.eqn .frac .num { border-bottom: 3px solid var(--ink); padding: 0 8px; }
+.eqn .frac .den { padding: 0 8px; }
+.eq-legend { font-size: 16px; color: var(--ink-soft); margin: 12px 0 0; padding-left: 24px; columns: 2; column-gap: var(--sp-xl); }
+.eq-legend strong { color: var(--ink); }
+
+/* ---------- data engine ---------- */
+.fig-spectrum .sp-tick { stroke: var(--ink-faint); stroke-width: 1; }
+.fig-spectrum .sp-tickl { font-size: 13px; fill: var(--ink-faint); text-anchor: middle; }
+.fig-spectrum .sp-drop { stroke: var(--ink-faint); stroke-width: 1; stroke-dasharray: 3 3; }
+.fig-spectrum .sp-peak { fill: var(--accent-ink); stroke: #fff; stroke-width: 2; }
+.fig-spectrum .sp-vallab { font-size: 14px; fill: var(--ink); }
+.bar-svg .bar-lab { font-size: 16px; fill: var(--ink); }
+.bar-svg .bar-fill { fill: var(--accent); }
+.bar-svg .bar-val { font-size: 16px; font-weight: 700; fill: var(--ink); }
+.line-svg .line-path { fill: none; stroke: var(--accent-ink); stroke-width: 3.5; }
+.line-svg .line-dot { fill: var(--accent-ink); stroke: #fff; stroke-width: 2; }
+.sc-svg .sc-dot { fill: var(--accent); stroke: var(--accent-ink); stroke-width: 2; }
+.sc-svg .sc-lab { font-size: 14px; fill: var(--ink-soft); }
+.data-title { margin: 0 0 8px; font-weight: 700; }
+
+/* ---------- concept-map engine ---------- */
+.cm-hub { fill: var(--ink); }
+.cm-hubtext { font-size: 19px; font-weight: 700; fill: #fff; text-anchor: middle; }
+.cm-edge { stroke: var(--hairline); stroke-width: 2; }
+.cm-edge.causal { stroke: var(--accent); stroke-width: 2.5; }
+.cm-edge.seq { stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 7 5; }
+.cm-sat rect { fill: #fff; stroke: var(--hairline); stroke-width: 1.5; }
+.cm-sat.active rect { stroke: var(--accent-ink); stroke-width: 3; }
+.cm-sattext { font-size: 15px; font-weight: 600; fill: var(--ink); text-anchor: middle; }
+.cm-stepn { font-size: 14px; font-weight: 800; fill: var(--accent-ink); text-anchor: middle; }
+.cm-legend { font-size: 15px; color: var(--ink-soft); columns: 2; column-gap: var(--sp-xl); margin: 8px 0 0; padding: 0 0 0 24px; }
+.cm-legend li.active { color: var(--ink); font-weight: 700; }
+
+/* ---------- image-composition engine ---------- */
+.lyr-mediawrap, .lyr-mediawrap figure { width: 100%; height: 100%; margin: 0; }
+.img-frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.img-hero .img-frame { height: 82%; }
+.img-hero figcaption, .img-split figcaption, .img-inset figcaption { font-size: 15px; color: var(--ink-soft); margin-top: 8px; }
+.img-kicker { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+.img-bleed { position: relative; }
+.img-bleed img { object-fit: cover; }
+.img-bleed figcaption { position: absolute; left: 16px; bottom: 16px; background: rgba(11,14,20,.72); color: #fff; padding: 8px 14px; border-radius: var(--radius-sm); font-size: 15px; }
+.img-split { display: flex; flex-direction: column; }
+.img-split .img-frame { flex: 1; min-height: 0; }
+.img-annotated .img-frame { position: relative; }
+.img-annotated .img-note { position: absolute; left: 16px; bottom: 16px; background: var(--warn-wash); border-left: 4px solid var(--warn); padding: 8px 14px; font-size: 15px; max-width: 60%; }
+.img-inset .img-frame { width: 62%; margin: 0 auto; }
+.img-overlay { position: relative; }
+.img-overlay img { object-fit: cover; }
+.img-overlay .img-veil { position: absolute; inset: auto 0 0 0; padding: 64px 32px 24px; background: linear-gradient(transparent, rgba(11,14,20,.85)); color: #fff; }
+.img-overlay .img-veil figcaption { color: #dbe3ef; font-size: 16px; }
+.img-overlay .img-kicker { color: var(--accent); }
+
+/* ---------- layer shells ---------- */
+.lyr-diagram svg { width: 100%; height: 100%; max-height: 340px; }
+.lyr-diagram .fig-spectrum svg, .lyr-data .fig-spectrum svg,
+.lyr-data .fig-bars svg, .lyr-data .fig-line svg, .lyr-data .fig-scatter svg { max-height: 250px; }
+/* Figure + table share one zone: the table compacts, values intact. */
+.lyr-data:has(.fig-spectrum) table.lyr-table, .lyr-data:has(.fig-bars) table.lyr-table,
+.lyr-data:has(.fig-line) table.lyr-table, .lyr-data:has(.fig-scatter) table.lyr-table { font-size: 14px; }
+.lyr-data:has(.fig-spectrum) table.lyr-table th, .lyr-data:has(.fig-spectrum) table.lyr-table td,
+.lyr-data:has(.fig-bars) table.lyr-table th, .lyr-data:has(.fig-bars) table.lyr-table td,
+.lyr-data:has(.fig-line) table.lyr-table th, .lyr-data:has(.fig-line) table.lyr-table td,
+.lyr-data:has(.fig-scatter) table.lyr-table th, .lyr-data:has(.fig-scatter) table.lyr-table td { padding: 5px 10px; }
+.lyr-note p { font-size: 16px; color: var(--ink-soft); margin: 0; }
+.lyr-equation .context { font-size: 16px; color: var(--ink-soft); margin: 8px 0 0; }
+
+/* ---------- chrome: small, unobtrusive, never competes ---------- */
+#progress {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 34px;
+  display: flex; align-items: center; gap: var(--sp-sm); padding: 0 var(--sp-md);
+  background: rgba(255,255,255,.92); border-top: 1px solid #e2e7ef;
+  font-size: 14px; color: var(--ink-soft);
+}
+#progress .lesson-tag {
+  max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-size: 12px; color: var(--ink-faint);
+}
+#progress .track { flex: 1; height: 6px; background: #e2e7ef; border-radius: 3px; }
+#progress .fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width .2s; }
+#progress .count { font-size: 12px; }
+#fs-btn { border: 1px solid var(--hairline); background: #fff; border-radius: 6px; font-size: 15px; cursor: pointer; padding: 10px 16px; }
+
+/* Keyboard focus must always be visible (options, chrome controls). */
+#stage :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- motion semantics: strike, journey, think ---------- */
+.think-cue { font-size: 19px; color: var(--ink-soft); }
+.think-cue.inline { font-size: 15px; margin: 0 0 4px; }
+.think-cue strong { color: var(--accent-ink); }
+/* Four-option sets compact deterministically to fit their zone. */
+.opts-n4 { gap: 10px; }
+.opts-n4 .opt { font-size: 16px; padding: 9px 14px; }
+.fam-misconception .wc-wrong .wc-claim { position: relative; }
+.played .wc-wrong .wc-claim::after {
+  content: ""; position: absolute; left: -2%; top: 52%; width: 104%; height: 4px;
+  background: var(--danger); transform: scaleX(0); transform-origin: left center;
+  transition: transform var(--motion-slow) ease-out;
+}
+.played .wc-wrong .wc-claim::after { transform: scaleX(1); }
+.played .wc-right { animation: wc-in var(--motion-slow) ease-out; }
+@keyframes wc-in { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+.path-marker {
+  position: absolute; width: 22px; height: 22px; margin: -11px 0 0 -11px;
+  border-radius: 50%; background: var(--accent-ink);
+  border: 3px solid #fff; box-shadow: 0 0 0 2px var(--accent-ink);
+  z-index: 5; pointer-events: none;
+}
+.path-marker.kind-gradient { background: var(--warn); box-shadow: 0 0 0 2px var(--warn); }
+.path-marker.kind-loop { background: var(--success); box-shadow: 0 0 0 2px var(--success); }
+.path-caption {
+  position: absolute; left: 96px; bottom: 52px; z-index: 5; pointer-events: none;
+  background: rgba(11,14,20,.85); color: #fff; font-size: 17px; font-weight: 600;
+  padding: 8px 16px; border-radius: var(--radius-sm);
+}
+.img-broken { min-height: 300px; display: flex; align-items: center; justify-content: center;
+  background: var(--wash-blue); border: 2px dashed var(--hairline); border-radius: var(--radius-sm);
+  color: var(--ink-faint); font-size: 16px; }
+
+/* ---------- reduced motion: content stays fully visible ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #progress .fill { transition: none; }
+  .played .wc-right { animation: none; }
+  .played .wc-wrong .wc-claim::after { transition: none; transform: scaleX(1); }
+}

@@ -87,6 +87,7 @@ PURPOSE_TO_PRIMITIVE: Dict[str, str] = {
     "answer_reveal": "answer_reveal",
     "transport": "path_motion",
     "gradient": "path_motion",
+    "diagram_reveal": "diagram_reveal",
     "emphasis": "scale",
     "pulse": "pulse",
 }

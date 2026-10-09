@@ -315,7 +315,11 @@ function renderSemanticList(scene: Scene, layer: SceneLayer, st: RuntimeState): 
 
 function renderTextBody(scene: Scene): string {
   const c = scene.content;
-  if (c.definition) return "<p class=\"term t-hero\">" + esc(c.term || "") + "</p><p class=\"t-body-large\">" + esc(c.definition) + "</p>";
+  if (c.definition) {
+    let h = "<p class=\"term t-hero\">" + esc(c.term || "") + "</p><p class=\"t-body-large\">" + esc(c.definition) + "</p>";
+    if (c.detail && c.detail !== c.definition) h += "<p class=\"source-wording t-caption\">Source wording: " + esc(c.detail) + "</p>";
+    return h;
+  }
   if (c.problem) {
     let h = "<p class=\"problem t-body-large\">" + esc(c.problem) + "</p>";
     if (c.givens && c.givens.length) h += "<p class=\"givens t-caption\">" + esc(c.givens.join(" · ")) + "</p>";

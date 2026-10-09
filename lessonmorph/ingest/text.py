@@ -11,12 +11,25 @@ from lessonmorph.ingest.base import BaseExtractor, ExtractedImage, ExtractedTabl
 class TextExtractor(BaseExtractor):
     """Extractor for Markdown (.md) and plain text (.txt) files."""
 
+    @staticmethod
+    def _nearest_heading(content: str, pos: int) -> str:
+        """Nearest preceding markdown heading (any level), cleaned."""
+        headings = list(re.finditer(r"^#{1,6}\s+(.+)$", content[:pos], re.MULTILINE))
+        if not headings:
+            return ""
+        text = headings[-1].group(1).strip()
+        text = re.sub(r"^\d+\.\s+", "", text)
+        return re.sub(r"\s+", " ", text).strip(" -–—:\t")
+
     def extract(self, file_path: Path) -> IngestionResult:
         content = file_path.read_text(encoding="utf-8")
         title = file_path.stem.replace("_", " ").title()
 
-        # Parse markdown tables
+        # Parse markdown tables. Table regions are excised from the prose
+        # afterwards so the same data is never atomized twice (text unit +
+        # TABLE unit would duplicate the slide).
         tables: List[ExtractedTable] = []
+        table_spans: List[tuple] = []
         table_matches = re.finditer(
             r"((?:\|[^\n]+\|\r?\n)(?:\|[-: |]+\|\r?\n)(?:\|[^\n]+\|\r?\n?)+)",
             content,
@@ -39,8 +52,18 @@ class TextExtractor(BaseExtractor):
                         rows=rows,
                         page_number=1,
                         source_ref=f"Markdown Table {t_idx + 1}",
+                        section_context=self._nearest_heading(content, match.start()),
                     )
                 )
+                table_spans.append(match.span())
+        if table_spans:
+            kept = []
+            cursor = 0
+            for start, end in table_spans:
+                kept.append(content[cursor:start])
+                cursor = end
+            kept.append(content[cursor:])
+            content = "".join(kept)
 
         # Split sections by Heading 1 or Heading 2
         heading_matches = list(re.finditer(r"^(#{1,2})\s+(.+)$", content, re.MULTILINE))

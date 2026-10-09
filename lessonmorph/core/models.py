@@ -21,6 +21,7 @@ class ContentType(str, Enum):
     FORMULA = "formula"
     WARNING = "warning"
     EXERCISE = "exercise"
+    HEADING = "heading"  # structural section header, not teachable content
     MISCONCEPTION = "misconception"
     CONTEXT = "context"
     TERMINOLOGY = "terminology"
